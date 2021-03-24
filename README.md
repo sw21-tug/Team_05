@@ -16,15 +16,15 @@ Picture Credit: [Reddit User Mavagam99](https://www.reddit.com/r/aww/comments/98
 | Role | Name |
 | ---- | ---- |
 | **Product Owner** | Georg Niess |
-| **Scrum Master** | aa bb |
-| **Developer** | aa bb |
-| **Developer** | aa bb |
-| **Developer** | aa bb |
-| **Developer** | aa bb |
-| **Developer** | aa bb |
-| **Developer** | aa bb |
-| **Developer** | aa bb |
-| **Developer** | aa bb |
+| **Scrum Master** | Günther Moser |
+| **Developer** | Baher El-Banna |
+| **Developer** | Benedict Osei-Tutu |
+| **Developer** | Christoph René Ladler |
+| **Developer** | Constantin Piber |
+| **Developer** | Matthias Fischer |
+| **Developer** | Nolan Wieninger |
+| **Developer** | Patrick Andrawes |
+| **Developer** | Thomas Végh |
 
 ## Implemented Feature List
 | Name | Associated User Story | Additional Information |
