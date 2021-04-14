@@ -34,15 +34,10 @@ jobs:
     - name: Run instrumented tests with Gradle
       run: ./gradlew --stacktrace connectedAndroidTest
 
-  artifacts:
-    if: always()
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: reports
-          path: |
-            app/build/reports
+    - name: Archive production artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: reports
+        path: |
+          app/build/reports
