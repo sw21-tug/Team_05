@@ -1,6 +1,6 @@
 # Team_05
 
-## Vison
+## Vision
 - 10% of all cats are overweight, of those 40% are even obese.
 - Gradual weight loss is important to avoid health issues like liver disease.
 - Users can enter the cats data like weight and size so the app can calculate the recommended amount of food.
