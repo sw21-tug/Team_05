@@ -1,5 +1,21 @@
 # Team_05
 
+Practical sessions
+
+24 March 2021 - Team bonding period
+14 April 2021 - Sprint 1
+21 April 2021 - Sprint 1
+
+28 April 2021 - Sprint 2
+05 May 2021 - Sprint 2 (1 Release, 23:59)
+
+12 May 2021 - Sprint 3
+19 May 2021 - Sprint 3
+
+26 May 2021 - Sprint 4
+02 May 2021 - Sprint 4
+09 May 2021 - Sprint 4 (2 Release, 23:59)
+
 ## Vision
 - 10% of all cats are overweight, of those 40% are even obese.
 - Gradual weight loss is important to avoid health issues like liver disease.
