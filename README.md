@@ -17,8 +17,8 @@ Practical sessions
 
 
 - 26 May 2021 - Sprint 4
-- 02 May 2021 - Sprint 4
-- 09 May 2021 - Sprint 4 (2 Release, 23:59)
+- 02 June 2021 - Sprint 4
+- 09 June 2021 - Sprint 4 (2 Release, 23:59)
 
 ## Vision
 - 10% of all cats are overweight, of those 40% are even obese.
