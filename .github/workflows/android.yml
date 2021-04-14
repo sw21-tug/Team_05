@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        api-level: [16, 21, 30]
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/cache@v2
@@ -32,7 +36,10 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew --stacktrace build
     - name: Run instrumented tests with Gradle
-      run: ./gradlew --stacktrace connectedAndroidTest
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: ${{ matrix.api-level }}
+        script: ./gradlew --stacktrace connectedAndroidTest
 
     - name: Archive production artifacts
       if: always()
