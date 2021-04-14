@@ -34,12 +34,12 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew --stacktrace build
+      run: ./gradlew build
     - name: Run instrumented tests with Gradle
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: ${{ matrix.api-level }}
-        script: ./gradlew --stacktrace connectedAndroidTest
+        script: ./gradlew connectedCheck
 
     - name: Archive production artifacts
       if: always()
