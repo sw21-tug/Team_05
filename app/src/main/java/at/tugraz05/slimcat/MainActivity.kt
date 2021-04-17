@@ -51,10 +51,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun printCat(userId: String) {
-        val cat: CatDummy = databaseHelper.readUserCat(userId)
-        var catName: String = cat.getName()
-        var catAge: Int = cat.getAge()
-        var catWeight: Double = cat.getWeight()
+        val cat: CatDummy = databaseHelper.readUserCat(userId, "Phil")
+        var catName: String = cat.name
+        var catAge: Int = cat.age
+        var catWeight: Double = cat.weight
 
         Toast.makeText(applicationContext, "$catName $catAge $catWeight", Toast.LENGTH_LONG).show()
     }

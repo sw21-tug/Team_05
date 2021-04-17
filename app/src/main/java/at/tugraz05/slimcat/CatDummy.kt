@@ -1,25 +1,5 @@
 package at.tugraz05.slimcat
 
-class CatDummy {
-    private val name: String
-    private val age: Int
-    private val weight: Double
+data class CatDummy(val name: String = "", val age: Int = 0, val weight: Double = 0.0) {
 
-    constructor(name: String, age: Int, weight: Double){
-        this.name = name
-        this.age = age
-        this.weight = weight
-    }
-
-    fun getName(): String{
-        return this.name
-    }
-
-    fun getAge(): Int{
-        return this.age
-    }
-
-    fun getWeight(): Double{
-        return this.weight
-    }
 }
