@@ -17,8 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/addcat_view_margin"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/addcat_view_margin">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -243,6 +243,7 @@
                         android:id="@+id/label_growth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:lineSpacingExtra="@dimen/addcat_label_lineheight"
                         android:text="@string/label_growth"
                         android:textSize="@dimen/addcat_label_textsize" />
@@ -252,8 +253,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/addcat_label_input_margin"
-                        android:layout_marginLeft="@dimen/addcat_label_input_margin"
-                        android:layout_weight="1" />
+                        android:layout_marginLeft="@dimen/addcat_label_input_margin" />
                 </TableRow>
 
                 <TableRow
@@ -267,6 +267,7 @@
                         android:id="@+id/label_obese"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:lineSpacingExtra="@dimen/addcat_label_lineheight"
                         android:text="@string/label_obese"
                         android:textSize="@dimen/addcat_label_textsize" />
@@ -276,8 +277,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/addcat_label_input_margin"
-                        android:layout_marginLeft="@dimen/addcat_label_input_margin"
-                        android:layout_weight="1" />
+                        android:layout_marginLeft="@dimen/addcat_label_input_margin" />
 
                 </TableRow>
 
@@ -292,6 +292,7 @@
                         android:id="@+id/label_overweight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:lineSpacingExtra="@dimen/addcat_label_lineheight"
                         android:text="@string/label_overweight"
                         android:textSize="@dimen/addcat_label_textsize" />
@@ -301,8 +302,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/addcat_label_input_margin"
-                        android:layout_marginLeft="@dimen/addcat_label_input_margin"
-                        android:layout_weight="1" />
+                        android:layout_marginLeft="@dimen/addcat_label_input_margin" />
                 </TableRow>
 
                 <TableRow
@@ -316,6 +316,7 @@
                         android:id="@+id/label_hospitalized"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:lineSpacingExtra="@dimen/addcat_label_lineheight"
                         android:text="@string/label_hospitalized"
                         android:textSize="@dimen/addcat_label_textsize" />
@@ -325,8 +326,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/addcat_label_input_margin"
-                        android:layout_marginLeft="@dimen/addcat_label_input_margin"
-                        android:layout_weight="1" />
+                        android:layout_marginLeft="@dimen/addcat_label_input_margin" />
                 </TableRow>
 
                 <TableRow
@@ -340,6 +340,7 @@
                         android:id="@+id/label_neutered"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:lineSpacingExtra="@dimen/addcat_label_lineheight"
                         android:text="@string/label_neutered"
                         android:textSize="@dimen/addcat_label_textsize" />
@@ -349,8 +350,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/addcat_label_input_margin"
-                        android:layout_marginLeft="@dimen/addcat_label_input_margin"
-                        android:layout_weight="1" />
+                        android:layout_marginLeft="@dimen/addcat_label_input_margin" />
                 </TableRow>
 
                 <TableRow
@@ -364,6 +364,7 @@
                         android:id="@+id/label_gestation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:lineSpacingExtra="@dimen/addcat_label_lineheight"
                         android:text="@string/label_gestation"
                         android:textSize="@dimen/addcat_label_textsize" />
@@ -373,8 +374,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/addcat_label_input_margin"
-                        android:layout_marginLeft="@dimen/addcat_label_input_margin"
-                        android:layout_weight="1" />
+                        android:layout_marginLeft="@dimen/addcat_label_input_margin" />
                 </TableRow>
 
                 <TableRow
@@ -388,6 +388,7 @@
                         android:id="@+id/label_lactation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:lineSpacingExtra="@dimen/addcat_label_lineheight"
                         android:text="@string/label_lactation"
                         android:textSize="@dimen/addcat_label_textsize" />
@@ -397,8 +398,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/addcat_label_input_margin"
-                        android:layout_marginLeft="@dimen/addcat_label_input_margin"
-                        android:layout_weight="1" />
+                        android:layout_marginLeft="@dimen/addcat_label_input_margin" />
                 </TableRow>
 
             </TableLayout>
