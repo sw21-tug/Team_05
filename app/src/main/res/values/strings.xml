@@ -9,4 +9,21 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="name">Name:</string>
+
+    <string name="title_cat_details">Cat Details</string>
+
+    <string-array name="hairtype">
+        <item> </item>
+        <item>Long</item>
+        <item>Short</item>
+    </string-array>
+
+    <string-array name="isNeutered">
+        <item> </item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 </resources>
