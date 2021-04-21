@@ -1,29 +1,35 @@
 <resources>
     <string name="app_name">SlimCat</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- Add cat -->
     <string name="save">Save</string>
     <string name="delete">Delete</string>
-    <string name="name">Name:</string>
+    <string name="label_name">Name</string>
+    <string name="label_race">Race</string>
+    <string name="label_age">Age</string>
+    <string name="label_size">Size</string>
+    <string name="label_weight">Weight</string>
+    <string name="label_gender">Gender</string>
+    <string name="label_picture">Picture</string>
+    <string name="label_growth">Growth (Kitten)</string>
+    <string name="label_obese">Obese</string>
+    <string name="label_overweight">Overweight-prone</string>
+    <string name="label_hospitalized">Hospitalized</string>
+    <string name="label_neutered">Neutered</string>
+    <string name="label_gestation">Gestation</string>
+    <string name="label_lactation">Lactation</string>
 
+    <string name="input_name_hint">e.g. Lucky</string>
+    <string name="input_race_hint">e.g. Toyger</string>
+    <string name="input_age_hint">in years</string>
+    <string name="input_size_hint">in cm</string>
+    <string name="input_weight_hint">in kg</string>
+    <string-array name="spinner_gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <!-- Details -->
     <string name="title_cat_details">Cat Details</string>
-
-    <string-array name="hairtype">
-        <item> </item>
-        <item>Long</item>
-        <item>Short</item>
-    </string-array>
-
-    <string-array name="isNeutered">
-        <item> </item>
-        <item>Yes</item>
-        <item>No</item>
-    </string-array>
 </resources>
