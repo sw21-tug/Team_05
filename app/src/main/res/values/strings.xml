@@ -25,11 +25,14 @@
     <string name="input_age_hint">in years</string>
     <string name="input_size_hint">in cm</string>
     <string name="input_weight_hint">in kg</string>
+    <string name="label_gender_male">male</string>
+    <string name="label_gender_female">female</string>
+    <!--
     <string-array name="spinner_gender">
         <item>Male</item>
         <item>Female</item>
     </string-array>
-
+-->
     <!-- Details -->
     <string name="title_cat_details">Cat Details</string>
 </resources>
