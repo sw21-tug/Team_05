@@ -3,7 +3,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Add cat -->
-    <dimen name="addcat_view_margin">40dp</dimen>
+    <dimen name="addcat_view_margin">30dp</dimen>
     <dimen name="addcat_label_input_margin">15dp</dimen>
     <dimen name="addcat_label_textsize">20sp</dimen>
     <dimen name="addcat_label_lineheight">10sp</dimen>

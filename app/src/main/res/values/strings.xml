@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
 
     <!-- Add cat -->
+    <string name="add_cat">Add Cat</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
     <string name="label_name">Name</string>

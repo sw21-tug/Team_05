@@ -203,6 +203,7 @@
                             android:id="@+id/label_gender_male"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:clickable="true"
                             android:text="@string/label_gender_male"
                             android:textSize="@dimen/addcat_input_textsize" />
 
@@ -229,7 +230,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/label_picture"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="@dimen/addcat_label_lineheight"
@@ -261,7 +262,7 @@
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="30dp">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -385,10 +386,12 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/row_gestation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="@dimen/addcat_row_margin"
+                    android:animateLayoutChanges="true"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -409,10 +412,12 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/row_lactation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="@dimen/addcat_row_margin"
+                    android:animateLayoutChanges="true"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -435,30 +440,31 @@
             </TableLayout>
 
             <LinearLayout
+                style="?android:attr/buttonBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                style="?android:attr/buttonBarStyle"
                 android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="@dimen/addcat_view_margin"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_save"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/addcat_button_margin"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:textSize="@dimen/addcat_button_textsize"
-                    android:text="@string/save" />
+                    android:text="@string/save"
+                    android:textSize="@dimen/addcat_button_textsize" />
 
                 <Button
                     android:id="@+id/btn_delete"
+                    style="@style/deleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/addcat_button_margin"
-                    style="@style/deleteButton"
-                    android:textSize="@dimen/addcat_button_textsize"
-                    android:text="@string/delete" />
+                    android:text="@string/delete"
+                    android:textSize="@dimen/addcat_button_textsize" />
             </LinearLayout>
 
         </LinearLayout>
