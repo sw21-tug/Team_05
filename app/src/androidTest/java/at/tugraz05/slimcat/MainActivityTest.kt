@@ -22,6 +22,6 @@ class MainActivityTest : TestCase() {
     @Test
     fun addCatButtonIsDisplayed() {
         ActivityScenario.launch(MainActivity::class.java)
-        onView(withId(R.id.add_cat)).check(matches(isDisplayed()))
+        onView(withId(R.id.btn_addcat)).check(matches(isDisplayed()))
     }
 }
