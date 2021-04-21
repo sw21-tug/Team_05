@@ -204,7 +204,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:clickable="true"
-                            android:focusable="auto"
+                            android:focusable="true"
                             android:text="@string/label_gender_male"
                             android:textSize="@dimen/addcat_input_textsize" />
 
