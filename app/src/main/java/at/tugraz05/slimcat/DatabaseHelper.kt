@@ -8,9 +8,20 @@ import com.google.firebase.ktx.Firebase
 class DatabaseHelper {
     private lateinit var database: DatabaseReference
     private lateinit var dataSnapshot: DataSnapshot
+    private lateinit var userId: String
 
     fun initializeDatabaseReference() {
         database = Firebase.database.reference
+    }
+
+    fun createUserId(userId: String?): String {
+        if(userId == null){
+            this.userId = database.push().key!!
+        }
+        else {
+            this.userId = userId
+        }
+        return this.userId
     }
 
     fun addPostEventListener() {
@@ -26,22 +37,17 @@ class DatabaseHelper {
         database.addValueEventListener(postListener)
     }
 
-    fun writeNewCat(userId: String, cat: CatDummy) {
+    fun writeNewCat(cat: CatDummy) {
         val catName: String = cat.name
         database.child(userId).child(catName).setValue(cat)
     }
 
-    fun readUserCat(userId: String, catName: String): CatDummy {
-        // TODO: implement deserialization of data object would be nice to create a data class out of it
-        var cat = dataSnapshot.child(userId).child(catName).value
-
-        Log.w("RETURN", cat.toString())
-
-        // TODO: return data class
-        return CatDummy()
+    fun readUserCat(catName: String): CatDummy? {
+        return dataSnapshot.child(userId).child(catName).getValue(CatDummy::class.java)!!
     }
 
-    fun editUser(userId: String, catName: String?, weight: Double?) {
+    fun editUser(catName: String?, weight: Double?) {
+        //possible solution: read cat data first, then update it
         if (catName != null) {
             database.child(userId).child("cat_name").setValue(catName)
         }

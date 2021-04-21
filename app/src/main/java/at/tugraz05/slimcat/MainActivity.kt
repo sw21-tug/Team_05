@@ -1,6 +1,8 @@
 package at.tugraz05.slimcat
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -8,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import at.tugraz05.slimcat.CatDummy
+import java.io.File
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     private lateinit var databaseHelper: DatabaseHelper
@@ -20,17 +24,18 @@ class MainActivity : AppCompatActivity() {
         databaseHelper = DatabaseHelper()
         databaseHelper.initializeDatabaseReference()
         databaseHelper.addPostEventListener()
+        checkAndCreateUserId()
 
         findViewById<FloatingActionButton>(R.id.add_cat).setOnClickListener { view ->
             //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
             //        .setAction("Action", null).show()
-            addCat("test123")
+            addCat()
         }
 
         findViewById<FloatingActionButton>(R.id.show_cat).setOnClickListener { view ->
             //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
             //        .setAction("Action", null).show()
-            printCat("test123")
+            printCat()
         }
     }
 
@@ -50,17 +55,45 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun printCat(userId: String) {
-        val cat: CatDummy = databaseHelper.readUserCat(userId, "Phil")
-        var catName: String = cat.name
+    fun printCat() {
+        val cat: CatDummy? = databaseHelper.readUserCat("Phil")
+        var catName: String = cat!!.name
         var catAge: Int = cat.age
         var catWeight: Double = cat.weight
 
         Toast.makeText(applicationContext, "$catName $catAge $catWeight", Toast.LENGTH_LONG).show()
     }
 
-    fun addCat(userId: String) {
+    fun addCat() {
         var catClass: CatDummy = CatDummy("Phil", 15, 23.4)
-        databaseHelper.writeNewCat(userId, catClass)
+        databaseHelper.writeNewCat(catClass)
+    }
+
+    fun checkAndCreateUserId() {
+        var filename = "userid"
+        try {
+            var file: File = File(applicationContext.filesDir, filename)
+            var userId: String? = ""
+
+            if(file.exists()){
+                userId = file.readText()
+                if(userId == ""){
+                    userId = databaseHelper.createUserId(null)
+                }
+                else {
+                    userId = databaseHelper.createUserId(userId)
+                }
+                file.writeText(userId)
+            }
+            else {
+                //should never be reached, only if file construction fails, need to create file
+                userId = databaseHelper.createUserId(null)
+                Log.w("FILE NOT CREATED", "MainActivity::checkAndCreateUserId this should never happen")
+            }
+        }
+        catch (e: Exception){
+            Log.w("ERROR", e)
+        }
+
     }
 }
