@@ -16,23 +16,19 @@
     <string name="label_obese">Obese</string>
     <string name="label_overweight">Overweight-prone</string>
     <string name="label_hospitalized">Hospitalized</string>
+    <string name="label_gender_male">male</string>
+    <string name="label_gender_female">female</string>
     <string name="label_neutered">Neutered</string>
     <string name="label_gestation">Gestation</string>
     <string name="label_lactation">Lactation</string>
-
+    <!-- Add cat hints -->
     <string name="input_name_hint">e.g. Lucky</string>
     <string name="input_race_hint">e.g. Toyger</string>
     <string name="input_age_hint">in years</string>
     <string name="input_size_hint">in cm</string>
     <string name="input_weight_hint">in kg</string>
-    <string name="label_gender_male">male</string>
-    <string name="label_gender_female">female</string>
-    <!--
-    <string-array name="spinner_gender">
-        <item>Male</item>
-        <item>Female</item>
-    </string-array>
--->
+
+
     <!-- Details -->
     <string name="title_cat_details">Cat Details</string>
 </resources>

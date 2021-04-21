@@ -12,13 +12,6 @@ class AddcatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcat)
 
-        //Dropdown menu gender
-        /*
-        val spinnerGender = findViewById<Spinner>(R.id.spinner_gender)
-        val adapter = ArrayAdapter(this, R.layout.spinner_closed_items, resources.getStringArray(R.array.spinner_gender))
-        adapter.setDropDownViewResource(R.layout.spinner_items)
-        spinnerGender.adapter = adapter
-*/
         //click on camera (The image will be automatically saved in a default directory)
         findViewById<ImageButton>(R.id.btn_camera).setOnClickListener {
             val intent = Intent("android.media.action.IMAGE_CAPTURE")
