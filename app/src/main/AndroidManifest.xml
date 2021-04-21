@@ -21,8 +21,7 @@
         </activity>
         <activity
             android:name=".AddcatActivity"
-            android:label="@string/title_cat_details"
-            android:theme="@style/Theme.SlimCat.NoActionBar">
+            android:label="@string/title_cat_details">
         </activity>
     </application>
 

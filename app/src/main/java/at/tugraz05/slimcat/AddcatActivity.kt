@@ -37,8 +37,8 @@ class AddcatActivity : AppCompatActivity() {
 
         //Back-Button
         val actionbar = supportActionBar
-        actionbar?.title = getString(R.string.title_cat_details)
-        actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar!!.title = getString(R.string.title_cat_details)
+        actionbar.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onSupportNavigateUp(): Boolean {
