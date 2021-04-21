@@ -12,9 +12,11 @@ class AddcatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcat)
 
-        //Dropdown-Menu for hairtype and neutered
+        //Dropdown menu gender
         val spinnerGender = findViewById<Spinner>(R.id.spinner_gender)
-        spinnerGender.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.spinner_gender))
+        val adapter = ArrayAdapter(this, R.layout.spinner_closed_items, resources.getStringArray(R.array.spinner_gender))
+        adapter.setDropDownViewResource(R.layout.spinner_items)
+        spinnerGender.adapter = adapter
 
         //click on camera (The image will be automatically saved in a default directory)
         findViewById<ImageButton>(R.id.btn_camera).setOnClickListener {

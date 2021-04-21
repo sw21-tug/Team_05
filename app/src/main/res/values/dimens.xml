@@ -4,9 +4,9 @@
     <!-- Add cat -->
     <dimen name="addcat_view_margin">40dp</dimen>
     <dimen name="addcat_label_input_margin">15dp</dimen>
-    <dimen name="addcat_label_textsize">25sp</dimen>
+    <dimen name="addcat_label_textsize">20sp</dimen>
     <dimen name="addcat_label_lineheight">10sp</dimen>
-    <dimen name="addcat_input_textsize">25sp</dimen>
+    <dimen name="addcat_input_textsize">20sp</dimen>
     <dimen name="addcat_row_margin">10dp</dimen>
     <dimen name="addcat_button_margin">20dp</dimen>
 </resources>
