@@ -30,12 +30,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="#FF9800"
+        android:contentDescription="@string/add_cat"
+        app:backgroundTint="@color/orange"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
