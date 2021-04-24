@@ -1,13 +1,13 @@
 package at.tugraz05.slimcat
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import at.tugraz05.slimcat.CatDummy
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
     private lateinit var databaseHelper: DatabaseHelper
@@ -22,14 +22,9 @@ class MainActivity : AppCompatActivity() {
         databaseHelper.addPostEventListener()
         databaseHelper.checkAndCreateUserId(applicationContext)
 
-        findViewById<FloatingActionButton>(R.id.add_cat).setOnClickListener { view ->
-            //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            //        .setAction("Action", null).show()
-        }
-
-        findViewById<FloatingActionButton>(R.id.show_cat).setOnClickListener { view ->
-            //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-            //        .setAction("Action", null).show()
+        findViewById<FloatingActionButton>(R.id.btn_addcat).setOnClickListener {
+            val intent = Intent(this, AddcatActivity::class.java)
+            startActivity(intent)
         }
     }
 
