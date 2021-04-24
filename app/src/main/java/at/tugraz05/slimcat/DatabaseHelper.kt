@@ -1,9 +1,11 @@
 package at.tugraz05.slimcat
 
+import android.content.Context
 import android.util.Log
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.io.File
 
 class DatabaseHelper {
     private lateinit var database: DatabaseReference
@@ -24,6 +26,37 @@ class DatabaseHelper {
         return this.userId
     }
 
+    fun checkAndCreateUserId(applicationContext: Context) {
+        try {
+            var slimCatDir = File(applicationContext.filesDir, "slimCat")
+            if (!slimCatDir.exists())
+                slimCatDir.mkdirs()
+
+            var file = File(slimCatDir, "userId.txt")
+            var userId: String? = ""
+
+            if(file.exists()){
+                userId = file.readText()
+                if(userId == ""){
+                    userId = createUserId(null)
+                    file.writeText(userId)
+                }
+                else {
+                    userId = createUserId(userId)
+                }
+            }
+            else {
+                userId = createUserId(null)
+                file.createNewFile()
+                file.writeText(userId)
+            }
+        }
+        catch (e: Exception){
+            Log.w("ERROR", e)
+        }
+
+    }
+
     fun addPostEventListener() {
         val postListener = object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -38,22 +71,20 @@ class DatabaseHelper {
     }
 
     fun writeNewCat(cat: CatDummy) {
-        val catName: String = cat.name
+        val catName: String = cat.name!!
         database.child(userId).child(catName).setValue(cat)
     }
 
     fun readUserCat(catName: String): CatDummy? {
-        return dataSnapshot.child(userId).child(catName).getValue(CatDummy::class.java)!!
+        return dataSnapshot.child(userId).child(catName).getValue(CatDummy::class.java)
     }
 
-    fun editUser(catName: String?, weight: Double?) {
-        //possible solution: read cat data first, then update it
-        if (catName != null) {
-            database.child(userId).child("cat_name").setValue(catName)
-        }
+    fun editUser(catName: String, cat: CatDummy) {
+        var catOld = readUserCat(catName)!!
+        var catNewMap = cat.toMap()
+        var catOldMap = catOld.toMap()
 
-        if (weight != null) {
-            database.child(userId).child("weight").setValue(weight)
-        }
+        val map = catNewMap.mapValues { if(it.value == null) catOldMap[it.key] else it.value }
+        database.child(userId).child(catName).updateChildren(map)
     }
 }
