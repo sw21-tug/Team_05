@@ -1,3 +1,14 @@
 <resources>
+    <!-- Main  -->
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Add cat -->
+    <dimen name="addcat_view_margin">30dp</dimen>
+    <dimen name="addcat_label_input_margin">15dp</dimen>
+    <dimen name="addcat_label_textsize">20sp</dimen>
+    <dimen name="addcat_label_lineheight">10sp</dimen>
+    <dimen name="addcat_input_textsize">20sp</dimen>
+    <dimen name="addcat_row_margin">17dp</dimen>
+    <dimen name="addcat_button_margin">20dp</dimen>
+    <dimen name="addcat_button_textsize">16sp</dimen>
 </resources>
