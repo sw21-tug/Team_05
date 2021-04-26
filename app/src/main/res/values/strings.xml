@@ -29,7 +29,42 @@
     <string name="input_size_hint">in cm</string>
     <string name="input_weight_hint">in kg</string>
 
+    <!-- Settings -->
+    <string name="settings_name">Name</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_gender">Gender</string>
+    <string name="settings_gender_male">male</string>
+    <string name="settings_gender_female">female</string>
+
+
+
+    <!-- Settings hints-->
+    <string name="settings_name_hint">e.g. John Doe </string>
+    <string name="settings_email_hint">e.g. john.doe@email.com</string>
+
+
+
+
+
+
+
 
     <!-- Details -->
     <string name="title_cat_details">Cat Details</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>
