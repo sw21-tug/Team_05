@@ -96,12 +96,63 @@
                     android:layout_marginBottom="@dimen/settings_row_margin"
                     android:gravity="center_vertical">
 
+                <TextView
+                    android:id="@+id/settings_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                    android:text="@string/settings_gender"
+                    android:textSize="@dimen/settings_tv_textsize" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/settings_tv_input_margin"
+                    android:layout_marginLeft="@dimen/settings_tv_input_margin"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <TextView
-                        android:id="@+id/settings_tv_gender"
+                        android:id="@+id/settings_gender_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="@string/settings_gender_male"
+                        android:textSize="@dimen/settings_tv_textsize" />
+
+                    <SeekBar
+                        android:id="@+id/settings_seek_gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="1"
+                        android:progress="1" />
+
+                    <TextView
+                        android:id="@+id/settings_gender_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="auto"
+                        android:text="@string/settings_gender_female"
+                        android:textSize="@dimen/settings_input_textsize" />
+                </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/settings_row_margin"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/settings_unit_of_measurement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="@dimen/settings_tv_lineheight"
-                        android:text="@string/settings_gender"
+                        android:text="@string/settings_unit_of_measurement"
                         android:textSize="@dimen/settings_tv_textsize" />
 
                     <LinearLayout
@@ -114,16 +165,16 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_gender_male"
+                            android:id="@+id/settings_unit_of_measurement_kg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:clickable="true"
                             android:focusable="true"
-                            android:text="@string/settings_gender_male"
+                            android:text="@string/settings_unit_of_measurement_kg"
                             android:textSize="@dimen/settings_tv_textsize" />
 
                         <SeekBar
-                            android:id="@+id/settings_seek_gender"
+                            android:id="@+id/settings_seek_measurement"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -131,11 +182,62 @@
                             android:progress="1" />
 
                         <TextView
-                            android:id="@+id/settings_gender_female"
+                            android:id="@+id/settings_unit_of_measurement_lf"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:focusable="auto"
-                            android:text="@string/settings_gender_female"
+                            android:text="@string/settings_unit_of_measurement_lf"
+                            android:textSize="@dimen/settings_input_textsize" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="@dimen/settings_row_margin"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/settings_language"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                        android:text="@string/settings_language"
+                        android:textSize="@dimen/settings_tv_textsize" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/settings_tv_input_margin"
+                        android:layout_marginLeft="@dimen/settings_tv_input_margin"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/settings_language_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="@string/settings_language_en"
+                            android:textSize="@dimen/settings_tv_textsize" />
+
+                        <SeekBar
+                            android:id="@+id/settings_seek_language"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:max="1"
+                            android:progress="1" />
+
+                        <TextView
+                            android:id="@+id/settings_language_de"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:focusable="auto"
+                            android:text="@string/settings_language_de"
                             android:textSize="@dimen/settings_input_textsize" />
                     </LinearLayout>
                 </TableRow>
