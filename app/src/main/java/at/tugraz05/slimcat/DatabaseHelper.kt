@@ -66,7 +66,7 @@ class DatabaseHelper private constructor() {
         database.addValueEventListener(postListener)
     }
 
-    fun addValueEventListener(cb: (snapshot: DataSnapshot) -> Unit, err: (error: DatabaseError) -> Unit = {}) {
+    fun addValueEventListener(err: (error: DatabaseError) -> Unit = {}, cb: (snapshot: DataSnapshot) -> Unit) {
         database.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 cb(snapshot)

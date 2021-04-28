@@ -2,18 +2,16 @@ package at.tugraz05.slimcat
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableBoolean
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import at.tugraz05.slimcat.databinding.CatAccordionBinding
+import com.google.firebase.database.DataSnapshot
 
 class MainActivity : AppCompatActivity() {
     private lateinit var databaseHelper: DatabaseHelper
@@ -39,19 +37,7 @@ class MainActivity : AppCompatActivity() {
 //        )
 //        cats.forEach { databaseHelper.writeNewCat(it) }
 
-        databaseHelper.addValueEventListener({
-            val cats = databaseHelper.readUserCats()
-
-            val container = findViewById<LinearLayout>(R.id.scroll_content)
-            cats.forEach {
-                supportFragmentManager.commit {
-                    val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
-                    binding.cat = it
-                    binding.presenter = CatAccordionPresenter()
-                    container.addView(binding.root)
-                }
-            }
-        })
+        databaseHelper.addValueEventListener(cb = this::displayCats)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -67,6 +53,21 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun displayCats(s: DataSnapshot? = null) {
+        val cats = databaseHelper.readUserCats()
+
+        val container = findViewById<LinearLayout>(R.id.scroll_content)
+        container.removeAllViews()
+        cats.forEach {
+            supportFragmentManager.commit {
+                val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
+                binding.cat = it
+                binding.presenter = CatAccordionPresenter()
+                container.addView(binding.root)
+            }
         }
     }
 }
