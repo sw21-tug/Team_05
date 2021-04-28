@@ -16,7 +16,7 @@ class DatabaseHelper {
         database = Firebase.database.reference
     }
 
-    fun createUserId(userId: String?): String {
+    private fun createUserId(userId: String? = null): String {
         if(userId == null){
             this.userId = database.push().key!!
         }
@@ -28,27 +28,23 @@ class DatabaseHelper {
 
     fun checkAndCreateUserId(applicationContext: Context) {
         try {
-            var slimCatDir = File(applicationContext.filesDir, "slimCat")
+            val slimCatDir = File(applicationContext.filesDir, "slimCat")
             if (!slimCatDir.exists())
                 slimCatDir.mkdirs()
 
-            var file = File(slimCatDir, "userId.txt")
-            var userId: String? = ""
+            val file = File(slimCatDir, "userId.txt")
+            var userId = ""
 
-            if(file.exists()){
-                userId = file.readText()
-                if(userId == ""){
-                    userId = createUserId(null)
-                    file.writeText(userId)
-                }
-                else {
-                    userId = createUserId(userId)
-                }
+            if(!file.exists())
+                file.createNewFile()
+
+            userId = file.readText()
+            if (userId == "") {
+                userId = createUserId()
+                file.writeText(userId)
             }
             else {
-                userId = createUserId(null)
-                file.createNewFile()
-                file.writeText(userId)
+                createUserId(userId)
             }
         }
         catch (e: Exception){
@@ -80,9 +76,9 @@ class DatabaseHelper {
     }
 
     fun editUser(catName: String, cat: CatDummy) {
-        var catOld = readUserCat(catName)!!
-        var catNewMap = cat.toMap()
-        var catOldMap = catOld.toMap()
+        val catOld = readUserCat(catName)!!
+        val catNewMap = cat.toMap()
+        val catOldMap = catOld.toMap()
 
         val map = catNewMap.mapValues { if(it.value == null) catOldMap[it.key] else it.value }
         database.child(userId).child(catName).updateChildren(map)
