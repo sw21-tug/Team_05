@@ -43,8 +43,16 @@
     <string name="settings_language_de">de</string>
 
 
+    <string-array name="settings_gender">
+        <item>male</item>
+        <item>female</item>
+        <item>diverse</item>
+    </string-array>
 
-
+    <string-array name="settings_language">
+        <item>en</item>
+        <item>mandarin (chinese)</item>
+    </string-array>
 
 
 
