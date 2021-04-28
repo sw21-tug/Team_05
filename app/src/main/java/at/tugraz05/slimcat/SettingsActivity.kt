@@ -37,7 +37,7 @@ class SettingsActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.title_activity_settings)
     }
-x
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == android.R.id.home) onBackPressed()
