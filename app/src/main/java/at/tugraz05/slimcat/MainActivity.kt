@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        databaseHelper = DatabaseHelper()
+        databaseHelper = DatabaseHelper.get()
         databaseHelper.initializeDatabaseReference()
         databaseHelper.addPostEventListener()
         databaseHelper.checkAndCreateUserId(applicationContext)
@@ -33,19 +33,25 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val cats = arrayOf(
-                CatDummy("cat1", 8, 5.4), CatDummy("cat2", 15, 2.1),
-                CatDummy("cat3"), CatDummy("cat4"), CatDummy("cat5")
-        )
-        val container = findViewById<LinearLayout>(R.id.scroll_content)
-        cats.forEach {
-            supportFragmentManager.commit {
-                val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
-                binding.cat = it
-                binding.presenter = CatAccordionPresenter()
-                container.addView(binding.root)
+//        val cats = arrayOf(
+//                CatDummy("cat1", 8, 5.4), CatDummy("cat2", 15, 2.1),
+//                CatDummy("cat3"), CatDummy("cat4"), CatDummy("cat5")
+//        )
+//        cats.forEach { databaseHelper.writeNewCat(it) }
+
+        databaseHelper.addValueEventListener({
+            val cats = databaseHelper.readUserCats()
+
+            val container = findViewById<LinearLayout>(R.id.scroll_content)
+            cats.forEach {
+                supportFragmentManager.commit {
+                    val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
+                    binding.cat = it
+                    binding.presenter = CatAccordionPresenter()
+                    container.addView(binding.root)
+                }
             }
-        }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
