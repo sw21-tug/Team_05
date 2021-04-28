@@ -70,7 +70,7 @@
 
     <!-- Details -->
     <string name="title_cat_details">Cat Details</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">User Settings</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
