@@ -3,7 +3,8 @@
     <string name="action_settings">Settings</string>
 
     <!-- Cat List -->
-    <string name="catlist_text_age">Age: %d</string>
+    <string name="catlist_text_age">Age: %d years</string>
+    <string name="catlist_text_weight">Weight: %.2f kg</string>
 
     <!-- Add cat -->
     <string name="add_cat">Add Cat</string>

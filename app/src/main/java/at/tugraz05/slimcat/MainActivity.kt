@@ -9,6 +9,7 @@ import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableBoolean
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
@@ -33,16 +34,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         val cats = arrayOf(
-                CatDummy("cat1", 8), CatDummy("cat2", 15),
+                CatDummy("cat1", 8, 5.4), CatDummy("cat2", 15, 2.1),
                 CatDummy("cat3"), CatDummy("cat4"), CatDummy("cat5")
         )
-        if (savedInstanceState == null) {
-            val container = findViewById<LinearLayout>(R.id.scroll_content)
-            cats.forEach { supportFragmentManager.commit {
+        val container = findViewById<LinearLayout>(R.id.scroll_content)
+        cats.forEach {
+            supportFragmentManager.commit {
                 val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
                 binding.cat = it
+                binding.presenter = CatAccordionPresenter()
                 container.addView(binding.root)
-            } }
+            }
         }
     }
 
