@@ -1,12 +1,15 @@
 package at.tugraz05.slimcat
 
+import android.animation.LayoutTransition
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.fragment.app.commit
@@ -67,6 +70,8 @@ class MainActivity : AppCompatActivity() {
                 binding.cat = it
                 binding.presenter = CatAccordionPresenter()
                 container.addView(binding.root)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                    binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
             }
         }
     }
