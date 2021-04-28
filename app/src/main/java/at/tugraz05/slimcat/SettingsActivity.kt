@@ -12,8 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 
-class SettingsActivity : AppCompatActivity() {
 
+class SettingsActivity : AppCompatActivity() {
     companion object {
             const val KG = 0
             const val LF = 1
