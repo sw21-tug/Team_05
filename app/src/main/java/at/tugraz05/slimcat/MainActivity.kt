@@ -4,10 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.databinding.DataBindingUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import android.widget.Button
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
+import at.tugraz05.slimcat.databinding.CatAccordionBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var databaseHelper: DatabaseHelper
@@ -25,6 +30,19 @@ class MainActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.btn_addcat).setOnClickListener {
             val intent = Intent(this, AddcatActivity::class.java)
             startActivity(intent)
+        }
+
+        val cats = arrayOf(
+                CatDummy("cat1", 8), CatDummy("cat2", 15),
+                CatDummy("cat3"), CatDummy("cat4"), CatDummy("cat5")
+        )
+        if (savedInstanceState == null) {
+            val container = findViewById<LinearLayout>(R.id.scroll_content)
+            cats.forEach { supportFragmentManager.commit {
+                val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
+                binding.cat = it
+                container.addView(binding.root)
+            } }
         }
     }
 
