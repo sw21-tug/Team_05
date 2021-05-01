@@ -26,28 +26,18 @@ class AddcatActivity : AppCompatActivity() {
             val intent = Intent("android.media.action.IMAGE_CAPTURE")
             startActivity(intent)
         }
-/*
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        findViewById<Button>(R.id.btn_dob).setOnClickListener {
-            val datepicker = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{view: DatePicker!, mYear: Int, mMonth: Int, mDay: Int ->
-
-            })
-        }*/
-
+        //click on btn_dob to open the datepicker
         var formatDate = SimpleDateFormat("dd MMMM YYYY", Locale.US)
 
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
             val getDate : Calendar = Calendar.getInstance()
-            val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, DatePickerDialog.OnDateSetListener{ datePicker, i, i2, i3 ->
+            val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, DatePickerDialog.OnDateSetListener{ datePicker, year, month, day ->
 
                 val selectDate = Calendar.getInstance()
-                selectDate.set(Calendar.YEAR, i)
-                selectDate.set(Calendar.MONTH, i2)
-                selectDate.set(Calendar.DAY_OF_MONTH, i3)
+                selectDate.set(Calendar.YEAR, year)
+                selectDate.set(Calendar.MONTH, month)
+                selectDate.set(Calendar.DAY_OF_MONTH, day)
                 val date = formatDate.format((selectDate.time))
                 Toast.makeText(this, "Date : " + date, Toast.LENGTH_SHORT).show()
                 findViewById<TextView>(R.id.txt_dob).text = date

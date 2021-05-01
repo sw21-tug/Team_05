@@ -100,8 +100,11 @@
                         android:id="@+id/txt_dob"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/addcat_label_input_margin"
                         android:layout_weight="1"
-                        android:text="@string/output_dob" />
+                        android:gravity="center"
+                        android:text="@string/output_dob"
+                        android:textSize="@dimen/addcat_input_textsize" />
 
                     <Button
                         android:id="@+id/btn_dob"
@@ -268,30 +271,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="30dp">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/addcat_row_margin"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/label_growth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:lineSpacingExtra="@dimen/addcat_label_lineheight"
-                        android:text="@string/label_growth"
-                        android:textSize="@dimen/addcat_label_textsize" />
-
-                    <Switch
-                        android:id="@+id/switch_growth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/addcat_label_input_margin"
-                        android:layout_marginLeft="@dimen/addcat_label_input_margin" />
-                </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
