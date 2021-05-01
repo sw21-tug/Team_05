@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -80,6 +81,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        val that = this
         cats.forEach {
             if (container.children.find { view -> DataBindingUtil.bind<CatAccordionBinding>(view)?.cat?.name == it?.name} == null) {
                 supportFragmentManager.commit {
@@ -87,6 +89,10 @@ class MainActivity : AppCompatActivity() {
                     binding.cat = it
                     binding.presenter = CatAccordionPresenter()
                     container.addView(binding.root)
+                    binding.root.findViewById<Button>(R.id.edit_cat).setOnClickListener {
+                        val intent = Intent(that, AddcatActivity::class.java)
+                        startActivity(intent)
+                    }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                         binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
                 }
