@@ -11,4 +11,5 @@
     <dimen name="addcat_row_margin">17dp</dimen>
     <dimen name="addcat_button_margin">20dp</dimen>
     <dimen name="addcat_button_textsize">16sp</dimen>
+    <dimen name="addcat_margin_datepicker">7.5dp</dimen>
 </resources>
