@@ -4,12 +4,15 @@ import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.view.children
+import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.fragment.app.commit
@@ -63,15 +66,30 @@ class MainActivity : AppCompatActivity() {
         val cats = databaseHelper.readUserCats()
 
         val container = findViewById<LinearLayout>(R.id.scroll_content)
-        container.removeAllViews()
+        container.children.forEach { view ->
+            val binding = DataBindingUtil.bind<CatAccordionBinding>(view)
+            if (binding != null) {
+                val found_cat = cats.find {
+                    it?.name == binding.cat?.name
+                }
+                if (found_cat != null) {
+                    binding.cat = found_cat
+                }
+                else {
+                    container.removeView(view)
+                }
+            }
+        }
         cats.forEach {
-            supportFragmentManager.commit {
-                val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
-                binding.cat = it
-                binding.presenter = CatAccordionPresenter()
-                container.addView(binding.root)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                    binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+            if (container.children.find { view -> DataBindingUtil.bind<CatAccordionBinding>(view)?.cat?.name == it?.name} == null) {
+                supportFragmentManager.commit {
+                    val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
+                    binding.cat = it
+                    binding.presenter = CatAccordionPresenter()
+                    container.addView(binding.root)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                        binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+                }
             }
         }
     }
