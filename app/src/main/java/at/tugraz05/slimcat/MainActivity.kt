@@ -44,7 +44,9 @@ class MainActivity : AppCompatActivity() {
 //        )
 //        cats.forEach { databaseHelper.writeNewCat(it) }
 
-        databaseHelper.addValueEventListener(cb = this::displayCats)
+        databaseHelper.addValueEventListener{
+            displayCats(databaseHelper.readUserCats())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -63,9 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayCats(s: DataSnapshot? = null) {
-        val cats = databaseHelper.readUserCats()
-
+    fun displayCats(cats:List<CatDummy?>) {
         val container = findViewById<LinearLayout>(R.id.scroll_content)
         container.children.forEach { view ->
             val binding = DataBindingUtil.bind<CatAccordionBinding>(view)
