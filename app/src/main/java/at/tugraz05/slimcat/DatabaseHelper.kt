@@ -13,8 +13,8 @@ object DatabaseHelper {
     private lateinit var userId: String
 
     fun initializeDatabaseReference() {
-        database = Firebase.database.reference
         Firebase.database.setPersistenceEnabled(true)
+        database = Firebase.database.reference
     }
 
     private fun createUserId(userId: String?): String {
