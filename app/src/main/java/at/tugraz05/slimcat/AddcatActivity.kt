@@ -2,16 +2,21 @@ package at.tugraz05.slimcat
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.ImageButton
-import android.widget.SeekBar
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class AddcatActivity : AppCompatActivity() {
+    lateinit var scrollView: ScrollView
     lateinit var seeker: GenderSeeker
+    lateinit var nameField: EditText
+    lateinit var raceField: EditText
+    lateinit var ageField: EditText
+    lateinit var sizeField: EditText
+    lateinit var weightField: EditText
+    lateinit var genderSeeker: SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +28,39 @@ class AddcatActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // initialize all fields
+        scrollView = findViewById(R.id.main_scroll_view)
+        nameField = findViewById(R.id.txt_name)
+        raceField = findViewById(R.id.txt_race)
+        // TODO: exchange after addCatActivity rework
+        ageField = findViewById(R.id.txt_age)
+        sizeField = findViewById(R.id.txt_size)
+        weightField = findViewById(R.id.txt_weight)
+        genderSeeker = findViewById(R.id.seek_gender)
+
+        findViewById<Button>(R.id.btn_save).setOnClickListener {
+            if (TextUtils.isEmpty(nameField.text)) {
+                nameField.error = resources.getString(R.string.error_create_cat)
+                scrollView.fullScroll(ScrollView.FOCUS_UP)
+            }
+            else {
+                createCat()
+                finish()
+            }
+        }
+
+        findViewById<Button>(R.id.btn_delete).setOnClickListener {
+            if (TextUtils.isEmpty(nameField.text)) {
+                nameField.error = resources.getString(R.string.error_delete_cat)
+                scrollView.fullScroll(ScrollView.FOCUS_UP)
+            }
+            else {
+                deleteCat()
+                finish()
+            }
+        }
+
         // make gender seeker hide female-only options
-        val genderSeeker = findViewById<SeekBar>(R.id.seek_gender)
         val femaleSwitches = listOf<TableRow>(
                 findViewById(R.id.row_gestation),
                 findViewById(R.id.row_lactation),
@@ -48,6 +84,24 @@ class AddcatActivity : AppCompatActivity() {
 
     fun setFemale(on: Boolean = true) {
         seeker.updateSwitches(if (on) 1 else 0)
+    }
+
+    private fun createCat() {
+        val catName: String = nameField.text.toString()
+        val catRace: String = raceField.text.toString()
+        val catAge: Int = if (ageField.text.toString() != "") ageField.text.toString().toInt() else 0
+        val catSize: Int = if (sizeField.text.toString()!= "") sizeField.text.toString().toInt() else 0
+        val catWeight: Double = if (weightField.text.toString() != "") weightField.text.toString().toDouble() else 0.0
+        val genderValue:Int = genderSeeker.progress
+        val catGender = if (genderValue == GenderSeeker.MALE) "male" else "female"
+
+        val cat = CatDataClass(catName, catRace, catAge, catSize, catWeight, catGender)
+        DatabaseHelper.writeNewCat(cat)
+    }
+
+    private fun deleteCat() {
+        val catName: String = nameField.text.toString()
+        DatabaseHelper.deleteCat(catName)
     }
 }
 

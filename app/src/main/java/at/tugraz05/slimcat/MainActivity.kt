@@ -10,17 +10,15 @@ import com.google.android.material.snackbar.Snackbar
 import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        databaseHelper = DatabaseHelper()
-        databaseHelper.initializeDatabaseReference()
-        databaseHelper.addPostEventListener()
-        databaseHelper.checkAndCreateUserId(applicationContext)
+        DatabaseHelper.initializeDatabaseReference()
+        DatabaseHelper.addPostEventListener()
+        DatabaseHelper.checkAndCreateUserId(applicationContext)
 
         findViewById<FloatingActionButton>(R.id.btn_addcat).setOnClickListener {
             val intent = Intent(this, AddcatActivity::class.java)

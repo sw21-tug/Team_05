@@ -7,16 +7,17 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
 
-class DatabaseHelper {
+object DatabaseHelper {
     private lateinit var database: DatabaseReference
     private lateinit var dataSnapshot: DataSnapshot
     private lateinit var userId: String
 
     fun initializeDatabaseReference() {
         database = Firebase.database.reference
+        Firebase.database.setPersistenceEnabled(true)
     }
 
-    fun createUserId(userId: String?): String {
+    private fun createUserId(userId: String?): String {
         if(userId == null){
             this.userId = database.push().key!!
         }
@@ -70,21 +71,25 @@ class DatabaseHelper {
         database.addValueEventListener(postListener)
     }
 
-    fun writeNewCat(cat: CatDummy) {
+    fun writeNewCat(cat: CatDataClass) {
         val catName: String = cat.name!!
         database.child(userId).child(catName).setValue(cat)
     }
 
-    fun readUserCat(catName: String): CatDummy? {
-        return dataSnapshot.child(userId).child(catName).getValue(CatDummy::class.java)
+    fun readUserCat(catName: String): CatDataClass? {
+        return dataSnapshot.child(userId).child(catName).getValue(CatDataClass::class.java)
     }
 
-    fun editUser(catName: String, cat: CatDummy) {
+    fun editUser(catName: String, cat: CatDataClass) {
         var catOld = readUserCat(catName)!!
         var catNewMap = cat.toMap()
         var catOldMap = catOld.toMap()
 
         val map = catNewMap.mapValues { if(it.value == null) catOldMap[it.key] else it.value }
         database.child(userId).child(catName).updateChildren(map)
+    }
+
+    fun deleteCat(catName: String) {
+        database.child(userId).child(catName).removeValue()
     }
 }
