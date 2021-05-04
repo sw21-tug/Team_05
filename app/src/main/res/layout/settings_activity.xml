@@ -165,11 +165,11 @@
                             android:progress="1" />
 
                         <TextView
-                            android:id="@+id/settings_unit_of_measurement_lf"
+                            android:id="@+id/settings_unit_of_measurement_lbs"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:focusable="auto"
-                            android:text="@string/settings_unit_of_measurement_lf"
+                            android:text="@string/settings_unit_of_measurement_lbs"
                             android:textSize="@dimen/settings_input_textsize" />
                     </LinearLayout>
                 </TableRow>
