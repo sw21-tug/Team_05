@@ -15,9 +15,9 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class AddcatActivityTest : TestCase() {
-    private val txtids = arrayOf(R.id.txt_name, R.id.txt_race, R.id.txt_age, R.id.txt_size, R.id.txt_weight)
+    private val txtids = arrayOf(R.id.txt_name, R.id.txt_race, R.id.txt_size, R.id.txt_weight)
     private val switchids = arrayOf(
-            R.id.switch_growth, R.id.switch_obese, R.id.switch_overweight,
+            R.id.switch_obese, R.id.switch_overweight,
             R.id.switch_hospitalized, R.id.switch_neutered,
             R.id.switch_gestation, R.id.switch_lactation,
     )
@@ -58,4 +58,18 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.label_gender_female)).perform(click())
         onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { assertThat(it.progress, CoreMatchers.equalTo(GenderSeeker.FEMALE)) })
     }
+
+    @Test
+    fun btnDatepickerIsClickable() {
+        ActivityScenario.launch(AddcatActivity::class.java)
+        onView(withId(R.id.btn_dob)).perform(click())
+    }
+
+    @Test
+    fun btnDatepickerIsDisplayed() {
+        ActivityScenario.launch(AddcatActivity::class.java)
+        onView(withId(R.id.btn_dob)).check(matches(isDisplayed()))
+    }
+
+
 }
