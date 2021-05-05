@@ -41,7 +41,7 @@ class SettingsActivityTest {
         ActivityScenario.launch(SettingsActivity::class.java)
         onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
         onView(withId(R.id.settings_unit_of_measurement)).check(assertView<SeekBar> { assertThat(it.progress, CoreMatchers.equalTo(SettingsActivity.KG)) })
-        onView(withId(R.id.settings_unit_of_measurement_lf)).perform(click())
+        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
         onView(withId(R.id.settings_unit_of_measurement)).check(assertView<SeekBar> { assertThat(it.progress, CoreMatchers.equalTo(SettingsActivity.LF)) })
     }
 
