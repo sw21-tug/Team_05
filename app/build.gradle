@@ -60,6 +60,6 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.1.1'
     androidTestImplementation 'androidx.test.ext:truth:1.1.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    implementation group: 'org.mockito', name: 'mockito-core', version: '+'
+    implementation group: 'org.mockito', name: 'mockito-android', version: '+'
 }
 apply plugin: 'com.google.gms.google-services'

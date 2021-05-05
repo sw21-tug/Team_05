@@ -40,9 +40,9 @@ class SettingsActivityTest {
     fun clickingUnitLabelsChangesSeeker() {
         ActivityScenario.launch(SettingsActivity::class.java)
         onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
-        onView(withId(R.id.settings_unit_of_measurement)).check(assertView<SeekBar> { assertThat(it.progress, CoreMatchers.equalTo(SettingsActivity.KG)) })
+        onView(withId(R.id.settings_seek_measurement)).check(assertView<SeekBar> { assertThat(it.progress, CoreMatchers.equalTo(SettingsActivity.KG)) })
         onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
-        onView(withId(R.id.settings_unit_of_measurement)).check(assertView<SeekBar> { assertThat(it.progress, CoreMatchers.equalTo(SettingsActivity.LF)) })
+        onView(withId(R.id.settings_seek_measurement)).check(assertView<SeekBar> { assertThat(it.progress, CoreMatchers.equalTo(SettingsActivity.LF)) })
     }
 
     @Test
@@ -59,12 +59,12 @@ class SettingsActivityTest {
         Mockito.`when`(sharedPreferences.getString("image","" )).thenReturn("testimage")
         scenario.onActivity {
             val user = it.loadData(context)
-            assertEquals(user.name, "test")
-            assertEquals(user.email, "test@email")
-            assertEquals(user.gender, 0)
-            assertEquals(user.language, 0)
-            assertEquals(user.unit, 0)
-            assertEquals(user.image, "testimage")
+            assertEquals( "test",user.name)
+            assertEquals("test@email",user.email)
+            assertEquals(0, user.gender )
+            assertEquals(0, user.language)
+            assertEquals(0, user.unit)
+            assertEquals("testimage", user.image)
         }
     }
 
