@@ -261,6 +261,7 @@
                                 android:id="@+id/label_gender_female"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:clickable="true"
                                 android:focusable="auto"
                                 android:text="@string/label_gender_female"
                                 android:textSize="@dimen/addcat_input_textsize" />
