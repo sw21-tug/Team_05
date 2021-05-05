@@ -41,32 +41,32 @@ class SettingsActivityTest : TestCase(){
     fun clickingUnitLabelsChangesSeeker() {
         ActivityScenario.launch(SettingsActivity::class.java)
         onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
-        onView(withId(R.id.settings_seek_measurement)).check(assertView<SeekBar> { assertThat(it.progress, CoreMatchers.equalTo(SettingsActivity.KG)) })
+        onView(withId(R.id.settings_seek_measurement)).perform(waitFor<SeekBar> { it.progress == SettingsActivity.KG })
         onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
-        onView(withId(R.id.settings_seek_measurement)).check(assertView<SeekBar> { assertThat(it.progress, CoreMatchers.equalTo(SettingsActivity.LF)) })
+        onView(withId(R.id.settings_seek_measurement)).perform(waitFor<SeekBar> { it.progress == SettingsActivity.LF })
     }
 
-   // @Test
-//    fun testLoadData() {
-//        val scenario = ActivityScenario.launch(SettingsActivity::class.java)
-//        val sharedPreferences = Mockito.mock(SharedPreferences::class.java)
-//        val context = Mockito.mock(Context::class.java)
-//        Mockito.`when`(context.getSharedPreferences("userprefs", MODE_PRIVATE)).thenReturn(sharedPreferences)
-//        Mockito.`when`(sharedPreferences.getString("name","" )).thenReturn("test")
-//        Mockito.`when`(sharedPreferences.getString("email","" )).thenReturn("test@email")
-//        Mockito.`when`(sharedPreferences.getInt("gender", 0)).thenReturn(0)
-//        Mockito.`when`(sharedPreferences.getInt("language", 0)).thenReturn(0)
-//        Mockito.`when`(sharedPreferences.getInt("unit", 0)).thenReturn(0)
-//        Mockito.`when`(sharedPreferences.getString("image","" )).thenReturn("testimage")
-//        scenario.onActivity {
-//            val user = it.loadData(context)
-//            assertEquals( "test",user.name)
-//            assertEquals("test@email",user.email)
-//            assertEquals(0, user.gender )
-//            assertEquals(0, user.language)
-//            assertEquals(0, user.unit)
-//            assertEquals("testimage", user.image)
-//        }
-//    }
+    @Test
+    fun testLoadData() {
+        val scenario = ActivityScenario.launch(SettingsActivity::class.java)
+        val sharedPreferences = Mockito.mock(SharedPreferences::class.java)
+        val context = Mockito.mock(Context::class.java)
+        Mockito.`when`(context.getSharedPreferences("userprefs", MODE_PRIVATE)).thenReturn(sharedPreferences)
+        Mockito.`when`(sharedPreferences.getString("name","" )).thenReturn("test")
+        Mockito.`when`(sharedPreferences.getString("email","" )).thenReturn("test@email")
+        Mockito.`when`(sharedPreferences.getInt("gender", 0)).thenReturn(0)
+        Mockito.`when`(sharedPreferences.getInt("language", 0)).thenReturn(0)
+        Mockito.`when`(sharedPreferences.getInt("unit", 0)).thenReturn(0)
+        Mockito.`when`(sharedPreferences.getString("image","" )).thenReturn("testimage")
+        scenario.onActivity {
+            val user = it.loadData(context)
+            assertEquals( "test",user.name)
+            assertEquals("test@email",user.email)
+            assertEquals(0, user.gender )
+            assertEquals(0, user.language)
+            assertEquals(0, user.unit)
+            assertEquals("testimage", user.image)
+        }
+    }
 
 }
