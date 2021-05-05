@@ -68,7 +68,7 @@ class AddcatActivity : AppCompatActivity() {
         }
 
         //click on btn_dob to open the datepicker
-        var formatDate = SimpleDateFormat("dd MMMM YYYY", Locale.US)
+        val formatDate = SimpleDateFormat("dd MMMM yyyy", Locale.US)
 
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
             val getDate : Calendar = Calendar.getInstance()
