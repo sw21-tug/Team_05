@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -14,7 +15,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddcatActivity : AppCompatActivity() {
+    lateinit var scrollView: ScrollView
     lateinit var seeker: GenderSeeker
+    lateinit var nameField: EditText
+    lateinit var raceField: EditText
+    // lateinit var ageField: EditText
+    lateinit var sizeField: EditText
+    lateinit var weightField: EditText
+    lateinit var genderSeeker: SeekBar
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +33,38 @@ class AddcatActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.btn_camera).setOnClickListener {
             val intent = Intent("android.media.action.IMAGE_CAPTURE")
             startActivity(intent)
+        }
+
+        // initialize all fields
+        scrollView = findViewById(R.id.main_scroll_view)
+        nameField = findViewById(R.id.txt_name)
+        raceField = findViewById(R.id.txt_race)
+        // TODO: exchange after addCatActivity rework calculate age
+        // ageField = findViewById(R.id.txt_age)
+        sizeField = findViewById(R.id.txt_size)
+        weightField = findViewById(R.id.txt_weight)
+        genderSeeker = findViewById(R.id.seek_gender)
+
+        findViewById<Button>(R.id.btn_save).setOnClickListener {
+            if (TextUtils.isEmpty(nameField.text)) {
+                nameField.error = resources.getString(R.string.error_create_cat)
+                scrollView.fullScroll(ScrollView.FOCUS_UP)
+            }
+            else {
+                createCat()
+                finish()
+            }
+        }
+
+        findViewById<Button>(R.id.btn_delete).setOnClickListener {
+            if (TextUtils.isEmpty(nameField.text)) {
+                nameField.error = resources.getString(R.string.error_delete_cat)
+                scrollView.fullScroll(ScrollView.FOCUS_UP)
+            }
+            else {
+                deleteCat()
+                finish()
+            }
         }
 
         //click on btn_dob to open the datepicker
@@ -72,6 +112,24 @@ class AddcatActivity : AppCompatActivity() {
 
     fun setFemale(on: Boolean = true) {
         seeker.updateSwitches(if (on) 1 else 0)
+    }
+
+    private fun createCat() {
+        val catName: String = nameField.text.toString()
+        val catRace: String = raceField.text.toString()
+        // val catAge: Int = if (ageField.text.toString() != "") ageField.text.toString().toInt() else 0
+        val catSize: Int = if (sizeField.text.toString()!= "") sizeField.text.toString().toInt() else 0
+        val catWeight: Double = if (weightField.text.toString() != "") weightField.text.toString().toDouble() else 0.0
+        val genderValue:Int = genderSeeker.progress
+        val catGender = if (genderValue == GenderSeeker.MALE) "male" else "female"
+
+        val cat = CatDataClass(catName, catRace, 0, catSize, catWeight, catGender)
+        DatabaseHelper.writeNewCat(cat)
+    }
+
+    private fun deleteCat() {
+        val catName: String = nameField.text.toString()
+        DatabaseHelper.deleteCat(catName)
     }
 }
 
