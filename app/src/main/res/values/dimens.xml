@@ -2,6 +2,13 @@
     <!-- Main  -->
     <dimen name="fab_margin">16dp</dimen>
 
+    <!-- Cat list -->
+    <dimen name="catlist_card_margin">30dp</dimen>
+    <dimen name="catlist_card_padding">10dp</dimen>
+    <dimen name="catlist_card_padding_inner">5dp</dimen>
+    <dimen name="catlist_card_textsize">20sp</dimen>
+    <dimen name="catlist_card_body_textsize">18sp</dimen>
+
     <!-- Add cat -->
     <dimen name="addcat_view_margin">30dp</dimen>
     <dimen name="addcat_label_input_margin">15dp</dimen>
@@ -11,6 +18,7 @@
     <dimen name="addcat_row_margin">17dp</dimen>
     <dimen name="addcat_button_margin">20dp</dimen>
     <dimen name="addcat_button_textsize">16sp</dimen>
+    <dimen name="addcat_margin_datepicker">7.5dp</dimen>
 
 
     <!-- Settings -->
@@ -22,6 +30,8 @@
     <dimen name="settings_tv_input_margin">15dp</dimen>
     <dimen name="settings_button_margin">20dp</dimen>
     <dimen name="settings_button_textsize">16sp</dimen>
+
+
 
 
 

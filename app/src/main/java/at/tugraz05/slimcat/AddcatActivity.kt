@@ -1,18 +1,22 @@
 package at.tugraz05.slimcat
 
+import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageButton
-import android.widget.SeekBar
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddcatActivity : AppCompatActivity() {
     lateinit var seeker: GenderSeeker
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcat)
@@ -21,6 +25,26 @@ class AddcatActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.btn_camera).setOnClickListener {
             val intent = Intent("android.media.action.IMAGE_CAPTURE")
             startActivity(intent)
+        }
+
+        //click on btn_dob to open the datepicker
+        var formatDate = SimpleDateFormat("dd MMMM YYYY", Locale.US)
+
+        findViewById<Button>(R.id.btn_dob).setOnClickListener {
+            val getDate : Calendar = Calendar.getInstance()
+            val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, DatePickerDialog.OnDateSetListener{ datePicker, year, month, day ->
+
+                val selectDate = Calendar.getInstance()
+                selectDate.set(Calendar.YEAR, year)
+                selectDate.set(Calendar.MONTH, month)
+                selectDate.set(Calendar.DAY_OF_MONTH, day)
+                val date = formatDate.format((selectDate.time))
+                Toast.makeText(this, "Date : " + date, Toast.LENGTH_SHORT).show()
+                findViewById<TextView>(R.id.txt_dob).text = date
+
+            }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
+            datepicker.show()
+
         }
 
         // make gender seeker hide female-only options

@@ -2,18 +2,24 @@
     <string name="app_name">SlimCat</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Cat List -->
+    <string name="catlist_text_age">Age: %d years</string>
+    <string name="catlist_text_weight">Weight: %.2f kg</string>
+    <string name="catlist_edit_cat">Edit</string>
+
+
     <!-- Add cat -->
     <string name="add_cat">Add Cat</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
     <string name="label_name">Name</string>
     <string name="label_race">Race</string>
-    <string name="label_age">Age</string>
+    <string name="label_dob">D.o.b.</string>
+    <string name="btn_dob">Pick Date</string>
     <string name="label_size">Size</string>
     <string name="label_weight">Weight</string>
     <string name="label_gender">Gender</string>
     <string name="label_picture">Picture</string>
-    <string name="label_growth">Growth (Kitten)</string>
     <string name="label_obese">Obese</string>
     <string name="label_overweight">Overweight-prone</string>
     <string name="label_hospitalized">Hospitalized</string>
@@ -22,10 +28,10 @@
     <string name="label_neutered">Neutered</string>
     <string name="label_gestation">Gestation</string>
     <string name="label_lactation">Lactation</string>
+    <string name="output_dob">dd/mm/yyyy</string>
     <!-- Add cat hints -->
     <string name="input_name_hint">e.g. Lucky</string>
     <string name="input_race_hint">e.g. Toyger</string>
-    <string name="input_age_hint">in years</string>
     <string name="input_size_hint">in cm</string>
     <string name="input_weight_hint">in kg</string>
 
@@ -59,6 +65,7 @@
     <!-- Settings hints-->
     <string name="settings_name_hint">e.g. John Doe </string>
     <string name="settings_email_hint">e.g. john.doe@email.com</string>
+
 
 
 
