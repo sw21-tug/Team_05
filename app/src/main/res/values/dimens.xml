@@ -2,6 +2,13 @@
     <!-- Main  -->
     <dimen name="fab_margin">16dp</dimen>
 
+    <!-- Cat list -->
+    <dimen name="catlist_card_margin">30dp</dimen>
+    <dimen name="catlist_card_padding">10dp</dimen>
+    <dimen name="catlist_card_padding_inner">5dp</dimen>
+    <dimen name="catlist_card_textsize">20sp</dimen>
+    <dimen name="catlist_card_body_textsize">18sp</dimen>
+
     <!-- Add cat -->
     <dimen name="addcat_view_margin">30dp</dimen>
     <dimen name="addcat_label_input_margin">15dp</dimen>

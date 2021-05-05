@@ -2,6 +2,12 @@
     <string name="app_name">SlimCat</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Cat List -->
+    <string name="catlist_text_age">Age: %d years</string>
+    <string name="catlist_text_weight">Weight: %.2f kg</string>
+    <string name="catlist_edit_cat">Edit</string>
+
+
     <!-- Add cat -->
     <string name="add_cat">Add Cat</string>
     <string name="save">Save</string>
