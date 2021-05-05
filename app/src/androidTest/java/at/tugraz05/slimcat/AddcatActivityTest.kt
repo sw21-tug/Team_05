@@ -6,6 +6,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import junit.framework.TestCase
@@ -39,30 +40,33 @@ class AddcatActivityTest : TestCase() {
     @Test
     fun maleLabelClickHideFemale() {
         ActivityScenario.launch(AddcatActivity::class.java)
-        onView(withId(R.id.label_gender_male)).perform(click())
+        onView(withId(R.id.label_gender_female)).perform(scrollTo()).perform(click())
+        onView(withId(R.id.label_gender_male)).perform(scrollTo()).perform(click())
         rowids.forEach { id -> onView(withId(id)).perform(waitFor<View> { it.visibility == View.GONE }) }
     }
 
     @Test
     fun maleSeekerChangeHideFemale() {
         ActivityScenario.launch(AddcatActivity::class.java)
-        onView(withId(R.id.seek_gender)).perform(callMethod<SeekBar> { it.progress = GenderSeeker.MALE })
+        onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = GenderSeeker.FEMALE })
+        onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = GenderSeeker.MALE })
         rowids.forEach { id -> onView(withId(id)).perform(waitFor<View> { it.visibility == View.GONE }) }
     }
 
     @Test
     fun clickingGenderLabelsChangesSeeker() {
         ActivityScenario.launch(AddcatActivity::class.java)
-        onView(withId(R.id.label_gender_male)).perform(click())
+        onView(withId(R.id.label_gender_female)).perform(scrollTo()).perform(click())
+        onView(withId(R.id.label_gender_male)).perform(scrollTo()).perform(click())
         onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == GenderSeeker.MALE })
-        onView(withId(R.id.label_gender_female)).perform(click())
+        onView(withId(R.id.label_gender_female)).perform(scrollTo()).perform(click())
         onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == GenderSeeker.FEMALE })
     }
 
     @Test
     fun btnDatepickerIsClickable() {
         ActivityScenario.launch(AddcatActivity::class.java)
-        onView(withId(R.id.btn_dob)).perform(click())
+        onView(withId(R.id.btn_dob)).perform(scrollTo()).perform(click())
     }
 
     @Test
