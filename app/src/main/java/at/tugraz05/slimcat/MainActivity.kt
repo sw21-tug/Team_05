@@ -4,6 +4,7 @@ import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -61,6 +62,9 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
     }
 
     fun displayCats(cats:List<CatDataClass?>) {
