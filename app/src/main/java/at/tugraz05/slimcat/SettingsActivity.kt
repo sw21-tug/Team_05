@@ -4,13 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -18,6 +23,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.preference.PreferenceFragmentCompat
 import at.tugraz05.slimcat.databinding.SettingsActivityBinding
 import java.io.File
+import java.util.*
 import java.util.jar.Manifest
 
 
@@ -40,6 +46,7 @@ class SettingsActivity: AppCompatActivity() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -68,7 +75,33 @@ class SettingsActivity: AppCompatActivity() {
         ArrayAdapter.createFromResource(this, R.array.settings_language, R.layout.spinner_closed_items).also {
             it.setDropDownViewResource(R.layout.spinner_items)
             spinnerLang.adapter = it
+
         }
+        // change language selection in spinner
+        val sharedpref = getSharedPreferences("userprefs", MODE_PRIVATE)
+        sharedpref.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+
+            LanguageHandler.setLanguage(this)
+            finish()
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         imageButton = findViewById(R.id.imageButton)
 
@@ -112,6 +145,9 @@ class SettingsActivity: AppCompatActivity() {
             sharedpref.getString("image", "")!!
         )
     }
+
+
+
 
 
 

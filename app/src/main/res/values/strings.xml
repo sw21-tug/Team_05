@@ -48,8 +48,8 @@
     <string name="settings_unit_of_measurement_kg">kg</string>
     <string name="settings_unit_of_measurement_lbs">lbs</string>
     <string name="settings_language">Language</string>
-    <string name="settings_language_en">en</string>
-    <string name="settings_language_de">de</string>
+    <!--<string name="settings_language_en">en</string>
+    <string name="settings_language_de">de</string>-->
 
 
     <string-array name="settings_gender">
