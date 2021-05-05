@@ -57,7 +57,7 @@ class AddcatActivity : AppCompatActivity() {
         {
             val file = CaptureImage.createImageFile(this)
             imagePath = file.absolutePath
-            DatabaseHelper.getImage(binding.cat!!.imageString!!, file) {
+            DatabaseHelper.get().getImage(binding.cat!!.imageString!!, file) {
                 imageButton.setImageURI(Uri.fromFile(file))
             }
         }
@@ -137,16 +137,16 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     private fun createCat() {
-        DatabaseHelper.writeNewCat(binding.cat!!)
+        DatabaseHelper.get().writeNewCat(binding.cat!!)
     }
 
     private fun updateCat() {
-        DatabaseHelper.editUser(oldName, binding.cat!!)
+        DatabaseHelper.get().editUser(oldName, binding.cat!!)
     }
 
     private fun deleteCat() {
         val catName: String = nameField.text.toString()
-        DatabaseHelper.deleteCat(catName)
+        DatabaseHelper.get().deleteCat(catName)
     }
 
 
@@ -157,7 +157,7 @@ class AddcatActivity : AppCompatActivity() {
         val uri = Uri.fromFile(file)
         val img = "cats/${file.name}"
 
-        DatabaseHelper.uploadImagesToFirebase(img, uri) {
+        DatabaseHelper.get().uploadImagesToFirebase(img, uri) {
             imageButton.setImageURI(uri)
             binding.cat!!.imageString = img
         }

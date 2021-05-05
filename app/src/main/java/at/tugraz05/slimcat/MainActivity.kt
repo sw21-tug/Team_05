@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        DatabaseHelper.maybeInit(applicationContext)
+        DatabaseHelper.get().maybeInit(applicationContext)
 
         findViewById<FloatingActionButton>(R.id.btn_addcat).setOnClickListener {
             val intent = Intent(this, AddcatActivity::class.java)
@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
 //        )
 //        cats.forEach { databaseHelper.writeNewCat(it) }
 
-        DatabaseHelper.addValueEventListener{
-            displayCats(DatabaseHelper.readUserCats())
+        DatabaseHelper.get().addValueEventListener{
+            displayCats(DatabaseHelper.get().readUserCats())
         }
     }
 
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateCatImage(binding: CatAccordionBinding) {
         if (binding.cat?.imageString?.isNotEmpty() == true) {
             val file = CaptureImage.createImageFile(this)
-            DatabaseHelper.getImage(binding.cat!!.imageString!!, file) {
+            DatabaseHelper.get().getImage(binding.cat!!.imageString!!, file) {
                 binding.root.findViewById<ImageView>(R.id.imageView).setImageURI(Uri.fromFile(file))
             }
         }
