@@ -42,7 +42,7 @@ fun isVisibility(vis: Int): ViewAssertion {
     }
 }
 
-fun <T>waitFor(timeout:Long = 100, someMethod: (view: T) -> Boolean): ViewAction {
+fun <T>waitFor(timeout:Long = 1000, someMethod: (view: T) -> Boolean): ViewAction {
     return object:ViewAction{
         override fun getConstraints(): Matcher<View> {
             return isEnabled()

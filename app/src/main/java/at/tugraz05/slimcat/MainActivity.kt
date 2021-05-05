@@ -22,10 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-
-        DatabaseHelper.initializeDatabaseReference()
-        DatabaseHelper.addPostEventListener()
-        DatabaseHelper.checkAndCreateUserId(applicationContext)
+        DatabaseHelper.maybeInit(applicationContext)
 
         findViewById<FloatingActionButton>(R.id.btn_addcat).setOnClickListener {
             val intent = Intent(this, AddcatActivity::class.java)

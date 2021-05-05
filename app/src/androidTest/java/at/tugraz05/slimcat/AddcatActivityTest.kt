@@ -40,14 +40,14 @@ class AddcatActivityTest : TestCase() {
     fun maleLabelClickHideFemale() {
         ActivityScenario.launch(AddcatActivity::class.java)
         onView(withId(R.id.label_gender_male)).perform(click())
-        rowids.forEach { onView(withId(it)).check(isVisibility(View.GONE)) }
+        rowids.forEach { id -> onView(withId(id)).perform(waitFor<View> { it.visibility == View.GONE }) }
     }
 
     @Test
     fun maleSeekerChangeHideFemale() {
         ActivityScenario.launch(AddcatActivity::class.java)
         onView(withId(R.id.seek_gender)).perform(callMethod<SeekBar> { it.progress = GenderSeeker.MALE })
-        rowids.forEach { onView(withId(it)).check(isVisibility(View.GONE)) }
+        rowids.forEach { id -> onView(withId(id)).perform(waitFor<View> { it.visibility == View.GONE }) }
     }
 
     @Test

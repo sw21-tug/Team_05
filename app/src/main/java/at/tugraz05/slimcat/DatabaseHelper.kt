@@ -17,7 +17,15 @@ object DatabaseHelper {
     private lateinit var userId: String
     private lateinit var storage: StorageReference
 
-    fun initializeDatabaseReference() {
+    fun maybeInit(applicationContext: Context) {
+        if (this::database.isInitialized)
+            return
+        initializeDatabaseReference()
+        addPostEventListener()
+        checkAndCreateUserId(applicationContext)
+    }
+
+    private fun initializeDatabaseReference() {
         Firebase.database.setPersistenceEnabled(true)
         database = Firebase.database.reference
         storage = FirebaseStorage.getInstance().reference
@@ -33,7 +41,7 @@ object DatabaseHelper {
         return this.userId
     }
 
-    fun checkAndCreateUserId(applicationContext: Context) {
+    private fun checkAndCreateUserId(applicationContext: Context) {
         try {
             val slimCatDir = File(applicationContext.filesDir, "slimCat")
             if (!slimCatDir.exists())
@@ -60,7 +68,7 @@ object DatabaseHelper {
 
     }
 
-    fun addPostEventListener() {
+    private fun addPostEventListener() {
         val postListener = object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataSnapshot = snapshot
