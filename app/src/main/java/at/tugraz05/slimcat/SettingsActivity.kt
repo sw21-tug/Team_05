@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.preference.PreferenceFragmentCompat
 import at.tugraz05.slimcat.databinding.SettingsActivityBinding
 import java.io.File
 import java.util.jar.Manifest
@@ -71,7 +70,10 @@ class SettingsActivity: AppCompatActivity() {
         }
 
         imageButton = findViewById(R.id.imageButton)
-
+        imageButton.setOnClickListener {
+            binding.user?.image = CaptureImage.captureImage(this) ?: ""
+        }
+        imageButton.setImageURI(Uri.fromFile(File(binding.user?.image)))
 
         // save button
         val saveButton = findViewById<Button>(R.id.setting_btn_save)
@@ -113,7 +115,21 @@ class SettingsActivity: AppCompatActivity() {
         )
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (binding.user == null)
+            return
+        imageButton.setImageURI(Uri.fromFile(File(binding.user!!.image)))
+    }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        binding.user?.image = CaptureImage.captureImage(this) ?: ""
+    }
 
 }
 
