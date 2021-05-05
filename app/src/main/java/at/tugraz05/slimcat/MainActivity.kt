@@ -4,34 +4,29 @@ import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.core.view.children
-import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.fragment.app.commit
 import at.tugraz05.slimcat.databinding.CatAccordionBinding
-import com.google.firebase.database.DataSnapshot
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var databaseHelper: DatabaseHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        databaseHelper = DatabaseHelper.get()
-        databaseHelper.initializeDatabaseReference()
-        databaseHelper.addPostEventListener()
-        databaseHelper.checkAndCreateUserId(applicationContext)
+
+        DatabaseHelper.initializeDatabaseReference()
+        DatabaseHelper.addPostEventListener()
+        DatabaseHelper.checkAndCreateUserId(applicationContext)
 
         findViewById<FloatingActionButton>(R.id.btn_addcat).setOnClickListener {
             val intent = Intent(this, AddcatActivity::class.java)
@@ -44,8 +39,8 @@ class MainActivity : AppCompatActivity() {
 //        )
 //        cats.forEach { databaseHelper.writeNewCat(it) }
 
-        databaseHelper.addValueEventListener{
-            displayCats(databaseHelper.readUserCats())
+        DatabaseHelper.addValueEventListener{
+            displayCats(DatabaseHelper.readUserCats())
         }
     }
 
@@ -65,7 +60,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun displayCats(cats:List<CatDummy?>) {
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+    }
+
+    fun displayCats(cats:List<CatDataClass?>) {
         val container = findViewById<LinearLayout>(R.id.scroll_content)
         container.children.forEach { view ->
             val binding = DataBindingUtil.bind<CatAccordionBinding>(view)
@@ -81,21 +79,20 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        val that = this
+
         cats.forEach {
             if (container.children.find { view -> DataBindingUtil.bind<CatAccordionBinding>(view)?.cat?.name == it?.name} == null) {
-                supportFragmentManager.commit {
-                    val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
-                    binding.cat = it
-                    binding.presenter = CatAccordionPresenter()
-                    container.addView(binding.root)
-                    binding.root.findViewById<Button>(R.id.edit_cat).setOnClickListener {
-                        val intent = Intent(that, AddcatActivity::class.java)
-                        startActivity(intent)
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                        binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+
+                val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
+                binding.cat = it
+                binding.presenter = CatAccordionPresenter()
+                container.addView(binding.root)
+                binding.root.findViewById<Button>(R.id.edit_cat).setOnClickListener {
+                    val intent = Intent(this, AddcatActivity::class.java)
+                    startActivity(intent)
                 }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                    binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
             }
         }
     }

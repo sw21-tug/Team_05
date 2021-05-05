@@ -8,7 +8,7 @@
         <import type="android.view.ViewGroup" />
         <variable
             name="cat"
-            type="at.tugraz05.slimcat.CatDummy" />
+            type="at.tugraz05.slimcat.CatDataClass" />
         <variable
             name="presenter"
             type="at.tugraz05.slimcat.CatAccordionPresenter" />

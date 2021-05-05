@@ -7,16 +7,17 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.io.File
 
-class DatabaseHelper private constructor() {
+object DatabaseHelper {
     private lateinit var database: DatabaseReference
     private lateinit var dataSnapshot: DataSnapshot
     private lateinit var userId: String
 
     fun initializeDatabaseReference() {
+        Firebase.database.setPersistenceEnabled(true)
         database = Firebase.database.reference
     }
 
-    private fun createUserId(userId: String? = null): String {
+    private fun createUserId(userId: String?): String {
         if(userId == null){
             this.userId = database.push().key!!
         }
@@ -40,7 +41,7 @@ class DatabaseHelper private constructor() {
 
             userId = file.readText()
             if (userId == "") {
-                userId = createUserId()
+                userId = createUserId(null)
                 file.writeText(userId)
             }
             else {
@@ -66,6 +67,7 @@ class DatabaseHelper private constructor() {
         database.addValueEventListener(postListener)
     }
 
+
     fun addValueEventListener(err: (error: DatabaseError) -> Unit = {}, cb: (snapshot: DataSnapshot) -> Unit) {
         database.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -78,33 +80,31 @@ class DatabaseHelper private constructor() {
         })
     }
 
-    fun writeNewCat(cat: CatDummy) {
+    fun writeNewCat(cat: CatDataClass) {
         val catName: String = cat.name!!
         database.child(userId).child(catName).setValue(cat)
     }
 
-    fun readUserCat(catName: String): CatDummy? {
-        return dataSnapshot.child(userId).child(catName).getValue(CatDummy::class.java)
+    fun readUserCat(catName: String): CatDataClass? {
+        return dataSnapshot.child(userId).child(catName).getValue(CatDataClass::class.java)
     }
 
-    fun readUserCats(): List<CatDummy?> {
-        return dataSnapshot.child(userId).children.map { it.getValue(CatDummy::class.java) }
+    fun readUserCats(): List<CatDataClass?> {
+        return dataSnapshot.child(userId).children.map { it.getValue(CatDataClass::class.java) }
     }
 
-    fun updateCat(oldCatName: String, cat: CatDummy) {
+    fun editUser(oldCatName: String, cat: CatDataClass) {
         val catOld = readUserCat(oldCatName)!!
         val catNewMap = cat.toMap()
         val catOldMap = catOld.toMap()
 
         val map = catNewMap.mapValues { if(it.value == null) catOldMap[it.key] else it.value }
         if (oldCatName != cat.name)
-            database.child(userId).child(oldCatName).removeValue()
-        database.child(userId).child(cat.name).updateChildren(map)
+            deleteCat(oldCatName)
+        database.child(userId).child(cat.name!!).updateChildren(map)
     }
 
-    companion object {
-        private val instance = DatabaseHelper()
-
-        fun get() = instance
+    fun deleteCat(catName: String) {
+        database.child(userId).child(catName).removeValue()
     }
 }

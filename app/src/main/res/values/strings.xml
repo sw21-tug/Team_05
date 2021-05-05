@@ -34,6 +34,9 @@
     <string name="input_race_hint">e.g. Toyger</string>
     <string name="input_size_hint">in cm</string>
     <string name="input_weight_hint">in kg</string>
+    <!-- Add cat error messages -->
+    <string name="error_create_cat">Please enter a name for your cat.</string>
+    <string name="error_delete_cat">Please enter the name of the cat you want to delete.</string>
 
 
 
