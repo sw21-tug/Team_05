@@ -1,0 +1,124 @@
+package at.tugraz05.slimcat
+
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.preference.PreferenceFragmentCompat
+import at.tugraz05.slimcat.databinding.SettingsActivityBinding
+import java.io.File
+import java.util.jar.Manifest
+
+
+class SettingsActivity: AppCompatActivity() {
+    companion object {
+            const val KG = 0
+            const val LF = 1
+
+            const val MALE = 0
+            const val FEMALE = 1
+            const val DIVERSE = 2
+
+            const val ENGLISH = 0
+            const val MANDARIN = 1
+    }
+
+    private lateinit var binding: SettingsActivityBinding
+    private lateinit var imageButton: ImageButton
+
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // data binding for layout
+        binding = DataBindingUtil.setContentView(this, R.layout.settings_activity)
+
+        binding.user = loadData(this)
+
+        // make unit seeker
+        val unitSeeker = findViewById<SeekBar>(R.id.settings_seek_measurement)
+
+        // unit seeker helpers
+        findViewById<TextView>(R.id.settings_unit_of_measurement_kg).setOnClickListener { unitSeeker.progress = KG }
+        findViewById<TextView>(R.id.settings_unit_of_measurement_lbs).setOnClickListener { unitSeeker.progress = LF }
+
+
+        // gender spinner
+        val spinnerGender = findViewById<Spinner>(R.id.settings_gender_spinner)
+        ArrayAdapter.createFromResource(this, R.array.settings_gender, R.layout.spinner_closed_items).also {
+            it.setDropDownViewResource(R.layout.spinner_items)
+            spinnerGender.adapter = it
+        }
+
+        // language spinner
+        val spinnerLang = findViewById<Spinner>(R.id.settings_language_spinner)
+        ArrayAdapter.createFromResource(this, R.array.settings_language, R.layout.spinner_closed_items).also {
+            it.setDropDownViewResource(R.layout.spinner_items)
+            spinnerLang.adapter = it
+        }
+
+        imageButton = findViewById(R.id.imageButton)
+
+
+        // save button
+        val saveButton = findViewById<Button>(R.id.setting_btn_save)
+        saveButton.setOnClickListener {
+            saveData(this)
+        }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val actionBar = supportActionBar
+        actionBar!!.title = getString(R.string.title_activity_settings)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    private fun saveData(context: Context) {
+        val sharedpref = context.getSharedPreferences("userprefs", MODE_PRIVATE)
+        val editor = sharedpref.edit()
+        editor.putString("name", binding.user?.name)
+        editor.putString("email", binding.user?.email)
+        editor.putInt("gender", binding.user?.gender ?:0)
+        editor.putInt("unit", binding.user?.unit ?:0)
+        editor.putInt("language", binding.user?.language ?:0)
+        editor.putString("image", binding.user?.image)
+        editor.apply()
+    }
+
+    fun loadData(context: Context): UserData {
+        val sharedpref = context.getSharedPreferences("userprefs", MODE_PRIVATE)
+        return UserData(
+            sharedpref.getString("name", "")!!,
+            sharedpref.getString("email", "")!!,
+            sharedpref.getInt("gender", 0),
+            sharedpref.getInt("unit", 0),
+            sharedpref.getInt("language", 0),
+            sharedpref.getString("image", "")!!
+        )
+    }
+
+
+
+}
+
+// data class for binding of userdata from sharedpreferences
+data class UserData(var name: String, var email: String, var gender: Int, var unit: Int, var language: Int, var image: String)
+
+
+

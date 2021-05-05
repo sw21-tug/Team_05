@@ -21,7 +21,27 @@
         </activity>
         <activity
             android:name=".AddcatActivity"
-            android:label="@string/title_cat_details"></activity>
+            android:label="@string/title_cat_details" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="at.tugraz05.slimcat.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
 
 </manifest>
