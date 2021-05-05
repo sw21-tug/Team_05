@@ -14,12 +14,13 @@ import android.widget.SeekBar
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.*
 import junit.framework.Assert.assertEquals
+import junit.framework.TestCase
 import org.hamcrest.CoreMatchers
 import org.mockito.Mockito
 
 
 @RunWith(AndroidJUnit4::class)
-class SettingsActivityTest {
+class SettingsActivityTest : TestCase(){
     private val editTxtIds = arrayOf(R.id.settings_name, R.id.settings_email)
     private val spinnerIds = arrayOf(R.id.settings_gender_spinner, R.id.settings_language_spinner)
     private val ids =  editTxtIds + spinnerIds + arrayOf(R.id.settings_seek_measurement, R.id.imageButton)
