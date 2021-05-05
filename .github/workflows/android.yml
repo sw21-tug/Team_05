@@ -30,8 +30,8 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
 
-    - name: set up kvm
-      run: sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils cpu-checker && kvm-ok
+#    - name: set up kvm
+#      run: sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils cpu-checker && kvm-ok
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
