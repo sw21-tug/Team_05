@@ -69,4 +69,19 @@ class SettingsActivityTest : TestCase(){
         }
     }
 
+    @Test
+    fun testMandarinBtnSave(){
+        ActivityScenario.launch(SettingsActivity::class.java)
+        onView(withId(R.id.settings_language_spinner)).perform(click())
+        onView(withText("mandarin (chinese)")).perform(click())
+        onView(withId(R.id.setting_btn_save)).check(matches(withText("保存")))
+    }
+    @Test
+    fun testEnglishBtnSave(){
+        ActivityScenario.launch(SettingsActivity::class.java)
+        onView(withId(R.id.settings_language_spinner)).perform(click())
+        onView(withText("english")).perform(click())
+        onView(withId(R.id.setting_btn_save)).check(matches(withText("Save")))
+    }
+
 }
