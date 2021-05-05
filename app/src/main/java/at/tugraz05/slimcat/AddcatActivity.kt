@@ -102,7 +102,8 @@ class AddcatActivity : AppCompatActivity() {
                 findViewById(R.id.row_gestation),
                 findViewById(R.id.row_lactation),
         )
-        seeker = GenderSeeker(genderSeeker.progress, femaleSwitches)
+        genderSeeker.progress = binding.cat?.gender ?: 1
+        seeker = GenderSeeker(genderSeeker.progress, femaleSwitches, binding)
         genderSeeker.setOnSeekBarChangeListener(seeker)
         // gender seeker helpers
         findViewById<TextView>(R.id.label_gender_male).setOnClickListener { genderSeeker.progress = GenderSeeker.MALE }
@@ -157,7 +158,7 @@ class AddcatActivity : AppCompatActivity() {
 
 }
 
-class GenderSeeker(p: Int, private var switches: List<TableRow>) : SeekBar.OnSeekBarChangeListener {
+class GenderSeeker(p: Int, private var switches: List<TableRow>, private var binding: ActivityAddcatBinding) : SeekBar.OnSeekBarChangeListener {
     companion object {
         const val MALE = 0
         const val FEMALE = 1
@@ -180,5 +181,6 @@ class GenderSeeker(p: Int, private var switches: List<TableRow>) : SeekBar.OnSee
     fun updateSwitches(progress: Int) {
         val visible = if (progress == FEMALE) View.VISIBLE else View.GONE
         switches.forEach { it.visibility = visible }
+        binding.cat?.gender = progress
     }
 }
