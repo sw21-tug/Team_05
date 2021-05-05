@@ -1,5 +1,6 @@
 package at.tugraz05.slimcat
 
+import junit.framework.TestCase
 import org.junit.Test
 
 import org.junit.Assert.*
