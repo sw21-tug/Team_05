@@ -22,6 +22,7 @@ class AddcatActivity : AppCompatActivity() {
     private lateinit var seeker: GenderSeeker
     private lateinit var nameField: EditText
     private var edit = false
+    private lateinit var oldName: String
 
     private lateinit var binding: ActivityAddcatBinding
     private lateinit var imageButton: ImageButton
@@ -36,8 +37,13 @@ class AddcatActivity : AppCompatActivity() {
         if (bundle != null) {
             edit = true
             binding.cat = bundle.getParcelable("Cat")!!
+            oldName = binding.cat!!.name!!
         }
-        else binding.cat = CatDataClass()
+        else
+        {
+            binding.cat = CatDataClass()
+            oldName = ""
+        }
 
 
 
@@ -67,9 +73,7 @@ class AddcatActivity : AppCompatActivity() {
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
             else {
-                if (edit) {
-
-                }
+                if (edit) updateCat()
                 else createCat()
 
                 finish()
@@ -132,12 +136,12 @@ class AddcatActivity : AppCompatActivity() {
         return true
     }
 
-    fun setFemale(on: Boolean = true) {
-        seeker.updateSwitches(if (on) 1 else 0)
-    }
-
     private fun createCat() {
         DatabaseHelper.writeNewCat(binding.cat!!)
+    }
+
+    private fun updateCat() {
+        DatabaseHelper.editUser(oldName, binding.cat!!)
     }
 
     private fun deleteCat() {
