@@ -2,6 +2,7 @@ package at.tugraz05.slimcat
 
 import android.animation.LayoutTransition
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -12,6 +13,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.children
@@ -27,10 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-
-        DatabaseHelper.initializeDatabaseReference()
-        DatabaseHelper.addPostEventListener()
-        DatabaseHelper.checkAndCreateUserId(applicationContext)
+        DatabaseHelper.maybeInit(applicationContext)
 
         findViewById<FloatingActionButton>(R.id.btn_addcat).setOnClickListener {
             val intent = Intent(this, AddcatActivity::class.java)
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         LanguageHandler.setLanguage(this)
-
+        supportActionBar!!.title = getString(R.string.app_name)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -78,16 +77,17 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
     }
 
-    fun displayCats(cats:List<CatDataClass?>) {
+    fun displayCats(cats: List<CatDataClass?>) {
         val container = findViewById<LinearLayout>(R.id.scroll_content)
         container.children.forEach { view ->
             val binding = DataBindingUtil.bind<CatAccordionBinding>(view)
             if (binding != null) {
-                val found_cat = cats.find {
+                val foundCat = cats.find {
                     it?.name == binding.cat?.name
                 }
-                if (found_cat != null) {
-                    binding.cat = found_cat
+                if (foundCat != null) {
+                    binding.cat = foundCat
+                    updateCatImage(binding)
                 }
                 else {
                     container.removeView(view)
@@ -106,8 +106,19 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, AddcatActivity::class.java)
                     startActivity(intent)
                 }
+                updateCatImage(binding)
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                     binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+            }
+        }
+    }
+
+    private fun updateCatImage(binding: CatAccordionBinding) {
+        if (binding.cat?.imageString?.isNotEmpty() == true) {
+            val file = CaptureImage.createImageFile(this)
+            DatabaseHelper.getImage(binding.cat!!.imageString!!, file) {
+                binding.root.findViewById<ImageView>(R.id.imageView).setImageURI(Uri.fromFile(file))
             }
         }
     }

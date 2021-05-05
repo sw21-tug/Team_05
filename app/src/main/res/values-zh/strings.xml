@@ -51,8 +51,6 @@
     <string name="settings_language">语</string>
     <!--<string name="settings_language_en">en</string>
     <string name="settings_language_de">de</string>-->
-
-
     <string-array name="settings_gender">
         <item>男性</item>
         <item>女性</item>
@@ -63,21 +61,9 @@
         <item>english</item> //
         <item>mandarin (chinese)</item>
     </string-array>
-
-
-
     <!-- Settings hints-->
     <string name="settings_name_hint">大同王大同王</string>
     <string name="settings_email_hint">datong.wang@email.com</string>
-
-
-
-
-
-
-
-
-
 
     <!-- Details -->
     <string name="title_cat_details">猫的详细信息</string>

@@ -2,6 +2,7 @@ package at.tugraz05.slimcat
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,7 +11,9 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.databinding.DataBindingUtil
+import at.tugraz05.slimcat.databinding.ActivityAddcatBinding
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,32 +21,37 @@ class AddcatActivity : AppCompatActivity() {
     lateinit var scrollView: ScrollView
     lateinit var seeker: GenderSeeker
     lateinit var nameField: EditText
-    lateinit var raceField: EditText
-    // lateinit var ageField: EditText
-    lateinit var sizeField: EditText
-    lateinit var weightField: EditText
-    lateinit var genderSeeker: SeekBar
+
+    private lateinit var binding: ActivityAddcatBinding
+    private lateinit var imageButton: ImageButton
+    private var imagePath: String = ""
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_addcat)
 
-        //click on camera (The image will be automatically saved in a default directory)
-        findViewById<ImageButton>(R.id.btn_camera).setOnClickListener {
-            val intent = Intent("android.media.action.IMAGE_CAPTURE")
-            startActivity(intent)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_addcat)
+        binding.cat = CatDataClass()
+
+        // camera
+        imageButton = findViewById(R.id.btn_camera)
+        imageButton.setOnClickListener {
+           imagePath = CaptureImage.captureImage(this) ?: ""
         }
+
+        if (binding.cat?.imageString?.isNotEmpty() == true)
+        {
+            val file = CaptureImage.createImageFile(this)
+            imagePath = file.absolutePath
+            DatabaseHelper.getImage(binding.cat!!.imageString!!, file) {
+                imageButton.setImageURI(Uri.fromFile(file))
+            }
+        }
+
 
         // initialize all fields
         scrollView = findViewById(R.id.main_scroll_view)
         nameField = findViewById(R.id.txt_name)
-        raceField = findViewById(R.id.txt_race)
-        // TODO: exchange after addCatActivity rework calculate age
-        // ageField = findViewById(R.id.txt_age)
-        sizeField = findViewById(R.id.txt_size)
-        weightField = findViewById(R.id.txt_weight)
-        genderSeeker = findViewById(R.id.seek_gender)
 
         findViewById<Button>(R.id.btn_save).setOnClickListener {
             if (TextUtils.isEmpty(nameField.text)) {
@@ -68,21 +76,22 @@ class AddcatActivity : AppCompatActivity() {
         }
 
         //click on btn_dob to open the datepicker
-        var formatDate = SimpleDateFormat("dd MMMM YYYY", Locale.US)
+        val formatDate = SimpleDateFormat("dd MMMM yyyy", Locale.US)
 
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
             val getDate : Calendar = Calendar.getInstance()
-            val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth, DatePickerDialog.OnDateSetListener{ datePicker, year, month, day ->
+            val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                { _, year, month, day ->
 
-                val selectDate = Calendar.getInstance()
-                selectDate.set(Calendar.YEAR, year)
-                selectDate.set(Calendar.MONTH, month)
-                selectDate.set(Calendar.DAY_OF_MONTH, day)
-                val date = formatDate.format((selectDate.time))
-                Toast.makeText(this, "Date : " + date, Toast.LENGTH_SHORT).show()
-                findViewById<TextView>(R.id.txt_dob).text = date
+                    val selectDate = Calendar.getInstance()
+                    selectDate.set(Calendar.YEAR, year)
+                    selectDate.set(Calendar.MONTH, month)
+                    selectDate.set(Calendar.DAY_OF_MONTH, day)
+                    val date = formatDate.format((selectDate.time))
+                    Toast.makeText(this, "Date : $date", Toast.LENGTH_SHORT).show()
+                    findViewById<TextView>(R.id.txt_dob).text = date
 
-            }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
+                }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
             datepicker.show()
 
         }
@@ -93,7 +102,8 @@ class AddcatActivity : AppCompatActivity() {
                 findViewById(R.id.row_gestation),
                 findViewById(R.id.row_lactation),
         )
-        seeker = GenderSeeker(genderSeeker.progress, femaleSwitches)
+        genderSeeker.progress = binding.cat?.gender ?: 1
+        seeker = GenderSeeker(genderSeeker.progress, femaleSwitches, binding)
         genderSeeker.setOnSeekBarChangeListener(seeker)
         // gender seeker helpers
         findViewById<TextView>(R.id.label_gender_male).setOnClickListener { genderSeeker.progress = GenderSeeker.MALE }
@@ -115,25 +125,40 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     private fun createCat() {
-        val catName: String = nameField.text.toString()
-        val catRace: String = raceField.text.toString()
-        // val catAge: Int = if (ageField.text.toString() != "") ageField.text.toString().toInt() else 0
-        val catSize: Int = if (sizeField.text.toString()!= "") sizeField.text.toString().toInt() else 0
-        val catWeight: Double = if (weightField.text.toString() != "") weightField.text.toString().toDouble() else 0.0
-        val genderValue:Int = genderSeeker.progress
-        val catGender = if (genderValue == GenderSeeker.MALE) "male" else "female"
-
-        val cat = CatDataClass(catName, catRace, 0, catSize, catWeight, catGender)
-        DatabaseHelper.writeNewCat(cat)
+        DatabaseHelper.writeNewCat(binding.cat!!)
     }
 
     private fun deleteCat() {
         val catName: String = nameField.text.toString()
         DatabaseHelper.deleteCat(catName)
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        val file = File(imagePath)
+        val uri = Uri.fromFile(file)
+        val img = "cats/${file.name}"
+
+        DatabaseHelper.uploadImagesToFirebase(img, uri) {
+            imageButton.setImageURI(uri)
+            binding.cat!!.imageString = img
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        imagePath = CaptureImage.captureImage(this) ?: ""
+    }
+
 }
 
-class GenderSeeker(p: Int, private var switches: List<TableRow>) : SeekBar.OnSeekBarChangeListener {
+class GenderSeeker(p: Int, private var switches: List<TableRow>, private var binding: ActivityAddcatBinding) : SeekBar.OnSeekBarChangeListener {
     companion object {
         const val MALE = 0
         const val FEMALE = 1
@@ -156,5 +181,6 @@ class GenderSeeker(p: Int, private var switches: List<TableRow>) : SeekBar.OnSee
     fun updateSwitches(progress: Int) {
         val visible = if (progress == FEMALE) View.VISIBLE else View.GONE
         switches.forEach { it.visibility = visible }
+        binding.cat?.gender = progress
     }
 }
