@@ -18,8 +18,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddcatActivity : AppCompatActivity() {
+    companion object {
+        const val MALE = 0
+        const val FEMALE = 1
+    }
+
     lateinit var scrollView: ScrollView
-    lateinit var seeker: GenderSeeker
     lateinit var nameField: EditText
 
     private lateinit var binding: ActivityAddcatBinding
@@ -102,11 +106,10 @@ class AddcatActivity : AppCompatActivity() {
                 findViewById(R.id.row_gestation),
                 findViewById(R.id.row_lactation),
         )
-        seeker = GenderSeeker(genderSeeker.progress, femaleSwitches)
-        genderSeeker.setOnSeekBarChangeListener(seeker)
+
         // gender seeker helpers
-        findViewById<TextView>(R.id.label_gender_male).setOnClickListener { genderSeeker.progress = GenderSeeker.MALE }
-        findViewById<TextView>(R.id.label_gender_female).setOnClickListener { genderSeeker.progress = GenderSeeker.FEMALE }
+        findViewById<TextView>(R.id.label_gender_male).setOnClickListener { genderSeeker.progress = MALE }
+        findViewById<TextView>(R.id.label_gender_female).setOnClickListener { genderSeeker.progress = FEMALE }
 
         //Back-Button
         val actionbar = supportActionBar
@@ -119,9 +122,6 @@ class AddcatActivity : AppCompatActivity() {
         return true
     }
 
-    fun setFemale(on: Boolean = true) {
-        seeker.updateSwitches(if (on) 1 else 0)
-    }
 
     private fun createCat() {
         DatabaseHelper.writeNewCat(binding.cat!!)
@@ -157,28 +157,3 @@ class AddcatActivity : AppCompatActivity() {
 
 }
 
-class GenderSeeker(p: Int, private var switches: List<TableRow>) : SeekBar.OnSeekBarChangeListener {
-    companion object {
-        const val MALE = 0
-        const val FEMALE = 1
-    }
-    init {
-        updateSwitches(p)
-    }
-
-    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        Log.d("SeekBar", "%d".format(progress))
-        updateSwitches(progress)
-    }
-
-    override fun onStartTrackingTouch(seekBar: SeekBar?) {
-    }
-
-    override fun onStopTrackingTouch(seekBar: SeekBar?) {
-    }
-
-    fun updateSwitches(progress: Int) {
-        val visible = if (progress == FEMALE) View.VISIBLE else View.GONE
-        switches.forEach { it.visibility = visible }
-    }
-}

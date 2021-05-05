@@ -46,7 +46,7 @@ class AddcatActivityTest : TestCase() {
     @Test
     fun maleSeekerChangeHideFemale() {
         ActivityScenario.launch(AddcatActivity::class.java)
-        onView(withId(R.id.seek_gender)).perform(callMethod<SeekBar> { it.progress = GenderSeeker.MALE })
+        onView(withId(R.id.seek_gender)).perform(callMethod<SeekBar> { it.progress = AddcatActivity.MALE })
         rowids.forEach { onView(withId(it)).check(isVisibility(View.GONE)) }
     }
 
@@ -54,9 +54,9 @@ class AddcatActivityTest : TestCase() {
     fun clickingGenderLabelsChangesSeeker() {
         ActivityScenario.launch(AddcatActivity::class.java)
         onView(withId(R.id.label_gender_male)).perform(click())
-        onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == GenderSeeker.MALE })
+        onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == AddcatActivity.MALE })
         onView(withId(R.id.label_gender_female)).perform(click())
-        onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == GenderSeeker.FEMALE })
+        onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == AddcatActivity.FEMALE })
     }
 
     @Test
