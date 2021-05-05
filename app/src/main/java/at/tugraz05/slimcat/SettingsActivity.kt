@@ -73,7 +73,8 @@ class SettingsActivity: AppCompatActivity() {
         imageButton.setOnClickListener {
             binding.user?.image = CaptureImage.captureImage(this) ?: ""
         }
-        imageButton.setImageURI(Uri.fromFile(File(binding.user?.image)))
+        if (binding.user?.image?.isNotEmpty() == true)
+            imageButton.setImageURI(Uri.fromFile(File(binding.user?.image!!)))
 
         // save button
         val saveButton = findViewById<Button>(R.id.setting_btn_save)
@@ -119,7 +120,8 @@ class SettingsActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (binding.user == null)
             return
-        imageButton.setImageURI(Uri.fromFile(File(binding.user!!.image)))
+        if (binding.user!!.image.isNotEmpty())
+            imageButton.setImageURI(Uri.fromFile(File(binding.user!!.image)))
     }
 
     override fun onRequestPermissionsResult(

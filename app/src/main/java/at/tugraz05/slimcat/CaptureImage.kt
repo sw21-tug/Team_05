@@ -49,7 +49,7 @@ class CaptureImage {
                         "at.tugraz05.slimcat.fileprovider", it
                 )
                 path = it.absolutePath
-                Log.d("photo", "${it.absolutePath}")
+                Log.d("photo", it.absolutePath)
             }
 
             Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
@@ -64,9 +64,9 @@ class CaptureImage {
 
 
         @Throws(IOException::class)
-        private fun createImageFile(context: Activity): File {
+        fun createImageFile(context: Activity): File {
             // Create an image file name
-            val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+            val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
             val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             if (storageDir == null)
                 Log.d("photo", "getExternalFilesDir failed")

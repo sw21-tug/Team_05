@@ -6,6 +6,7 @@ import android.util.Log
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FileDownloadTask
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.File
@@ -19,7 +20,6 @@ object DatabaseHelper {
     fun initializeDatabaseReference() {
         Firebase.database.setPersistenceEnabled(true)
         database = Firebase.database.reference
-
         storage = FirebaseStorage.getInstance().reference
     }
 
@@ -121,6 +121,9 @@ object DatabaseHelper {
         }.addOnFailureListener {
             Log.d("Firebase", "Upload failed ($name)")
         }
+    }
 
+    fun getImage(name: String, destination: File, onSuccess: (FileDownloadTask.TaskSnapshot) -> Unit) {
+        storage.child(name).getFile(destination).addOnSuccessListener(onSuccess)
     }
 }
