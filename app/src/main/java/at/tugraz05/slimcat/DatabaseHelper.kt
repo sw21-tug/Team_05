@@ -1,20 +1,26 @@
 package at.tugraz05.slimcat
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.io.File
 
 object DatabaseHelper {
     private lateinit var database: DatabaseReference
     private lateinit var dataSnapshot: DataSnapshot
     private lateinit var userId: String
+    private lateinit var storage: StorageReference
 
     fun initializeDatabaseReference() {
         Firebase.database.setPersistenceEnabled(true)
         database = Firebase.database.reference
+
+        storage = FirebaseStorage.getInstance().reference
     }
 
     private fun createUserId(userId: String?): String {
@@ -106,5 +112,15 @@ object DatabaseHelper {
 
     fun deleteCat(catName: String) {
         database.child(userId).child(catName).removeValue()
+    }
+
+    fun uploadImagesToFirebase(name: String, contentUri: Uri, onSuccess: (Uri) -> Unit) {
+        val image = storage.child(name)
+        image.putFile(contentUri).addOnSuccessListener {
+            image.downloadUrl.addOnSuccessListener(onSuccess)
+        }.addOnFailureListener {
+            Log.d("Firebase", "Upload failed ($name)")
+        }
+
     }
 }

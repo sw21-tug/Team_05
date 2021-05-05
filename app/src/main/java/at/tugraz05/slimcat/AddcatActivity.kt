@@ -2,6 +2,7 @@ package at.tugraz05.slimcat
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,6 +12,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -24,16 +26,23 @@ class AddcatActivity : AppCompatActivity() {
     lateinit var weightField: EditText
     lateinit var genderSeeker: SeekBar
 
+    private var imagePath: String? = null
+
+    private lateinit var imageButton: ImageButton
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcat)
 
-        //click on camera (The image will be automatically saved in a default directory)
-        findViewById<ImageButton>(R.id.btn_camera).setOnClickListener {
-            val intent = Intent("android.media.action.IMAGE_CAPTURE")
-            startActivity(intent)
+        // camera
+        imageButton = findViewById(R.id.btn_camera)
+        imageButton.setOnClickListener {
+           imagePath = CaptureImage.captureImage(this) ?: ""
         }
+        imageButton.setImageURI(Uri.fromFile(File(imagePath)))
+
+
 
         // initialize all fields
         scrollView = findViewById(R.id.main_scroll_view)
@@ -131,6 +140,30 @@ class AddcatActivity : AppCompatActivity() {
         val catName: String = nameField.text.toString()
         DatabaseHelper.deleteCat(catName)
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (imagePath == null)
+            return
+
+        val file = File(imagePath)
+        val uri = Uri.fromFile(file)
+
+        DatabaseHelper.uploadImagesToFirebase("cats/${file.name}", uri) {
+            imageButton.setImageURI(uri)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        imagePath = CaptureImage.captureImage(this) ?: ""
+    }
+
 }
 
 class GenderSeeker(p: Int, private var switches: List<TableRow>) : SeekBar.OnSeekBarChangeListener {
