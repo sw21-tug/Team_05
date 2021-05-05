@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
         <variable name="cat" type="at.tugraz05.slimcat.CatDataClass"/>
     </data>
 
@@ -381,8 +380,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="@dimen/addcat_row_margin"
                         android:animateLayoutChanges="true"
-                        android:gravity="center_vertical"
-                        android:visibility="@{cat.gender == 1 ? View.VISIBLE : View.GONE}">
+                        android:gravity="center_vertical">
 
                         <TextView
                             android:id="@+id/label_gestation"
@@ -408,8 +406,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="@dimen/addcat_row_margin"
                         android:animateLayoutChanges="true"
-                        android:gravity="center_vertical"
-                        android:visibility="@{cat.gender == 1 ? View.VISIBLE : View.GONE}">
+                        android:gravity="center_vertical">
 
                         <TextView
                             android:id="@+id/label_lactation"
