@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -79,15 +80,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        cats.forEach {
-            if (container.children.find { view -> DataBindingUtil.bind<CatAccordionBinding>(view)?.cat?.name == it?.name} == null) {
+        cats.forEach { cat ->
+            if (container.children.find { view -> DataBindingUtil.bind<CatAccordionBinding>(view)?.cat?.name == cat?.name} == null) {
 
                 val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
-                binding.cat = it
+                binding.cat = cat
                 binding.presenter = CatAccordionPresenter()
                 container.addView(binding.root)
                 binding.root.findViewById<Button>(R.id.edit_cat).setOnClickListener {
                     val intent = Intent(this, AddcatActivity::class.java)
+                    val bundle = bundleOf("Cat" to cat)
+                    intent.putExtras(bundle)
                     startActivity(intent)
                 }
                 updateCatImage(binding)

@@ -18,9 +18,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddcatActivity : AppCompatActivity() {
-    lateinit var scrollView: ScrollView
-    lateinit var seeker: GenderSeeker
-    lateinit var nameField: EditText
+    private lateinit var scrollView: ScrollView
+    private lateinit var seeker: GenderSeeker
+    private lateinit var nameField: EditText
+    private var edit = false
 
     private lateinit var binding: ActivityAddcatBinding
     private lateinit var imageButton: ImageButton
@@ -31,7 +32,14 @@ class AddcatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_addcat)
-        binding.cat = CatDataClass()
+        val bundle = intent.extras
+        if (bundle != null) {
+            edit = true
+            binding.cat = bundle.getParcelable("Cat")!!
+        }
+        else binding.cat = CatDataClass()
+
+
 
         // camera
         imageButton = findViewById(R.id.btn_camera)
@@ -59,7 +67,11 @@ class AddcatActivity : AppCompatActivity() {
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
             else {
-                createCat()
+                if (edit) {
+
+                }
+                else createCat()
+
                 finish()
             }
         }
