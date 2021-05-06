@@ -1,10 +1,12 @@
 package at.tugraz05.slimcat
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import androidx.core.os.bundleOf
 import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -95,12 +97,15 @@ class AddcatActivityTest : TestCase() {
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("openEditCat", it.arguments[0] as String) }.`when`(dbHelper).editUser(any(), any())
-        ActivityScenario.launch(AddcatActivity::class.java, bundleOf("Cat" to cat))
+        val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
+        intent.putExtras(bundleOf("Cat" to cat))
+        ActivityScenario.launch<AddcatActivity>(intent)
+
         onView(withId(R.id.txt_name)).check(matches(withText(cat.name)))
         onView(withId(R.id.txt_race)).check(matches(withText(cat.race)))
-        onView(withId(R.id.txt_size)).check(matches(withText(cat.size)))
+        onView(withId(R.id.txt_size)).check(matches(withText(cat.getSizeStr())))
         onView(withId(R.id.txt_weight)).check(matches(withText(cat.getWeightStr())))
-        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { it.progress == GenderSeeker.MALE })
+        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { assertEquals(GenderSeeker.MALE, it.progress) })
         onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
         Mockito.verify(dbHelper).editUser("test", cat)
     }
@@ -110,22 +115,22 @@ class AddcatActivityTest : TestCase() {
         val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "")
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
-        Mockito.doAnswer { Log.d("openAddCat", it.arguments[0] as String) }.`when`(dbHelper).writeNewCat(any())
+        Mockito.doAnswer { Log.d("openAddCat", (it.arguments[0] as CatDataClass).name!!) }.`when`(dbHelper).writeNewCat(any())
         ActivityScenario.launch(AddcatActivity::class.java)
 
         // check that empty
         onView(withId(R.id.txt_name)).check(matches(withText("")))
         onView(withId(R.id.txt_race)).check(matches(withText("")))
-        onView(withId(R.id.txt_size)).check(matches(withText(0)))
+        onView(withId(R.id.txt_size)).check(matches(withText("0")))
         onView(withId(R.id.txt_weight)).check(matches(withText("0.0")))
-        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { it.progress == GenderSeeker.FEMALE })
+        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { assertEquals(GenderSeeker.FEMALE, it.progress) })
 
         // fill in cat data
-        onView(withId(R.id.txt_name)).perform(typeText(cat.name))
-        onView(withId(R.id.txt_race)).perform(typeText(cat.race))
-        onView(withId(R.id.txt_size)).perform(typeText(cat.getSizeStr()))
-        onView(withId(R.id.txt_weight)).perform(typeText(cat.getWeightStr()))
-        onView(withId(R.id.seek_gender)).perform(callMethod<SeekBar> { it.progress = cat.gender!! })
+        onView(withId(R.id.txt_name)).perform(scrollTo()).perform(typeText(cat.name))
+        onView(withId(R.id.txt_race)).perform(scrollTo()).perform(typeText(cat.race))
+        onView(withId(R.id.txt_size)).perform(scrollTo()).perform(clearText()).perform(typeText(cat.getSizeStr()))
+        onView(withId(R.id.txt_weight)).perform(scrollTo()).perform(clearText()).perform(typeText(cat.getWeightStr()))
+        onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = cat.gender!! })
         onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
         Mockito.verify(dbHelper).writeNewCat(cat)
     }
