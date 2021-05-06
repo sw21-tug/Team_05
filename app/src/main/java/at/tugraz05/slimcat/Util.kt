@@ -13,7 +13,7 @@ object Util {
             age--
         }
         else if (current_date.month == date_of_birth.month) {
-            if (current_date.dayOfMonth > date_of_birth.dayOfMonth)
+            if (current_date.dayOfMonth < date_of_birth.dayOfMonth)
                 age--
         }
 

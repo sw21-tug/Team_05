@@ -36,7 +36,7 @@ class UtilTest{
 
     @Test
     fun testCalcAgeDayAfter(){
-        val date_of_birth = LocalDate.of(2016, 5, 1)
+        val date_of_birth = LocalDate.of(2016, 5, 12)
         val current_date = LocalDate.of(2021, 5, 6)
 
         val age = Util.calculateAge(date_of_birth, current_date)
