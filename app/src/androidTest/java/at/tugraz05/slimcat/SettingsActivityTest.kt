@@ -18,6 +18,7 @@ import android.widget.TextView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.matcher.ViewMatchers.*
 
 import junit.framework.TestCase
@@ -79,21 +80,21 @@ class SettingsActivityTest : TestCase(){
     @Test
     fun testMandarinBtnSave(){
         ActivityScenario.launch(SettingsActivity::class.java)
-        onView(withId(R.id.settings_language_spinner)).perform(click())
-        onView(withText("mandarin (chinese)")).perform(click())
-        onView(withId(R.id.setting_btn_save)).perform(click())
+        onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
+        onView(withText("mandarin (chinese)")).perform(scrollTo()).perform(click())
+        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         ActivityScenario.launch(MainActivity::class.java)
-        onView(withId(R.id.btn_addcat)).perform(click())
+        onView(withId(R.id.btn_addcat)).perform(scrollTo()).perform(click())
         onView(withId(R.id.label_name)).check(matches(withText("名")))
     }
     @Test
     fun testEnglishBtnSave(){
         ActivityScenario.launch(SettingsActivity::class.java)
-        onView(withId(R.id.settings_language_spinner)).perform(click())
-        onView(withText("english")).perform(click())
-        onView(withId(R.id.setting_btn_save)).perform(click())
+        onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
+        onView(withText("english")).perform(scrollTo()).perform(click())
+        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         ActivityScenario.launch(MainActivity::class.java)
-        onView(withId(R.id.btn_addcat)).perform(click())
+        onView(withId(R.id.btn_addcat)).perform(scrollTo()).perform(click())
         onView(withId(R.id.label_name)).check(matches(withText("Name")))
     }
 }
