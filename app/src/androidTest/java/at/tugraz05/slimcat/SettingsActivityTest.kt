@@ -84,7 +84,7 @@ class SettingsActivityTest : TestCase(){
         onView(withText("mandarin (chinese)")).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         ActivityScenario.launch(MainActivity::class.java)
-        onView(withId(R.id.btn_addcat)).perform(scrollTo()).perform(click())
+        onView(withId(R.id.btn_addcat)).perform(click())
         onView(withId(R.id.label_name)).check(matches(withText("名")))
     }
     @Test
@@ -94,7 +94,7 @@ class SettingsActivityTest : TestCase(){
         onView(withText("english")).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         ActivityScenario.launch(MainActivity::class.java)
-        onView(withId(R.id.btn_addcat)).perform(scrollTo()).perform(click())
+        onView(withId(R.id.btn_addcat)).perform(click())
         onView(withId(R.id.label_name)).check(matches(withText("Name")))
     }
 }
