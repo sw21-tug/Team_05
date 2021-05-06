@@ -28,7 +28,7 @@
     <string name="label_neutered">Neutered</string>
     <string name="label_gestation">Gestation</string>
     <string name="label_lactation">Lactation</string>
-    <string name="output_dob">dd/mm/yyyy</string>
+    <string name="output_dob">yyyy/mm/dd</string>
     <!-- Add cat hints -->
     <string name="input_name_hint">e.g. Lucky</string>
     <string name="input_race_hint">e.g. Toyger</string>
