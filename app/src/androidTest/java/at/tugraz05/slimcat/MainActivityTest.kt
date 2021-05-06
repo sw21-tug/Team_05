@@ -1,6 +1,5 @@
 package at.tugraz05.slimcat
 
-import android.util.Log
 import android.widget.LinearLayout
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -16,28 +15,35 @@ import org.mockito.Mockito
 import org.mockito.kotlin.any
 
 
+/**
+ * All tests instantiating MainActivity must mock the database!
+ * At least use: `DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))`
+ * https://github.com/mockito/mockito-kotlin/wiki/Mocking-and-verifying
+ */
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest : TestCase() {
     @Test
     fun appLaunchesSuccessfully() {
+        DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
         ActivityScenario.launch(MainActivity::class.java)
-
     }
 
     @Test
     fun addCatButtonIsDisplayed() {
+        DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
         ActivityScenario.launch(MainActivity::class.java)
         onView(withId(R.id.btn_addcat)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun addCatsWithList() {
+    fun catsAreDisplayedFromGivenList() {
+        DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
         val scenario = ActivityScenario.launch(MainActivity::class.java)
         val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5), CatDataClass(name = "Johnny", age = 7, weight = 10.0), CatDataClass(name = "Katze", age = 2, weight = 1.0))
         scenario.onActivity {
             it.displayCats(cats)
         }
-        onView(withId(R.id.scroll_content)).perform(waitFor<LinearLayout> {  it.childCount == cats.size })
+        onView(withId(R.id.scroll_content)).perform(waitFor<LinearLayout> { it.childCount == cats.size })
     }
 
     @Test
@@ -52,7 +58,7 @@ class MainActivityTest : TestCase() {
     }
 
     @Test
-    fun checkThatMockWorksWithView() {
+    fun catsAreDisplayedFromDatabase() {
         val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5), CatDataClass(name = "Johnny", age = 7, weight = 10.0))
         val mock = Mockito.mock(DatabaseHelper::class.java)
         val snap = Mockito.mock(DataSnapshot::class.java)
@@ -61,7 +67,8 @@ class MainActivityTest : TestCase() {
         Mockito.doReturn(cats).`when`(mock).readUserCats()
         DatabaseHelper.mock(mock)
 
+        // MainActivity uses the addValueEventListener to wait for data, then readUserCats for displaying (both mocked above)
         ActivityScenario.launch(MainActivity::class.java)
-        onView(withId(R.id.scroll_content)).perform(waitFor<LinearLayout> {  it.childCount == cats.size })
+        onView(withId(R.id.scroll_content)).perform(waitFor<LinearLayout> { it.childCount == cats.size })
     }
 }
