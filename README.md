@@ -49,4 +49,12 @@ Picture Credit: [Reddit User Mavagam99](https://www.reddit.com/r/aww/comments/98
 ## Implemented Feature List
 | Name | Associated User Story | Additional Information |
 | --- | --- | --- |
-| Placeholder | TT-0 | None |
+| start app | T-001 | setup of basic framework |
+| enter data of cat | T-002 | allowing the user to enter the data of their cat |
+| home screen with cat cards | T-010 | creating a home screen with accordion cards that expand and show more detail about the cats |
+| persistent database | D-004 | setting up a firebase and connecting it with all the dummy data in the app |
+| theme design | T-012 | setting up day and night themes with correct colors |
+| user settings | T-014 | a settings page for other features as well as the user profile |
+| detailed accordion view | D-011 | implementing the detailed card view of the accordions on the home screen |
+| mandarin language support | D-017 | a language change option in the settings page that changes all text to chinese |
+| phone camera support | D-021 | adding support to take and save pictures for the cat images as well as the user |
