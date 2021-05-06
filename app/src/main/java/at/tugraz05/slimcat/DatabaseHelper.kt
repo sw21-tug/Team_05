@@ -136,16 +136,13 @@ open class DatabaseHelper private constructor() {
     }
 
     companion object {
-        private lateinit var mockThis: DatabaseHelper
         private lateinit var instance: DatabaseHelper
 
         fun mock(d: DatabaseHelper) {
-            mockThis = d
+            instance = d
         }
 
         fun get(): DatabaseHelper {
-            if (this::mockThis.isInitialized)
-                return mockThis
             if (!this::instance.isInitialized)
                 instance = DatabaseHelper()
             return instance

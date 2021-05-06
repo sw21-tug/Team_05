@@ -1,18 +1,21 @@
 package at.tugraz05.slimcat
 
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
+import androidx.core.os.bundleOf
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import junit.framework.TestCase
 import org.hamcrest.CoreMatchers
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito
+import org.mockito.kotlin.any
 
 @RunWith(AndroidJUnit4::class)
 class AddcatActivityTest : TestCase() {
@@ -73,6 +76,58 @@ class AddcatActivityTest : TestCase() {
     fun btnDatepickerIsDisplayed() {
         ActivityScenario.launch(AddcatActivity::class.java)
         onView(withId(R.id.btn_dob)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun removeCatTest() {
+        val dbHelper = Mockito.mock(DatabaseHelper::class.java)
+        DatabaseHelper.mock(dbHelper)
+        Mockito.doAnswer { Log.d("removeCatTest", it.arguments[0] as String) }.`when`(dbHelper).deleteCat("test")
+        ActivityScenario.launch(AddcatActivity::class.java)
+        onView(withId(R.id.txt_name)).perform(typeText("test"))
+        onView(withId(R.id.btn_delete)).perform(scrollTo()).perform(click())
+        Mockito.verify(dbHelper).deleteCat("test")
+    }
+
+    @Test
+    fun openEditCat() {
+        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "")
+        val dbHelper = Mockito.mock(DatabaseHelper::class.java)
+        DatabaseHelper.mock(dbHelper)
+        Mockito.doAnswer { Log.d("openEditCat", it.arguments[0] as String) }.`when`(dbHelper).editUser(any(), any())
+        ActivityScenario.launch(AddcatActivity::class.java, bundleOf("Cat" to cat))
+        onView(withId(R.id.txt_name)).check(matches(withText(cat.name)))
+        onView(withId(R.id.txt_race)).check(matches(withText(cat.race)))
+        onView(withId(R.id.txt_size)).check(matches(withText(cat.size)))
+        onView(withId(R.id.txt_weight)).check(matches(withText(cat.getWeightStr())))
+        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { it.progress == GenderSeeker.MALE })
+        onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
+        Mockito.verify(dbHelper).editUser("test", cat)
+    }
+
+    @Test
+    fun openAddCat() {
+        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "")
+        val dbHelper = Mockito.mock(DatabaseHelper::class.java)
+        DatabaseHelper.mock(dbHelper)
+        Mockito.doAnswer { Log.d("openAddCat", it.arguments[0] as String) }.`when`(dbHelper).writeNewCat(any())
+        ActivityScenario.launch(AddcatActivity::class.java)
+
+        // check that empty
+        onView(withId(R.id.txt_name)).check(matches(withText("")))
+        onView(withId(R.id.txt_race)).check(matches(withText("")))
+        onView(withId(R.id.txt_size)).check(matches(withText(0)))
+        onView(withId(R.id.txt_weight)).check(matches(withText("0.0")))
+        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { it.progress == GenderSeeker.FEMALE })
+
+        // fill in cat data
+        onView(withId(R.id.txt_name)).perform(typeText(cat.name))
+        onView(withId(R.id.txt_race)).perform(typeText(cat.race))
+        onView(withId(R.id.txt_size)).perform(typeText(cat.getSizeStr()))
+        onView(withId(R.id.txt_weight)).perform(typeText(cat.getWeightStr()))
+        onView(withId(R.id.seek_gender)).perform(callMethod<SeekBar> { it.progress = cat.gender!! })
+        onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
+        Mockito.verify(dbHelper).writeNewCat(cat)
     }
 
 
