@@ -173,7 +173,7 @@
                             android:layout_weight="1"
                             android:hint="@string/input_size_hint"
                             android:importantForAutofill="no"
-                            android:inputType="numberSigned"
+                            android:inputType="number"
                             android:textSize="@dimen/addcat_input_textsize"
                             android:text="@={cat.sizeStr}" />
                     </TableRow>
@@ -202,7 +202,7 @@
                             android:layout_weight="1"
                             android:hint="@string/input_weight_hint"
                             android:importantForAutofill="no"
-                            android:inputType="numberSigned"
+                            android:inputType="numberDecimal"
                             android:textSize="@dimen/addcat_input_textsize"
                             android:text="@={cat.weightStr}" />
 

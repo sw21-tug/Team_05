@@ -11,13 +11,13 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.File
 
-object DatabaseHelper {
+open class DatabaseHelper private constructor() {
     private lateinit var database: DatabaseReference
     private lateinit var dataSnapshot: DataSnapshot
     private lateinit var userId: String
     private lateinit var storage: StorageReference
 
-    fun maybeInit(applicationContext: Context) {
+    open fun maybeInit(applicationContext: Context) {
         if (this::database.isInitialized)
             return
         initializeDatabaseReference()
@@ -82,7 +82,7 @@ object DatabaseHelper {
     }
 
 
-    fun addValueEventListener(err: (error: DatabaseError) -> Unit = {}, cb: (snapshot: DataSnapshot) -> Unit) {
+    open fun addValueEventListener(err: (error: DatabaseError) -> Unit = {}, cb: (snapshot: DataSnapshot) -> Unit) {
         database.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 cb(snapshot)
@@ -94,20 +94,20 @@ object DatabaseHelper {
         })
     }
 
-    fun writeNewCat(cat: CatDataClass) {
+    open fun writeNewCat(cat: CatDataClass) {
         val catName: String = cat.name!!
         database.child(userId).child(catName).setValue(cat)
     }
 
-    fun readUserCat(catName: String): CatDataClass? {
+    open fun readUserCat(catName: String): CatDataClass? {
         return dataSnapshot.child(userId).child(catName).getValue(CatDataClass::class.java)
     }
 
-    fun readUserCats(): List<CatDataClass?> {
+    open fun readUserCats(): List<CatDataClass?> {
         return dataSnapshot.child(userId).children.map { it.getValue(CatDataClass::class.java) }
     }
 
-    fun editUser(oldCatName: String, cat: CatDataClass) {
+    open fun editUser(oldCatName: String, cat: CatDataClass) {
         val catOld = readUserCat(oldCatName)!!
         val catNewMap = cat.toMap()
         val catOldMap = catOld.toMap()
@@ -118,11 +118,11 @@ object DatabaseHelper {
         database.child(userId).child(cat.name!!).updateChildren(map)
     }
 
-    fun deleteCat(catName: String) {
+    open fun deleteCat(catName: String) {
         database.child(userId).child(catName).removeValue()
     }
 
-    fun uploadImagesToFirebase(name: String, contentUri: Uri, onSuccess: (Uri) -> Unit) {
+    open fun uploadImagesToFirebase(name: String, contentUri: Uri, onSuccess: (Uri) -> Unit) {
         val image = storage.child(name)
         image.putFile(contentUri).addOnSuccessListener {
             image.downloadUrl.addOnSuccessListener(onSuccess)
@@ -131,7 +131,21 @@ object DatabaseHelper {
         }
     }
 
-    fun getImage(name: String, destination: File, onSuccess: (FileDownloadTask.TaskSnapshot) -> Unit) {
+    open fun getImage(name: String, destination: File, onSuccess: (FileDownloadTask.TaskSnapshot) -> Unit) {
         storage.child(name).getFile(destination).addOnSuccessListener(onSuccess)
+    }
+
+    companion object {
+        private lateinit var instance: DatabaseHelper
+
+        fun mock(d: DatabaseHelper) {
+            instance = d
+        }
+
+        fun get(): DatabaseHelper {
+            if (!this::instance.isInitialized)
+                instance = DatabaseHelper()
+            return instance
+        }
     }
 }

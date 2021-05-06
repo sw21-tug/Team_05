@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        DatabaseHelper.maybeInit(applicationContext)
+        DatabaseHelper.get().maybeInit(applicationContext)
 
         findViewById<FloatingActionButton>(R.id.btn_addcat).setOnClickListener {
             val intent = Intent(this, AddcatActivity::class.java)
@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
 //        )
 //        cats.forEach { databaseHelper.writeNewCat(it) }
 
-        DatabaseHelper.addValueEventListener{
-            displayCats(DatabaseHelper.readUserCats())
+        DatabaseHelper.get().addValueEventListener{
+            displayCats(DatabaseHelper.get().readUserCats())
         }
 
         LanguageHandler.setLanguage(this)
@@ -95,15 +95,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        cats.forEach {
-            if (container.children.find { view -> DataBindingUtil.bind<CatAccordionBinding>(view)?.cat?.name == it?.name} == null) {
-
+        cats.forEach { cat ->
+            if (container.children.find { view -> DataBindingUtil.bind<CatAccordionBinding>(view)?.cat?.name == cat?.name} == null) {
                 val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
-                binding.cat = it
+                binding.cat = cat
                 binding.presenter = CatAccordionPresenter()
                 container.addView(binding.root)
                 binding.root.findViewById<Button>(R.id.edit_cat).setOnClickListener {
                     val intent = Intent(this, AddcatActivity::class.java)
+                    val bundle = bundleOf("Cat" to binding!!.cat)
+                    intent.putExtras(bundle)
                     startActivity(intent)
                 }
                 updateCatImage(binding)
@@ -117,7 +118,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateCatImage(binding: CatAccordionBinding) {
         if (binding.cat?.imageString?.isNotEmpty() == true) {
             val file = CaptureImage.createImageFile(this)
-            DatabaseHelper.getImage(binding.cat!!.imageString!!, file) {
+            DatabaseHelper.get().getImage(binding.cat!!.imageString!!, file) {
                 binding.root.findViewById<ImageView>(R.id.imageView).setImageURI(Uri.fromFile(file))
             }
         }

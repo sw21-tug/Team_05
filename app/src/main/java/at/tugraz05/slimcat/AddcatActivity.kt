@@ -18,9 +18,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddcatActivity : AppCompatActivity() {
-    lateinit var scrollView: ScrollView
-    lateinit var seeker: GenderSeeker
-    lateinit var nameField: EditText
+    private lateinit var scrollView: ScrollView
+    private lateinit var seeker: GenderSeeker
+    private lateinit var nameField: EditText
+    private var edit = false
+    private lateinit var oldName: String
 
     private lateinit var binding: ActivityAddcatBinding
     private lateinit var imageButton: ImageButton
@@ -31,7 +33,19 @@ class AddcatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_addcat)
-        binding.cat = CatDataClass()
+        val bundle = intent.extras
+        if (bundle != null) {
+            edit = true
+            binding.cat = bundle.getParcelable("Cat")!!
+            oldName = binding.cat!!.name!!
+        }
+        else
+        {
+            binding.cat = CatDataClass()
+            oldName = ""
+        }
+
+
 
         // camera
         imageButton = findViewById(R.id.btn_camera)
@@ -43,7 +57,7 @@ class AddcatActivity : AppCompatActivity() {
         {
             val file = CaptureImage.createImageFile(this)
             imagePath = file.absolutePath
-            DatabaseHelper.getImage(binding.cat!!.imageString!!, file) {
+            DatabaseHelper.get().getImage(binding.cat!!.imageString!!, file) {
                 imageButton.setImageURI(Uri.fromFile(file))
             }
         }
@@ -59,7 +73,9 @@ class AddcatActivity : AppCompatActivity() {
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
             else {
-                createCat()
+                if (edit) updateCat()
+                else createCat()
+
                 finish()
             }
         }
@@ -121,17 +137,17 @@ class AddcatActivity : AppCompatActivity() {
         return true
     }
 
-    fun setFemale(on: Boolean = true) {
-        seeker.updateSwitches(if (on) 1 else 0)
+    private fun createCat() {
+        DatabaseHelper.get().writeNewCat(binding.cat!!)
     }
 
-    private fun createCat() {
-        DatabaseHelper.writeNewCat(binding.cat!!)
+    private fun updateCat() {
+        DatabaseHelper.get().editUser(oldName, binding.cat!!)
     }
 
     private fun deleteCat() {
         val catName: String = nameField.text.toString()
-        DatabaseHelper.deleteCat(catName)
+        DatabaseHelper.get().deleteCat(catName)
     }
 
 
@@ -142,7 +158,7 @@ class AddcatActivity : AppCompatActivity() {
         val uri = Uri.fromFile(file)
         val img = "cats/${file.name}"
 
-        DatabaseHelper.uploadImagesToFirebase(img, uri) {
+        DatabaseHelper.get().uploadImagesToFirebase(img, uri) {
             imageButton.setImageURI(uri)
             binding.cat!!.imageString = img
         }
