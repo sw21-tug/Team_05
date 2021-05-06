@@ -6,8 +6,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import androidx.annotation.RequiresApi
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
@@ -18,6 +23,7 @@ import androidx.fragment.app.commit
 import at.tugraz05.slimcat.databinding.CatAccordionBinding
 
 class MainActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,6 +45,9 @@ class MainActivity : AppCompatActivity() {
         DatabaseHelper.get().addValueEventListener{
             displayCats(DatabaseHelper.get().readUserCats())
         }
+
+        LanguageHandler.setLanguage(this)
+        supportActionBar!!.title = getString(R.string.app_name)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,9 +63,15 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
         if (id == R.id.action_settings) {
             val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 0)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        recreate()
+
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {

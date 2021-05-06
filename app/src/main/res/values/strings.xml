@@ -28,7 +28,7 @@
     <string name="label_neutered">Neutered</string>
     <string name="label_gestation">Gestation</string>
     <string name="label_lactation">Lactation</string>
-    <string name="output_dob">dd/mm/yyyy</string>
+    <string name="output_dob">yyyy/mm/dd</string>
     <!-- Add cat hints -->
     <string name="input_name_hint">e.g. Lucky</string>
     <string name="input_race_hint">e.g. Toyger</string>
@@ -48,8 +48,8 @@
     <string name="settings_unit_of_measurement_kg">kg</string>
     <string name="settings_unit_of_measurement_lbs">lbs</string>
     <string name="settings_language">Language</string>
-    <string name="settings_language_en">en</string>
-    <string name="settings_language_de">de</string>
+    <!--<string name="settings_language_en">en</string>
+    <string name="settings_language_de">de</string>-->
 
 
     <string-array name="settings_gender">
@@ -59,7 +59,7 @@
     </string-array>
 
     <string-array name="settings_language">
-        <item>en</item>
+        <item>english</item>
         <item>mandarin (chinese)</item>
     </string-array>
 
