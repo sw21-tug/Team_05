@@ -59,5 +59,22 @@ class UtilTest {
 
         assert(calRec == 510)
     }
+
+    @Test
+    fun testCalorieRecommendationAllFalse() {
+        val weight: Double = 6.0
+        val obese = false
+        val overweightProne = false
+        val hospitalized = false
+        val neutered = false
+        val gestation = false
+        val lactation = false
+
+        val calRec = Util.calculateCalories(weight, obese, overweightProne, hospitalized,
+            neutered, gestation, lactation)
+
+        assert(calRec == 268)
+    }
+
 }
 
