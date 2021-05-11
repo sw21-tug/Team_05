@@ -12,10 +12,13 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import at.tugraz05.slimcat.Util.calculateCalories
 import at.tugraz05.slimcat.databinding.ActivityAddcatBinding
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 class AddcatActivity : AppCompatActivity() {
     private lateinit var scrollView: ScrollView
@@ -27,6 +30,13 @@ class AddcatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddcatBinding
     private lateinit var imageButton: ImageButton
     private var imagePath: String = ""
+
+    private lateinit var obeseSwitch: Switch
+    private lateinit var overweightProneSwitch: Switch
+    private lateinit var hospitalizedSwitch: Switch
+    private lateinit var neuteredSwitch: Switch
+    private lateinit var gestationSwitch: Switch
+    private lateinit var lactationSwitch: Switch
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +55,6 @@ class AddcatActivity : AppCompatActivity() {
             oldName = ""
         }
 
-
-
         // camera
         imageButton = findViewById(R.id.btn_camera)
         imageButton.setOnClickListener {
@@ -62,10 +70,16 @@ class AddcatActivity : AppCompatActivity() {
             }
         }
 
-
         // initialize all fields
         scrollView = findViewById(R.id.main_scroll_view)
         nameField = findViewById(R.id.txt_name)
+
+        obeseSwitch = findViewById(R.id.switch_obese)
+        overweightProneSwitch = findViewById(R.id.switch_overweight)
+        hospitalizedSwitch = findViewById(R.id.switch_hospitalized)
+        neuteredSwitch = findViewById(R.id.switch_neutered)
+        gestationSwitch = findViewById(R.id.switch_gestation)
+        lactationSwitch = findViewById(R.id.switch_lactation)
 
         findViewById<Button>(R.id.btn_save).setOnClickListener {
             if (TextUtils.isEmpty(nameField.text)) {
@@ -73,6 +87,8 @@ class AddcatActivity : AppCompatActivity() {
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
             else {
+                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!.weight, obeseSwitch.isChecked, overweightProneSwitch.isChecked, hospitalizedSwitch.isChecked, neuteredSwitch.isChecked, gestationSwitch.isChecked, lactationSwitch.isChecked)
+
                 if (edit) updateCat()
                 else createCat()
 

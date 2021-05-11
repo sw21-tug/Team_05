@@ -7,7 +7,7 @@ import java.lang.NumberFormatException
 
 
 data class CatDataClass(var name: String? = null, var race: String? = null, var age: Int = 0,
-                        var size: Int = 0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = ""): Parcelable {
+                        var size: Int = 0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "", var calorieRecommendation: Int? = null): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -15,7 +15,8 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.readInt(),
         parcel.readDouble(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readString()
+        parcel.readString(),
+        parcel.readInt()
     ) {
     }
 
@@ -27,7 +28,8 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
             "size" to size,
             "weight" to weight,
             "gender" to gender,
-            "imageString" to imageString
+            "imageString" to imageString,
+            "calorieRecommendation" to calorieRecommendation
         )
     }
 
