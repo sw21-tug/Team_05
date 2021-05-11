@@ -9,9 +9,9 @@ import kotlin.math.roundToInt
 object Util {
     const val FACTOR_RESTING_ENERGY_REQUIREMENT = 70
     const val POW_RESTING_ENERGY_REQUIREMENT = 0.75
-    const val FACTOR_HOSPITALIZED = 1.0
     const val FACTOR_OBESE = 0.9
     const val FACTOR_OVERWEIGHT_PRONE = 1.0
+    const val FACTOR_HOSPITALIZED = 1.0
     const val FACTOR_NEUTERED = 1.2
     const val FACTOR_GESTATION = 2.5
     const val FACTOR_LACTATION = 4
@@ -52,6 +52,9 @@ object Util {
         }
         if(lactation) {
             maintenceEnergyRequirements += FACTOR_LACTATION * restingEnergyRequirements
+        }
+        if(obese == false && overweightProne == false && hospitalized == false && neutered == false && gestation == false && lactation == false){
+            maintenceEnergyRequirements = restingEnergyRequirements
         }
 
         return maintenceEnergyRequirements.roundToInt()
