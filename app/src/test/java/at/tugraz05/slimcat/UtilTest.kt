@@ -76,5 +76,22 @@ class UtilTest {
         assert(calRec == 268)
     }
 
+    @Test
+    fun testKgToLbs() {
+        val kg1 = 17.5
+        val kg2 = 0.0
+
+        assert(convertKgToLbs(kg1) <= 38.59 && conconvertKgToLbs(kg1) >= 38.580)
+        assert(convertKgToLbs(kg2) == 0.0)
+    }
+
+    @Test
+    fun testLbsToKG() {
+        val lbs1 = 43.5
+        val lbs2 = 0.0
+
+        assert(convertLbsToKg(lbs1) <= 19.73 && conconvertLbsToKg(lbs1) >= 19.72)
+        assert(convertLbsToKg(lbs2) == 0.0)
+    }
 }
 
