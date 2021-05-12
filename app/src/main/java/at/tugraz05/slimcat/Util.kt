@@ -16,6 +16,7 @@ object Util {
     const val FACTOR_GESTATION = 2.5
     const val FACTOR_LACTATION = 4
     const val FACTOR_KG_TO_LBS = 2.205
+    const val FACTOR_CM_TO_INCHES = 2.54
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -68,5 +69,13 @@ object Util {
 
     fun convertLbsToKg(lbs: Double): Double {
         return lbs / FACTOR_KG_TO_LBS
+    }
+
+    fun convertCmToInch(cm: Double): Double {
+        return cm / FACTOR_CM_TO_INCHES
+    }
+
+    fun convertInchToCm(inch: Double): Double {
+        return inch * FACTOR_CM_TO_INCHES
     }
 }
