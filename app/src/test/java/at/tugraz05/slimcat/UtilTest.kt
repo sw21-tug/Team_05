@@ -81,8 +81,8 @@ class UtilTest {
         val kg1 = 17.5
         val kg2 = 0.0
 
-        assert(convertKgToLbs(kg1) <= 38.59 && conconvertKgToLbs(kg1) >= 38.580)
-        assert(convertKgToLbs(kg2) == 0.0)
+        assert(Util.convertKgToLbs(kg1) in 38.580..38.59)
+        assert(Util.convertKgToLbs(kg2) == 0.0)
     }
 
     @Test
@@ -90,8 +90,8 @@ class UtilTest {
         val lbs1 = 43.5
         val lbs2 = 0.0
 
-        assert(convertLbsToKg(lbs1) <= 19.73 && conconvertLbsToKg(lbs1) >= 19.72)
-        assert(convertLbsToKg(lbs2) == 0.0)
+        assert(Util.convertLbsToKg(lbs1) in 19.72..19.73)
+        assert(Util.convertLbsToKg(lbs2) == 0.0)
     }
 }
 
