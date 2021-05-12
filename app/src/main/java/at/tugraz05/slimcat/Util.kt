@@ -59,4 +59,8 @@ object Util {
 
         return maintenceEnergyRequirements.roundToInt()
     }
+
+    fun calcGramsOfFood(food: Food, cal: Int): Double {
+        throw NotImplementedError()
+    }
 }
