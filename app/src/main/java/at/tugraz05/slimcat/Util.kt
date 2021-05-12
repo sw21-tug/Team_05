@@ -60,7 +60,7 @@ object Util {
         return maintenceEnergyRequirements.roundToInt()
     }
 
-    fun calcGramsOfFood(food: Food, cal: Int): Double {
-        throw NotImplementedError()
+    fun calcGramsOfFood(food: Food, kcal: Int): Int {
+        return (kcal/food.kcalPer100G) * 100
     }
 }
