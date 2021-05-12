@@ -102,11 +102,13 @@ class UtilTest {
         assert(Util.convertCmToInch(cm1) in 6.09..6.11)
         assert(Util.convertCmToInch(cm2) == 0.0)
     }
+
+    @Test
     fun testInchToCm() {
         val inch1 = 21.5
         val inch2 = 0.0
 
-        assert(Util.convertInchToCm(inch1) in 8.44..8.48)
+        assert(Util.convertInchToCm(inch1) in 54.60..54.62)
         assert(Util.convertInchToCm(inch2) == 0.0)
     }
 }
