@@ -4,14 +4,15 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.firebase.database.Exclude
 import java.lang.NumberFormatException
+import java.time.LocalDate
 
 
-data class CatDataClass(var name: String? = null, var race: String? = null, var age: Int = 0,
+data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: Long = 0,
                         var size: Int = 0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "", var calorieRecommendation: Int? = null): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readInt(),
+        parcel.readLong(),
         parcel.readInt(),
         parcel.readDouble(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
@@ -24,7 +25,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         return mapOf(
             "name" to name,
             "race" to race,
-            "age" to age,
+            "date_of_birth" to date_of_birth,
             "size" to size,
             "weight" to weight,
             "gender" to gender,
@@ -62,7 +63,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeString(race)
-        parcel.writeInt(age)
+        parcel.writeLong(date_of_birth)
         parcel.writeInt(size)
         parcel.writeDouble(weight)
         parcel.writeValue(gender)
