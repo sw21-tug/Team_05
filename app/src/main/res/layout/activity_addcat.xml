@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="cat" type="at.tugraz05.slimcat.CatDataClass"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddcatActivity">
+
+        <ScrollView
+            android:id="@+id/main_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/addcat_view_margin">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/addcat_row_margin">
+
+                        <LinearLayout
+                            android:layout_span="2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageButton
+                                android:id="@+id/btn_camera"
+                                android:layout_width="180dp"
+                                android:layout_height="180dp"
+                                android:contentDescription="@string/label_picture"
+                                android:scaleType="centerCrop"
+                                android:adjustViewBounds="true"
+                                app:srcCompat="@android:drawable/ic_menu_camera" />
+                        </LinearLayout>
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_name"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <EditText
+                            android:id="@+id/txt_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/input_name_hint"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapWords"
+                            android:textSize="@dimen/addcat_input_textsize"
+                            android:text="@={cat.name}" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_race"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_race"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <EditText
+                            android:id="@+id/txt_race"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/input_race_hint"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapWords"
+                            android:textSize="@dimen/addcat_input_textsize"
+                            android:text="@={cat.race}" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_dob"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_dob"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <TextView
+                            android:id="@+id/txt_dob"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_weight="1"
+                            android:text="@string/output_dob"
+                            android:textSize="@dimen/addcat_input_textsize" />
+
+                        <Button
+                            android:id="@+id/btn_dob"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/btn_dob" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_size"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <EditText
+                            android:id="@+id/txt_size"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/input_size_hint"
+                            android:importantForAutofill="no"
+                            android:inputType="number"
+                            android:textSize="@dimen/addcat_input_textsize"
+                            android:text="@={cat.sizeStr}" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_weight"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <EditText
+                            android:id="@+id/txt_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/input_weight_hint"
+                            android:importantForAutofill="no"
+                            android:inputType="numberDecimal"
+                            android:textSize="@dimen/addcat_input_textsize"
+                            android:text="@={cat.weightStr}" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_gender"
+                            android:textSize="@dimen/addcat_label_textsize" />
+    <!--
+                        <Spinner
+                            android:id="@+id/spinner_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:layout_weight="1"
+                            android:dropDownWidth="match_parent" />
+    -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/label_gender_male"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:text="@string/label_gender_male"
+                                android:textSize="@dimen/addcat_input_textsize" />
+
+                            <SeekBar
+                                android:id="@+id/seek_gender"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:max="1" />
+
+                            <TextView
+                                android:id="@+id/label_gender_female"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:clickable="true"
+                                android:focusable="auto"
+                                android:text="@string/label_gender_female"
+                                android:textSize="@dimen/addcat_input_textsize" />
+                        </LinearLayout>
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_obese"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_obese"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <Switch
+                            android:id="@+id/switch_obese"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_overweight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_overweight"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <Switch
+                            android:id="@+id/switch_overweight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_hospitalized"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_hospitalized"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <Switch
+                            android:id="@+id/switch_hospitalized"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_neutered"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_neutered"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <Switch
+                            android:id="@+id/switch_neutered"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/row_gestation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:animateLayoutChanges="true"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_gestation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_gestation"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <Switch
+                            android:id="@+id/switch_gestation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/row_lactation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addcat_row_margin"
+                        android:animateLayoutChanges="true"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/label_lactation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:lineSpacingExtra="@dimen/addcat_label_lineheight"
+                            android:text="@string/label_lactation"
+                            android:textSize="@dimen/addcat_label_textsize" />
+
+                        <Switch
+                            android:id="@+id/switch_lactation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addcat_label_input_margin"
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <LinearLayout
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="@dimen/addcat_view_margin"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_save"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/addcat_button_margin"
+                        android:text="@string/save"
+                        android:textSize="@dimen/addcat_button_textsize" />
+
+                    <Button
+                        android:id="@+id/btn_delete"
+                        style="@style/deleteButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/addcat_button_margin"
+                        android:text="@string/delete"
+                        android:textSize="@dimen/addcat_button_textsize" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

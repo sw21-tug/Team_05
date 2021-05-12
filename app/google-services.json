@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "664089195600",
+    "firebase_url": "https://slimcat-5a408-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "slimcat-5a408",
+    "storage_bucket": "slimcat-5a408.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664089195600:android:b3ed6c007e72b545e14d55",
+        "android_client_info": {
+          "package_name": "at.tugraz05.slimcat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664089195600-t5f08hcrc8gq1jdla1dm9cs2mut1rguf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABCUW9vvzctwXzyMShXD8jxb8VYjyqBHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "664089195600-t5f08hcrc8gq1jdla1dm9cs2mut1rguf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
