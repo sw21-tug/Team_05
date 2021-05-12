@@ -102,7 +102,7 @@
                             android:id="@+id/text_age"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/catlist_text_age(cat.age)}"
+                            android:text="@{@string/catlist_text_age(cat.date_of_birth)}"
                             android:textColor="?attr/colorOnPrimary"
                             android:textSize="@dimen/catlist_card_body_textsize" />
 

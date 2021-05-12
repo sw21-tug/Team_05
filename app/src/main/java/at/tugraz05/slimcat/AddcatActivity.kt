@@ -16,6 +16,8 @@ import at.tugraz05.slimcat.Util.calculateCalories
 import at.tugraz05.slimcat.databinding.ActivityAddcatBinding
 import java.io.File
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.math.pow
 import kotlin.math.roundToInt
@@ -123,10 +125,10 @@ class AddcatActivity : AppCompatActivity() {
                     val date = formatDate.format((selectDate.time))
                     Toast.makeText(this, "Date : $date", Toast.LENGTH_SHORT).show()
                     findViewById<TextView>(R.id.txt_dob).text = date
+                    binding.cat!!.date_of_birth = selectDate.time.time
 
                 }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
             datepicker.show()
-
         }
 
         // make gender seeker hide female-only options
