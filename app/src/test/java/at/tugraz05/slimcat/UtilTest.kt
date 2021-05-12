@@ -93,5 +93,21 @@ class UtilTest {
         assert(Util.convertLbsToKg(lbs1) in 19.72..19.73)
         assert(Util.convertLbsToKg(lbs2) == 0.0)
     }
+
+    @Test
+    fun testCmToInch() {
+        val cm1 = 15.5
+        val cm2 = 0.0
+
+        assert(Util.convertCmToInch(cm1) in 6.09..6.11)
+        assert(Util.convertCmToInch(cm2) == 0.0)
+    }
+    fun testInchToCm() {
+        val inch1 = 21.5
+        val inch2 = 0.0
+
+        assert(Util.convertInchToCm(inch1) in 8.44..8.48)
+        assert(Util.convertInchToCm(inch2) == 0.0)
+    }
 }
 
