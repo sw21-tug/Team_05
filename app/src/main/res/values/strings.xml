@@ -5,6 +5,7 @@
     <!-- Cat List -->
     <string name="catlist_text_age">Age: %d years</string>
     <string name="catlist_text_weight">Weight: %.2f kg</string>
+    <string name="catlist_text_calorie_recommendation">Cal. Rec.: %d kcal/day</string>
     <string name="catlist_edit_cat">Edit</string>
 
 
