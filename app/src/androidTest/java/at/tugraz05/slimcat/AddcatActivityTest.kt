@@ -93,7 +93,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun openEditCat() {
-        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "")
+        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("openEditCat", it.arguments[0] as String) }.`when`(dbHelper).editUser(any(), any())
@@ -112,7 +112,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun openAddCat() {
-        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "")
+        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("openAddCat", (it.arguments[0] as CatDataClass).name!!) }.`when`(dbHelper).writeNewCat(any())
