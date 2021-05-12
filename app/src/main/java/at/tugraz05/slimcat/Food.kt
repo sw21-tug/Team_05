@@ -1,6 +1,8 @@
 package at.tugraz05.slimcat
 
-abstract class Food(val name: String, val calPerG: Double, val isWet: Boolean) {
+data class Food(val name: String, val kcalPer100G: Int, val isWet: Boolean) {
+    companion object {
+        val wetFood = Food("Wet Food", 350, true)
+    }
 }
 
-class WetFood : Food("Wet Food", 20.0, true) {}

@@ -78,8 +78,8 @@ class UtilTest {
 
     @Test
     fun wetFoodGivesCorrectCalories1G() {
-        val f = WetFood()
-        assert(Util.calcGramsOfFood(f, 20) == 1.0)
+        val f = Food.wetFood
+        assert(Util.calcGramsOfFood(f, f.kcalPer100G) == 100.0)
     }
 }
 
