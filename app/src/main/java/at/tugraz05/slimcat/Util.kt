@@ -15,6 +15,8 @@ object Util {
     const val FACTOR_NEUTERED = 1.2
     const val FACTOR_GESTATION = 2.5
     const val FACTOR_LACTATION = 4
+    const val FACTOR_KG_TO_LBS = 2.205
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun calculateAge(date_of_birth: LocalDate, current_date : LocalDate) : Int{
@@ -58,5 +60,13 @@ object Util {
         }
 
         return maintenceEnergyRequirements.roundToInt()
+    }
+
+    fun convertKgToLbs(kg: Double): Double {
+        return kg * FACTOR_KG_TO_LBS
+    }
+
+    fun convertLbsToKg(lbs: Double): Double {
+        return lbs / FACTOR_KG_TO_LBS
     }
 }
