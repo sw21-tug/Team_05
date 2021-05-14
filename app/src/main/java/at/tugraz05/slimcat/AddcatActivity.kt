@@ -91,6 +91,8 @@ class AddcatActivity : AppCompatActivity() {
             else {
                 binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!.weight, obeseSwitch.isChecked, overweightProneSwitch.isChecked, hospitalizedSwitch.isChecked, neuteredSwitch.isChecked, gestationSwitch.isChecked, lactationSwitch.isChecked)
 
+                binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
+
                 if (edit) updateCat()
                 else createCat()
 
@@ -111,7 +113,7 @@ class AddcatActivity : AppCompatActivity() {
 
         //click on btn_dob to open the datepicker
         Locale.setDefault(Locale.CHINA)
-        val formatDate = SimpleDateFormat("y/M/d", Locale.CHINESE)
+        val formatDate = SimpleDateFormat("y-M-d", Locale.CHINESE)
 
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
             val getDate : Calendar = Calendar.getInstance()
@@ -125,8 +127,7 @@ class AddcatActivity : AppCompatActivity() {
                     val date = formatDate.format((selectDate.time))
                     Toast.makeText(this, "Date : $date", Toast.LENGTH_SHORT).show()
                     findViewById<TextView>(R.id.txt_dob).text = date
-                    binding.cat!!.date_of_birth = selectDate.time.time
-
+                    binding.cat!!.date_of_birth = date
                 }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
             datepicker.show()
         }
