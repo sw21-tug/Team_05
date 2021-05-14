@@ -8,7 +8,9 @@ import java.time.LocalDate
 
 
 data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
-                        var size: Int = 0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "", var calorieRecommendation: Int? = null): Parcelable {
+                        var size: Int = 0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "",
+                        var calorieRecommendation: Int? = null, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
+                        var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -18,7 +20,12 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.readDouble(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readValue(Int::class.java.classLoader) as Boolean,
+        parcel.readValue(Int::class.java.classLoader) as Boolean,
+        parcel.readValue(Int::class.java.classLoader) as Boolean,
+        parcel.readValue(Int::class.java.classLoader) as Boolean,
+        parcel.readValue(Int::class.java.classLoader) as Boolean
     ) {
     }
 
@@ -32,7 +39,12 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
             "weight" to weight,
             "gender" to gender,
             "imageString" to imageString,
-            "calorieRecommendation" to calorieRecommendation
+            "calorieRecommendation" to calorieRecommendation,
+            "overweight_prone" to overweight_prone,
+            "hospitalized" to hospitalized,
+            "neutered" to neutered,
+            "gestation" to gestation,
+            "lactation" to lactation
         )
     }
 
@@ -71,6 +83,11 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.writeDouble(weight)
         parcel.writeValue(gender)
         parcel.writeString(imageString)
+        parcel.writeValue(overweight_prone)
+        parcel.writeValue(hospitalized)
+        parcel.writeValue(neutered)
+        parcel.writeValue(gestation)
+        parcel.writeValue(lactation)
     }
 
     override fun describeContents(): Int {
