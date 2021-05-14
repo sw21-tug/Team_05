@@ -53,7 +53,7 @@ object Util {
         if(lactation) {
             maintenceEnergyRequirements += FACTOR_LACTATION * restingEnergyRequirements
         }
-        if(obese == false && overweightProne == false && hospitalized == false && neutered == false && gestation == false && lactation == false){
+        if(!obese && !overweightProne && !hospitalized && !neutered && !gestation && !lactation){
             maintenceEnergyRequirements = restingEnergyRequirements
         }
 

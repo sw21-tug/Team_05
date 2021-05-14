@@ -30,7 +30,7 @@
     <string name="label_neutered">绝育的</string>
     <string name="label_gestation">妊娠 </string>
     <string name="label_lactation">哺乳期</string>
-    <string name="output_dob">年/月/日</string>
+    <string name="output_dob">年-月-日</string>
     <!-- Add cat hints -->
     <string name="input_name_hint">宝(Bao)</string>
     <string name="input_race_hint">松狮犬(Chow Chow)</string>

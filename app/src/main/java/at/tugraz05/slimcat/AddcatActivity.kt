@@ -33,13 +33,6 @@ class AddcatActivity : AppCompatActivity() {
     private lateinit var imageButton: ImageButton
     private var imagePath: String = ""
 
-    private lateinit var obeseSwitch: Switch
-    private lateinit var overweightProneSwitch: Switch
-    private lateinit var hospitalizedSwitch: Switch
-    private lateinit var neuteredSwitch: Switch
-    private lateinit var gestationSwitch: Switch
-    private lateinit var lactationSwitch: Switch
-
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,22 +69,19 @@ class AddcatActivity : AppCompatActivity() {
         scrollView = findViewById(R.id.main_scroll_view)
         nameField = findViewById(R.id.txt_name)
 
-        obeseSwitch = findViewById(R.id.switch_obese)
-        overweightProneSwitch = findViewById(R.id.switch_overweight)
-        hospitalizedSwitch = findViewById(R.id.switch_hospitalized)
-        neuteredSwitch = findViewById(R.id.switch_neutered)
-        gestationSwitch = findViewById(R.id.switch_gestation)
-        lactationSwitch = findViewById(R.id.switch_lactation)
-
         findViewById<Button>(R.id.btn_save).setOnClickListener {
             if (TextUtils.isEmpty(nameField.text)) {
                 nameField.error = resources.getString(R.string.error_create_cat)
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
             else {
-                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!.weight, obeseSwitch.isChecked, overweightProneSwitch.isChecked, hospitalizedSwitch.isChecked, neuteredSwitch.isChecked, gestationSwitch.isChecked, lactationSwitch.isChecked)
+                // TODO: calculate if cat is obese
+                val obese = true
+                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!.weight, obese, binding.cat!!.overweight_prone!!,
+                    binding.cat!!.hospitalized!!, binding.cat!!.neutered!!, binding.cat!!.gestation!!, binding.cat!!.lactation!!)
 
-                binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
+                if (binding.cat!!.date_of_birth != null)
+                    binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
 
                 if (edit) updateCat()
                 else createCat()
