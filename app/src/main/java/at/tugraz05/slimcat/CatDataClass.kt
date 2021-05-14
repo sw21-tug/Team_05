@@ -7,12 +7,13 @@ import java.lang.NumberFormatException
 import java.time.LocalDate
 
 
-data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: Long = 0,
+data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
                         var size: Int = 0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "", var calorieRecommendation: Int? = null): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
-        parcel.readLong(),
+        parcel.readString(),
+        parcel.readInt(),
         parcel.readInt(),
         parcel.readDouble(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
@@ -26,6 +27,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
             "name" to name,
             "race" to race,
             "date_of_birth" to date_of_birth,
+            "age" to age,
             "size" to size,
             "weight" to weight,
             "gender" to gender,
@@ -63,7 +65,8 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeString(race)
-        parcel.writeLong(date_of_birth)
+        parcel.writeString(date_of_birth)
+        parcel.writeInt(age)
         parcel.writeInt(size)
         parcel.writeDouble(weight)
         parcel.writeValue(gender)
