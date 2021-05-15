@@ -18,13 +18,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.mockito.kotlin.any
+import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 class AddcatActivityTest : TestCase() {
     private val txtids = arrayOf(R.id.txt_name, R.id.txt_race, R.id.txt_size, R.id.txt_weight)
     private val switchids = arrayOf(
-            R.id.switch_obese, R.id.switch_overweight,
-            R.id.switch_hospitalized, R.id.switch_neutered,
+            R.id.switch_overweight, R.id.switch_hospitalized, R.id.switch_neutered,
             R.id.switch_gestation, R.id.switch_lactation,
     )
     private val ids = arrayOf(R.id.seek_gender, R.id.btn_camera) + txtids + switchids
@@ -93,13 +93,18 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun openEditCat() {
-        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = GenderSeeker.MALE)
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("openEditCat", it.arguments[0] as String) }.`when`(dbHelper).editUser(any(), any())
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
+
+        var obese : Boolean = true // TODO use obese calc
+
+        cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
+        cat.calorieRecommendation = Util.calculateCalories(cat, obese)
 
         onView(withId(R.id.txt_name)).check(matches(withText(cat.name)))
         onView(withId(R.id.txt_race)).check(matches(withText(cat.race)))
@@ -112,28 +117,32 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun openAddCat() {
-        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
+        val cat = CatDataClass(name = "test", race = "liger", size = 12.0, weight = 3.5, gender = GenderSeeker.MALE)
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("openAddCat", (it.arguments[0] as CatDataClass).name!!) }.`when`(dbHelper).writeNewCat(any())
         ActivityScenario.launch(AddcatActivity::class.java)
 
+        var obese : Boolean = true // TODO use obese calc
+
+        cat.calorieRecommendation = Util.calculateCalories(cat, obese)
+
         // check that empty
         onView(withId(R.id.txt_name)).check(matches(withText("")))
         onView(withId(R.id.txt_race)).check(matches(withText("")))
-        onView(withId(R.id.txt_size)).check(matches(withText("0")))
+        onView(withId(R.id.txt_size)).check(matches(withText("0.0")))
         onView(withId(R.id.txt_weight)).check(matches(withText("0.0")))
         onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { assertEquals(GenderSeeker.FEMALE, it.progress) })
 
         // fill in cat data
         onView(withId(R.id.txt_name)).perform(scrollTo()).perform(typeText(cat.name))
         onView(withId(R.id.txt_race)).perform(scrollTo()).perform(typeText(cat.race))
+        Log.w("error", cat.getSizeStr())
+        Log.w("error", cat.getWeightStr())
         onView(withId(R.id.txt_size)).perform(scrollTo()).perform(clearText()).perform(typeText(cat.getSizeStr()))
         onView(withId(R.id.txt_weight)).perform(scrollTo()).perform(clearText()).perform(typeText(cat.getWeightStr()))
         onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = cat.gender!! })
         onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
         Mockito.verify(dbHelper).writeNewCat(cat)
     }
-
-
 }
