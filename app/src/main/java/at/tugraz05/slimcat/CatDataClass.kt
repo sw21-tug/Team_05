@@ -2,13 +2,14 @@ package at.tugraz05.slimcat
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.renderscript.Sampler
 import com.google.firebase.database.Exclude
 import java.lang.NumberFormatException
 import java.time.LocalDate
 
 
 data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
-                        var size: Int = 0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "",
+                        var size: Double = 0.0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "",
                         var calorieRecommendation: Int? = null, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
                         var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable {
     constructor(parcel: Parcel) : this(
@@ -16,7 +17,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
-        parcel.readInt(),
+        parcel.readDouble(),
         parcel.readDouble(),
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
@@ -55,9 +56,9 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
     @Exclude
     fun setSizeStr(s: String) {
         size = try {
-            s.toInt()
+            s.toDouble()
         } catch (e: NumberFormatException) {
-            0
+            0.0
         }
     }
 
@@ -79,10 +80,11 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.writeString(race)
         parcel.writeString(date_of_birth)
         parcel.writeInt(age)
-        parcel.writeInt(size)
+        parcel.writeDouble(size)
         parcel.writeDouble(weight)
         parcel.writeValue(gender)
         parcel.writeString(imageString)
+        parcel.writeInt(calorieRecommendation!!)
         parcel.writeValue(overweight_prone)
         parcel.writeValue(hospitalized)
         parcel.writeValue(neutered)
