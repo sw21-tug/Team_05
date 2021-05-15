@@ -96,7 +96,7 @@ open class DatabaseHelper private constructor() {
 
     open fun writeNewCat(cat: CatDataClass) {
         val catName: String = cat.name!!
-        database.child(userId).child(catName).setValue(cat)
+        database.child(userId).child(catName).setValue(cat.toMap())
     }
 
     open fun readUserCat(catName: String): CatDataClass? {
