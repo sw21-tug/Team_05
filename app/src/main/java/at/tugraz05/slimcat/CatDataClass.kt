@@ -10,7 +10,7 @@ import java.time.LocalDate
 
 data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
                         var size: Double = 0.0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "",
-                        var calorieRecommendation: Int? = null, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
+                        var calorieRecommendation: Int = 0, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
                         var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -84,7 +84,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.writeDouble(weight)
         parcel.writeValue(gender)
         parcel.writeString(imageString)
-        parcel.writeInt(calorieRecommendation!!)
+        parcel.writeInt(calorieRecommendation)
         parcel.writeValue(overweight_prone)
         parcel.writeValue(hospitalized)
         parcel.writeValue(neutered)
