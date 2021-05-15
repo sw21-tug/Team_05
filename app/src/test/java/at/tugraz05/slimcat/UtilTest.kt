@@ -101,7 +101,7 @@ class UtilTest {
 
         val calRec = Util.calculateCalories(cat, obese)
 
-        assert(calRec == 1742)
+        assert(calRec == 1744)
     }
 }
 
