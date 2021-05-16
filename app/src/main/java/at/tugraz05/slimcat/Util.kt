@@ -61,6 +61,6 @@ object Util {
     }
 
     fun calcGramsOfFood(food: Food, kcal: Int): Int {
-        return (kcal/food.kcalPer100G) * 100
+        return ((kcal.toDouble() / food.kcalPer100G) * 100).roundToInt()
     }
 }
