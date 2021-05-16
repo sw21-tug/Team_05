@@ -15,6 +15,9 @@ data class CatAccordionPresenter(var open: ObservableBoolean = ObservableBoolean
 
 @BindingAdapter("cat", "food")
 fun setGrams(view: TextView, cat: CatDataClass, food: Food) {
+    if(cat.calorieRecommendation == null){
+        return
+    }
     Log.d("setGrams", "${food.name}: ${food.kcalPer100G} ${cat.calorieRecommendation} ${Util.calcGramsOfFood(food, cat.calorieRecommendation!!)}")
     view.text = view.resources.getString(R.string.catlist_text_food_amount, Util.calcGramsOfFood(food, cat.calorieRecommendation!!))
 }
