@@ -76,7 +76,7 @@
                             android:id="@+id/text_sub"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Placeholder"
+                            android:text="@{@string/catlist_text_calorie_recommendation(cat.calorieRecommendation)}"
                             android:textColor="?attr/colorOnPrimary"
                             android:textSize="@dimen/catlist_card_textsize" />
                     </LinearLayout>
@@ -114,13 +114,11 @@
                             android:textColor="?attr/colorOnPrimary"
                             android:textSize="@dimen/catlist_card_body_textsize" />
 
-                        <TextView
-                            android:id="@+id/text_calorie_recommendation"
-                            android:layout_width="wrap_content"
+                        <TableLayout
+                            android:id="@+id/accordion_food_list"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/catlist_text_calorie_recommendation(cat.calorieRecommendation)}"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="@dimen/catlist_card_body_textsize" />
+                            />
                     </LinearLayout>
 
                     <Button
@@ -128,6 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/catlist_card_padding"
                         android:text="@string/catlist_edit_cat" />
 
                 </LinearLayout>

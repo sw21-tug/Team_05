@@ -67,4 +67,8 @@ object Util {
 
         return maintenceEnergyRequirements.roundToInt()
     }
+
+    fun calcGramsOfFood(food: Food, kcal: Int): Int {
+        return ((kcal.toDouble() / food.kcalPer100G) * 100).roundToInt()
+    }
 }
