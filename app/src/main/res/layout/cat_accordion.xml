@@ -110,9 +110,10 @@
                             android:id="@+id/text_weight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/catlist_text_weight(cat.weight)}"
                             android:textColor="?attr/colorOnPrimary"
-                            android:textSize="@dimen/catlist_card_body_textsize" />
+                            android:textSize="@dimen/catlist_card_body_textsize"
+                            app:cat="@{cat}"
+                            app:presenter="@{presenter}"/>
 
                         <TextView
                             android:id="@+id/text_calorie_recommendation"

@@ -5,6 +5,7 @@
 
     <data>
         <variable name="cat" type="at.tugraz05.slimcat.CatDataClass"/>
+        <variable name="view" type="at.tugraz05.slimcat.AddcatActivity"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -171,11 +172,11 @@
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
                             android:layout_marginLeft="@dimen/addcat_label_input_margin"
                             android:layout_weight="1"
-                            android:hint="@string/input_size_hint"
+                            android:hint="@{view.sizeHintStr}"
                             android:importantForAutofill="no"
                             android:inputType="number"
                             android:textSize="@dimen/addcat_input_textsize"
-                            android:text="@={cat.sizeStr}" />
+                            android:text="@={view.sizeStr}" />
                     </TableRow>
 
                     <TableRow
@@ -200,11 +201,11 @@
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
                             android:layout_marginLeft="@dimen/addcat_label_input_margin"
                             android:layout_weight="1"
-                            android:hint="@string/input_weight_hint"
+                            android:hint="@{view.weightHintStr}"
                             android:importantForAutofill="no"
                             android:inputType="numberDecimal"
                             android:textSize="@dimen/addcat_input_textsize"
-                            android:text="@={cat.weightStr}" />
+                            android:text="@={view.weightStr}" />
 
                     </TableRow>
 

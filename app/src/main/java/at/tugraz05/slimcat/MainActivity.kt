@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             if (container.children.find { view -> DataBindingUtil.bind<CatAccordionBinding>(view)?.cat?.name == cat?.name} == null) {
                 val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
                 binding.cat = cat
-                binding.presenter = CatAccordionPresenter()
+                binding.presenter = CatAccordionPresenter(this, binding)
                 container.addView(binding.root)
                 binding.root.findViewById<Button>(R.id.edit_cat).setOnClickListener {
                     val intent = Intent(this, AddcatActivity::class.java)

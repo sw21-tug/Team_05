@@ -5,6 +5,7 @@
     <!-- Cat List -->
     <string name="catlist_text_age">Age: %d years</string>
     <string name="catlist_text_weight">Weight: %.2f kg</string>
+    <string name="catlist_text_weight_lbs">Weight: %.2f lbs</string>
     <string name="catlist_text_calorie_recommendation">Cal. Rec.: %d kcal/day</string>
     <string name="catlist_edit_cat">Edit</string>
 
@@ -35,6 +36,8 @@
     <string name="input_race_hint">e.g. Toyger</string>
     <string name="input_size_hint">in cm</string>
     <string name="input_weight_hint">in kg</string>
+    <string name="input_size_hint_imperial">in inch</string>
+    <string name="input_weight_hint_imperial">in lbs</string>
     <!-- Add cat error messages -->
     <string name="error_create_cat">Please enter a name for your cat.</string>
     <string name="error_delete_cat">Please enter the name of the cat you want to delete.</string>
