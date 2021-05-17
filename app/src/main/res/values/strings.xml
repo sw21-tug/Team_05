@@ -46,8 +46,8 @@
     <string name="settings_gender_male">male</string>
     <string name="settings_gender_female">female</string>
     <string name="settings_unit_of_measurement">Unit</string>
-    <string name="settings_unit_of_measurement_kg">kg</string>
-    <string name="settings_unit_of_measurement_lbs">lbs</string>
+    <string name="settings_unit_of_measurement_kg">metric</string>
+    <string name="settings_unit_of_measurement_lbs">imperial</string>
     <string name="settings_language">Language</string>
     <!--<string name="settings_language_en">en</string>
     <string name="settings_language_de">de</string>-->

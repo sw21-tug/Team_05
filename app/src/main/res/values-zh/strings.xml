@@ -47,8 +47,8 @@
     <string name="settings_gender_male">男性</string>
     <string name="settings_gender_female">女性</string>
     <string name="settings_unit_of_measurement">单元</string>
-    <string name="settings_unit_of_measurement_kg">公斤</string>
-    <string name="settings_unit_of_measurement_lbs">磅</string>
+    <string name="settings_unit_of_measurement_kg">公制</string>
+    <string name="settings_unit_of_measurement_lbs">帝國的</string>
     <string name="settings_language">语</string>
     <!--<string name="settings_language_en">en</string>
     <string name="settings_language_de">de</string>-->
