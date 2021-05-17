@@ -135,7 +135,7 @@ class AddcatActivityTest : TestCase() {
         Mockito.verify(dbHelper).writeNewCat(cat)
     }
 
-    //@Test
+    @Test
     fun weightUnitSwitch() {
         val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
         val inLbs = Util.convertKgToLbs(cat.weight)
@@ -159,10 +159,10 @@ class AddcatActivityTest : TestCase() {
     }
 
     // after changing size from Int do Double adjust Test
-    //@Test
+    @Test
     fun sizeUnitSwitch() {
         val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
-        val inInch = Util.convertKgToLbs(cat.size.toDouble())
+        val inInch = Util.convertCmToInch(cat.size.toDouble())
 
         // switch to imperial system
         ActivityScenario.launch(SettingsActivity::class.java)
