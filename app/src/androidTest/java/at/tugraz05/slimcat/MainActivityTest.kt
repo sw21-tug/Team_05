@@ -1,6 +1,7 @@
 package at.tugraz05.slimcat
 
 import android.widget.LinearLayout
+import android.widget.TableLayout
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.espresso.Espresso.onView
@@ -70,5 +71,17 @@ class MainActivityTest : TestCase() {
         // MainActivity uses the addValueEventListener to wait for data, then readUserCats for displaying (both mocked above)
         ActivityScenario.launch(MainActivity::class.java)
         onView(withId(R.id.scroll_content)).perform(waitFor<LinearLayout> { it.childCount == cats.size })
+    }
+
+    @Test
+    fun gramRecommendationDisplayed() {
+        DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
+
+        val scenario = ActivityScenario.launch(MainActivity::class.java)
+        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5, calorieRecommendation = 125))
+        scenario.onActivity {
+            it.displayCats(cats)
+        }
+        onView(withId(R.id.accordion_food_list)).perform(waitFor<TableLayout> { it.childCount == Food.foods.size })
     }
 }
