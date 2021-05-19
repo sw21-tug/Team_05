@@ -219,7 +219,7 @@ class AddcatActivity : AppCompatActivity() {
                 0.0
             }
         }
-        binding.cat!!.size = finalSize.toDouble()
+        binding.cat!!.size = finalSize.toInt()
     }
 
     fun getWeightHintStr():String{
