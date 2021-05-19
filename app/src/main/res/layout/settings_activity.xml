@@ -30,10 +30,10 @@
                         android:layout_width="180dp"
                         android:layout_height="180dp"
                         android:layout_marginBottom="@dimen/settings_row_margin"
+                        android:adjustViewBounds="true"
                         android:contentDescription="@string/label_picture"
                         android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        tools:srcCompat="@tools:sample/backgrounds/scenic[11]" />
+                        tools:srcCompat="@tools:sample/avatars" />
 
                     <TableLayout
                         android:layout_width="match_parent"
