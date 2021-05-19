@@ -10,11 +10,11 @@
 
 | Syntax      | Dev 1   	  | Dev 2   	  | Dev 3   	  | Dev 4   	  | Dev 5   	  | Dev 6   	  | Dev 7   	  | Dev 8   	  |
 | :---        |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |
-| Dev 1       | X           | HH:MM       | 06:30       | 07:30       | HH:MM       | HH:MM       | 14:00       | HH:MM       |
+| Dev 1       | X           | HH:MM       | 17:00       | 07:30       | HH:MM       | HH:MM       | 14:00       | HH:MM       |
 | Dev 2       | HH:MM       | X           | HH:MM       | HH:MM       | 15:00       | 06:00       | 08:30       | HH:MM       |
-| Dev 3       | 06:30       | HH:MM       | X           | HH:MM       | HH:MM       | HH:MM       | 07:30       | 12:30       |
-| Dev 4       | 07:30       | HH:MM       | HH:MM       | X           | 17:30       | 07:30       | HH:MM       | HH:MM       |
-| Dev 5       | HH:MM       | 15:00       | HH:MM       | 17:30       | X           | HH:MM       | HH:MM       | HH:MM       |
-| Dev 6       | HH:MM       | 06:00       | HH:MM       | 07:30       | HH:MM       | X           | HH:MM       | 22:00       |
+| Dev 3       | 17:90       | HH:MM       | X           | HH:MM       | HH:MM       | HH:MM       | 07:30       | 12:30       |
+| Dev 4       | 07:30       | HH:MM       | HH:MM       | X           | 17:30       | 07:30       | HH:MM       | 03:00       |
+| Dev 5       | HH:MM       | 15:00       | HH:MM       | 17:30       | X           | 05:00       | HH:MM       | HH:MM       |
+| Dev 6       | HH:MM       | 06:00       | HH:MM       | 07:30       | 05:00       | X           | HH:MM       | 22:00       |
 | Dev 7       | 14:00       | 08:30       | 07:30       | HH:MM       | HH:MM       | HH:MM       | X           | HH:MM       |
-| Dev 8       | HH:MM       | HH:MM       | 12:30       | HH:MM       | HH:MM       | 22:00       | HH:MM       | X           |
+| Dev 8       | HH:MM       | HH:MM       | 12:30       | 03:00       | HH:MM       | 22:00       | HH:MM       | X           |
