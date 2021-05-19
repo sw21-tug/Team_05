@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SlimCat</string>
     <string name="action_settings">Settings</string>
+    <string name="action_food">Add Food</string>
+
 
     <!-- Cat List -->
     <string name="catlist_text_age">Age: %d years</string>
@@ -69,18 +71,9 @@
     </string-array>
 
 
-
     <!-- Settings hints-->
     <string name="settings_name_hint">e.g. John Doe </string>
     <string name="settings_email_hint">e.g. john.doe@email.com</string>
-
-
-
-
-
-
-
-
 
 
     <!-- Details -->
