@@ -121,6 +121,19 @@ class UtilTest {
 
         assert(calRec == 1073)
     }
+
+    @Test
+    fun testIsKitten() {
+        val obese = false
+        val date_of_birth = LocalDate.of(2021, 5, 1)
+
+        val cat = CatDataClass(
+            date_of_birth = date_of_birth.toString(), weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            gestation = false, lactation = false, gender = GenderSeeker.FEMALE
+        )
+        val calRec = Util.calculateCalories(cat, obese)
+        assert(calRec == 670)
+    }
     
     @Test
     fun testKgToLbs() {
