@@ -24,6 +24,7 @@ import at.tugraz05.slimcat.databinding.CatAccordionBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import at.tugraz05.slimcat.databinding.CatAccordionFoodBinding
 
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
