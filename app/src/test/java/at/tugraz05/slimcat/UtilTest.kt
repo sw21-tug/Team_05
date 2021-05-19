@@ -56,7 +56,7 @@ class UtilTest {
 
         val calRec = Util.calculateCalories(cat, obese)
 
-        assert(calRec == 510)
+        assert(calRec == 242)
     }
 
     @Test
@@ -90,7 +90,37 @@ class UtilTest {
     }
 
     @Test
-    fun testCalorieRecommendationFemale() {
+    fun testCalorieRecommendationFemaleGestation() {
+        val obese = false
+
+        val cat = CatDataClass(
+            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            gestation = true, lactation = false, gender = GenderSeeker.FEMALE
+        )
+
+
+        val calRec = Util.calculateCalories(cat, obese)
+
+        assert(calRec == 671)
+    }
+
+    @Test
+    fun testtestCalorieRecommendationFemaleLactation() {
+        val obese = false
+
+        val cat = CatDataClass(
+            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            gestation = false, lactation = true, gender = GenderSeeker.FEMALE
+        )
+
+
+        val calRec = Util.calculateCalories(cat, obese)
+
+        assert(calRec == 1073)
+    }
+
+    @Test
+    fun testCalorieRecommendationFemaleGestationAndLactation() {
         val obese = false
 
         val cat = CatDataClass(
@@ -101,7 +131,7 @@ class UtilTest {
 
         val calRec = Util.calculateCalories(cat, obese)
 
-        assert(calRec == 1744)
+        assert(calRec == 1073)
     }
     
     @Test
