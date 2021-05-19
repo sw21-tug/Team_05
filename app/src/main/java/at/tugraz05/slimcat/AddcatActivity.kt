@@ -1,5 +1,6 @@
 package at.tugraz05.slimcat
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
@@ -22,9 +23,6 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.log
-import kotlin.math.pow
-import kotlin.math.roundToInt
 
 class AddcatActivity : AppCompatActivity() {
     private lateinit var scrollView: ScrollView
@@ -255,8 +253,9 @@ class AddcatActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         val file = File(imagePath)
-        val uri = Uri.fromFile(file)
+        CaptureImage.receiveIntent(requestCode, resultCode, data, this, file)
 
+        val uri = Uri.fromFile(file)
         DatabaseHelper.get().uploadImagesToFirebase("${DatabaseHelper.get().getUserId()}/cats/${binding.cat!!.name}/${file.name}", uri) {
             imageButton.setImageURI(uri)
             binding.cat!!.imageString = "cats/${binding.cat!!.name}/${file.name}"
