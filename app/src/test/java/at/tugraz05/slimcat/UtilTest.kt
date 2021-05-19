@@ -127,14 +127,17 @@ class UtilTest {
         val obese = false
         val date_of_birth = LocalDate.of(2021, 5, 1)
 
+        var age = Util.calculateAge(date_of_birth, LocalDate.now())
+
         val cat = CatDataClass(
-            date_of_birth = date_of_birth.toString(), weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = age, weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = false, lactation = false, gender = GenderSeeker.FEMALE
         )
         val calRec = Util.calculateCalories(cat, obese)
-        assert(calRec == 670)
+
+        assert(calRec == 671)
     }
-    
+
     @Test
     fun testKgToLbs() {
         val kg1 = 17.5
