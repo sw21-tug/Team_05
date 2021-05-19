@@ -12,15 +12,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.google.firebase.database.core.Path
 import java.io.File
 import java.io.IOException
-import java.net.URI
 import java.nio.file.Files
-import java.nio.file.Paths
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.io.path.absolutePathString
+
 
 class CaptureImage {
     companion object {
@@ -36,7 +33,7 @@ class CaptureImage {
                 ActivityCompat.requestPermissions(
                         context,
                         arrayOf(android.Manifest.permission.CAMERA),
-                        100
+                    Constants.TAKE_IMAGE
                 )
                 return null
             }
@@ -51,19 +48,25 @@ class CaptureImage {
             photoFile?.also {
                 photoURI = FileProvider.getUriForFile(
                         context,
-                        "at.tugraz05.slimcat.fileprovider", it
+                        Constants.provider, it
                 )
                 path = it.absolutePath
-                Log.d("photo", it.absolutePath)
             }
 
-            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            val capture = Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
                 // Continue only if the File was successfully created
                 photoFile?.also {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(context, takePictureIntent, 100, null)
                 }
             }
+            val get = Intent(Intent.ACTION_PICK).also { getPictureIntent ->
+                getPictureIntent.type = "image/*"
+            }
+            val chooser = Intent.createChooser(capture, null).also { chooserIntent ->
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(get))
+            }
+            startActivityForResult(context, chooser, Constants.TAKE_IMAGE, null)
+
             return path
         }
 
@@ -75,12 +78,20 @@ class CaptureImage {
             if (storageDir == null)
                 Log.d("photo", "getExternalFilesDir failed")
             val newpath = Files.createDirectories(storageDir!!.toPath().resolve(path))
-            Log.d("photo", "new path ${newpath.toFile().absolutePath}")
             return File.createTempFile(
                     "JPEG_${timeStamp}_", /* prefix */
                     ".jpg", /* suffix */
                     newpath.toFile() /* directory */
             )
+        }
+
+        fun receiveIntent(requestCode: Int, resultCode: Int, data: Intent?, context: Context, file: File) {
+            if (requestCode != Constants.TAKE_IMAGE || data == null || resultCode != Activity.RESULT_OK)
+                return
+
+            if (data.data != null) {
+                context.contentResolver.openInputStream(data.data!!)?.copyTo(file.outputStream())
+            }
         }
     }
 

@@ -127,8 +127,12 @@ class SettingsActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (binding.user == null)
             return
+
+        val file = File(binding.user!!.image)
+        CaptureImage.receiveIntent(requestCode, resultCode, data, this, file)
+
         if (binding.user!!.image.isNotEmpty())
-            imageButton.setImageURI(Uri.fromFile(File(binding.user!!.image)))
+            imageButton.setImageURI(Uri.fromFile(file))
     }
 
     override fun onRequestPermissionsResult(
