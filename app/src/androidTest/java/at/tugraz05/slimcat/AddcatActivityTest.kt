@@ -145,4 +145,53 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
         Mockito.verify(dbHelper).writeNewCat(cat)
     }
+
+    @Test
+    fun weightUnitSwitch() {
+        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
+        val inLbs = Util.convertKgToLbs(cat.weight)
+
+        // switch to imperial system
+        ActivityScenario.launch(SettingsActivity::class.java)
+        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
+        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
+        val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
+        intent.putExtras(bundleOf("Cat" to cat))
+        ActivityScenario.launch<AddcatActivity>(intent)
+        onView(withId(R.id.txt_weight)).perform(scrollTo()).check(matches(withText(inLbs.toString())))
+
+        // switch back to metric system
+        ActivityScenario.launch(SettingsActivity::class.java)
+        onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
+        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
+        intent.putExtras(bundleOf("Cat" to cat))
+        ActivityScenario.launch<AddcatActivity>(intent)
+        onView(withId(R.id.txt_weight)).perform(scrollTo()).check(matches(withText(cat.getWeightStr())))
+    }
+
+    // after changing size from Int do Double adjust Test
+    @Test
+    fun sizeUnitSwitch() {
+        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
+        val inInch = Util.convertCmToInch(cat.size.toDouble())
+
+        // switch to imperial system
+        ActivityScenario.launch(SettingsActivity::class.java)
+        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
+        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
+        val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
+        intent.putExtras(bundleOf("Cat" to cat))
+        ActivityScenario.launch<AddcatActivity>(intent)
+        onView(withId(R.id.txt_size)).perform(scrollTo()).check(matches(withText(inInch.toInt().toString())))
+
+        // switch back to metric system
+        ActivityScenario.launch(SettingsActivity::class.java)
+        onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
+        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
+        intent.putExtras(bundleOf("Cat" to cat))
+        ActivityScenario.launch<AddcatActivity>(intent)
+        onView(withId(R.id.txt_size)).perform(scrollTo()).check(matches(withText(cat.getSizeStr())))
+    }
+
+
 }

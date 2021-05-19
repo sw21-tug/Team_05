@@ -103,10 +103,48 @@ class UtilTest {
 
         assert(calRec == 1744)
     }
+    
+    @Test
+    fun testKgToLbs() {
+        val kg1 = 17.5
+        val kg2 = 0.0
+
+        assert(Util.convertKgToLbs(kg1) in 38.580..38.59)
+        assert(Util.convertKgToLbs(kg2) == 0.0)
+    }
+
+    @Test
+    fun testLbsToKG() {
+        val lbs1 = 43.5
+        val lbs2 = 0.0
+
+        assert(Util.convertLbsToKg(lbs1) in 19.72..19.73)
+        assert(Util.convertLbsToKg(lbs2) == 0.0)
+    }
+
+    @Test
+    fun testCmToInch() {
+        val cm1 = 15.5
+        val cm2 = 0.0
+
+        assert(Util.convertCmToInch(cm1) in 6.09..6.11)
+        assert(Util.convertCmToInch(cm2) == 0.0)
+    }
+
+    @Test
+    fun testInchToCm() {
+        val inch1 = 21.5
+        val inch2 = 0.0
+
+        assert(Util.convertInchToCm(inch1) in 54.60..54.62)
+        assert(Util.convertInchToCm(inch2) == 0.0)
+    }
+    
     @Test
     fun testWetFoodGivesCorrectCalories1G() {
         val f = Food.wetFood
         assert(Util.calcGramsOfFood(f, f.kcalPer100G) == 100)
+
     }
 }
 

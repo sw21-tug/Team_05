@@ -15,10 +15,12 @@ import androidx.databinding.DataBindingUtil
 import at.tugraz05.slimcat.Util.calculateCalories
 import at.tugraz05.slimcat.databinding.ActivityAddcatBinding
 import java.io.File
+import java.lang.NumberFormatException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.math.log
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -38,6 +40,7 @@ class AddcatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_addcat)
+        binding.view = this
         val bundle = intent.extras
         if (bundle != null) {
             edit = true
@@ -158,6 +161,84 @@ class AddcatActivity : AppCompatActivity() {
         DatabaseHelper.get().deleteCat(catName)
     }
 
+    fun getWeightStr():String{
+        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        return if (metricSystem == SettingsActivity.METRIC) {
+            binding.cat!!.getWeightStr()
+        } else {
+            Util.convertKgToLbs(binding.cat!!.weight).toString()
+        }
+    }
+
+    fun setWeightStr(weight:String){
+        var finalWeight = 0.0
+        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        if (metricSystem == SettingsActivity.METRIC) {
+            finalWeight = try {
+                weight.toDouble()
+            } catch (e: NumberFormatException) {
+                0.0
+            }
+        }
+        else {
+            finalWeight = try {
+                Util.convertLbsToKg(weight.toDouble())
+            } catch (e: NumberFormatException) {
+                0.0
+            }
+        }
+        binding.cat!!.weight = finalWeight
+        Log.d("test", "$finalWeight")
+    }
+
+    // adjust when size change to double!!!!!
+    fun getSizeStr():String{
+        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        return if (metricSystem == SettingsActivity.METRIC) {
+            binding.cat!!.getSizeStr()
+        } else {
+            Util.convertCmToInch(binding.cat!!.size.toDouble()).toInt().toString()
+        }
+    }
+
+    // adjust when size change to double!!!!!
+    fun setSizeStr(size: String){
+        var finalSize: Double
+        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        if (metricSystem == SettingsActivity.METRIC) {
+            finalSize = try {
+                size.toDouble()
+            } catch (e: NumberFormatException) {
+                0.0
+            }
+        }
+        else {
+            finalSize = try {
+                Util.convertLbsToKg(size.toDouble())
+            } catch (e: NumberFormatException) {
+                0.0
+            }
+        }
+        binding.cat!!.size = finalSize.toInt()
+    }
+
+    fun getWeightHintStr():String{
+        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        return if (metricSystem == SettingsActivity.METRIC) {
+            getString(R.string.input_weight_hint)
+        } else {
+            getString(R.string.input_weight_hint_imperial)
+        }
+    }
+
+    fun getSizeHintStr():String{
+        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        return if (metricSystem == SettingsActivity.METRIC) {
+            getString(R.string.input_size_hint)
+        } else {
+            getString(R.string.input_size_hint_imperial)
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
