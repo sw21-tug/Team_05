@@ -52,8 +52,6 @@ class UtilTest {
             weight = 6.0, overweight_prone = false, hospitalized = true, neutered = false,
             gestation = false, lactation = false
         )
-
-
         val calRec = Util.calculateCalories(cat, obese)
 
         assert(calRec == 242)
@@ -67,8 +65,6 @@ class UtilTest {
             weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = false, lactation = false
         )
-
-
         val calRec = Util.calculateCalories(cat, obese)
 
         assert(calRec == 268)
@@ -82,8 +78,6 @@ class UtilTest {
             weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = true, lactation = true, gender = GenderSeeker.MALE
         )
-
-
         val calRec = Util.calculateCalories(cat, obese)
 
         assert(calRec == 268)
@@ -97,23 +91,19 @@ class UtilTest {
             weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = true, lactation = false, gender = GenderSeeker.FEMALE
         )
-
-
         val calRec = Util.calculateCalories(cat, obese)
 
         assert(calRec == 671)
     }
 
     @Test
-    fun testtestCalorieRecommendationFemaleLactation() {
+    fun testCalorieRecommendationFemaleLactation() {
         val obese = false
 
         val cat = CatDataClass(
             weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = false, lactation = true, gender = GenderSeeker.FEMALE
         )
-
-
         val calRec = Util.calculateCalories(cat, obese)
 
         assert(calRec == 1073)
@@ -127,8 +117,6 @@ class UtilTest {
             weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = true, lactation = true, gender = GenderSeeker.FEMALE
         )
-
-
         val calRec = Util.calculateCalories(cat, obese)
 
         assert(calRec == 1073)
@@ -174,7 +162,6 @@ class UtilTest {
     fun testWetFoodGivesCorrectCalories1G() {
         val f = Food.wetFood
         assert(Util.calcGramsOfFood(f, f.kcalPer100G) == 100)
-
     }
 }
 
