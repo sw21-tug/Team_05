@@ -6,8 +6,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.content.res.Resources
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableBoolean
 import at.tugraz05.slimcat.databinding.CatAccordionBinding
