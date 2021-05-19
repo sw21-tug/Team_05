@@ -17,6 +17,8 @@ import at.tugraz05.slimcat.databinding.ActivityAddcatBinding
 import java.io.File
 import java.lang.NumberFormatException
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.math.log
 import kotlin.math.pow
@@ -32,13 +34,6 @@ class AddcatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddcatBinding
     private lateinit var imageButton: ImageButton
     private var imagePath: String = ""
-
-    private lateinit var obeseSwitch: Switch
-    private lateinit var overweightProneSwitch: Switch
-    private lateinit var hospitalizedSwitch: Switch
-    private lateinit var neuteredSwitch: Switch
-    private lateinit var gestationSwitch: Switch
-    private lateinit var lactationSwitch: Switch
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,20 +72,18 @@ class AddcatActivity : AppCompatActivity() {
         scrollView = findViewById(R.id.main_scroll_view)
         nameField = findViewById(R.id.txt_name)
 
-        obeseSwitch = findViewById(R.id.switch_obese)
-        overweightProneSwitch = findViewById(R.id.switch_overweight)
-        hospitalizedSwitch = findViewById(R.id.switch_hospitalized)
-        neuteredSwitch = findViewById(R.id.switch_neutered)
-        gestationSwitch = findViewById(R.id.switch_gestation)
-        lactationSwitch = findViewById(R.id.switch_lactation)
-
         findViewById<Button>(R.id.btn_save).setOnClickListener {
             if (TextUtils.isEmpty(nameField.text)) {
                 nameField.error = resources.getString(R.string.error_create_cat)
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
             else {
-                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!.weight, obeseSwitch.isChecked, overweightProneSwitch.isChecked, hospitalizedSwitch.isChecked, neuteredSwitch.isChecked, gestationSwitch.isChecked, lactationSwitch.isChecked)
+                // TODO implement function to calc if cat is obese
+                val obese : Boolean = true
+                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!, obese)
+
+                if (binding.cat!!.date_of_birth != null)
+                    binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
 
                 if (edit) updateCat()
                 else createCat()
@@ -112,7 +105,7 @@ class AddcatActivity : AppCompatActivity() {
 
         //click on btn_dob to open the datepicker
         Locale.setDefault(Locale.CHINA)
-        val formatDate = SimpleDateFormat("y/M/d", Locale.CHINESE)
+        val formatDate = SimpleDateFormat("y-M-d", Locale.CHINESE)
 
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
             val getDate : Calendar = Calendar.getInstance()
@@ -126,10 +119,9 @@ class AddcatActivity : AppCompatActivity() {
                     val date = formatDate.format((selectDate.time))
                     Toast.makeText(this, "Date : $date", Toast.LENGTH_SHORT).show()
                     findViewById<TextView>(R.id.txt_dob).text = date
-
+                    binding.cat!!.date_of_birth = date
                 }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
             datepicker.show()
-
         }
 
         // make gender seeker hide female-only options
@@ -227,7 +219,7 @@ class AddcatActivity : AppCompatActivity() {
                 0.0
             }
         }
-        binding.cat!!.size = finalSize.toInt()
+        binding.cat!!.size = finalSize.toDouble()
     }
 
     fun getWeightHintStr():String{
