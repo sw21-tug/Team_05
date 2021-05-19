@@ -1,10 +1,12 @@
 package at.tugraz05.slimcat
 
 import android.animation.LayoutTransition
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
@@ -25,6 +27,8 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import at.tugraz05.slimcat.databinding.CatAccordionFoodBinding
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -123,8 +127,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateCatImage(binding: CatAccordionBinding) {
         if (binding.cat?.imageString?.isNotEmpty() == true) {
-            val file = CaptureImage.createImageFile(this, "cats/${binding.cat!!.name}")
-            DatabaseHelper.get().getImage("${DatabaseHelper.get().getUserId()}/${binding.cat!!.imageString!!}", file) {
+            val file = getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.toPath().resolve(binding.cat!!.imageString!!).toFile()
+
+            if (!file.exists()) {
+                Files.createDirectories(file.parentFile!!.toPath())
+                file.createNewFile()
+                DatabaseHelper.get().getImage("${DatabaseHelper.get().getUserId()}/${binding.cat!!.imageString!!}", file) {
+                    binding.root.findViewById<ImageView>(R.id.imageView).setImageURI(Uri.fromFile(file))
+                }
+            }
+            else {
                 binding.root.findViewById<ImageView>(R.id.imageView).setImageURI(Uri.fromFile(file))
             }
         }

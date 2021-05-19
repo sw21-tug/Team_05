@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -16,6 +17,7 @@ import at.tugraz05.slimcat.Util.calculateCalories
 import at.tugraz05.slimcat.databinding.ActivityAddcatBinding
 import java.io.File
 import java.lang.NumberFormatException
+import java.nio.file.Files
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -62,9 +64,17 @@ class AddcatActivity : AppCompatActivity() {
 
         if (binding.cat?.imageString?.isNotEmpty() == true && binding.cat?.name?.isNotEmpty() == true)
         {
-            val file = CaptureImage.createImageFile(this, "cats/${binding.cat!!.name}")
+            val file = getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.toPath().resolve(binding.cat!!.imageString!!).toFile()
             imagePath = file.absolutePath
-            DatabaseHelper.get().getImage("${DatabaseHelper.get().getUserId()}/${binding.cat!!.imageString!!}", file) {
+
+            if (!file.exists()) {
+                Files.createDirectories(file.parentFile!!.toPath())
+                file.createNewFile()
+                DatabaseHelper.get().getImage("${DatabaseHelper.get().getUserId()}/${binding.cat!!.imageString!!}", file) {
+                    imageButton.setImageURI(Uri.fromFile(file))
+                }
+            }
+            else {
                 imageButton.setImageURI(Uri.fromFile(file))
             }
         }
