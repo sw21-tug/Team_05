@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="cat"
+            type="at.tugraz05.slimcat.CatDataClass" />
+        <variable
+            name="food"
+            type="at.tugraz05.slimcat.Food" />
+    </data>
+
+    <TableRow>
+        <TextView
+            android:id="@+id/text_food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{food.name}"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/catlist_card_body_textsize" />
+
+        <TextView
+            android:id="@+id/text_food_cal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/catlist_card_body_textsize"
+            app:cat="@{cat}"
+            app:food="@{food}" />
+    </TableRow>
+</layout>

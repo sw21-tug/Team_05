@@ -21,6 +21,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.fragment.app.commit
 import at.tugraz05.slimcat.databinding.CatAccordionBinding
+import at.tugraz05.slimcat.databinding.CatAccordionFoodBinding
 
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -88,6 +89,7 @@ class MainActivity : AppCompatActivity() {
                 if (foundCat != null) {
                     binding.cat = foundCat
                     updateCatImage(binding)
+                    updateFoods(binding)
                 }
                 else {
                     container.removeView(view)
@@ -108,6 +110,7 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 updateCatImage(binding)
+                updateFoods(binding)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                     binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
@@ -121,6 +124,23 @@ class MainActivity : AppCompatActivity() {
             DatabaseHelper.get().getImage(binding.cat!!.imageString!!, file) {
                 binding.root.findViewById<ImageView>(R.id.imageView).setImageURI(Uri.fromFile(file))
             }
+        }
+    }
+
+    private fun updateFoods(binding: CatAccordionBinding) {
+        val table = binding.root.findViewById<TableLayout>(R.id.accordion_food_list)
+        table.removeAllViews()
+
+        Food.foods.forEach {
+            val b = DataBindingUtil.inflate<CatAccordionFoodBinding>(
+                layoutInflater,
+                R.layout.cat_accordion_food,
+                table,
+                false
+            )
+            b.cat = binding.cat
+            b.food = it
+            table.addView(b.root)
         }
     }
 }
