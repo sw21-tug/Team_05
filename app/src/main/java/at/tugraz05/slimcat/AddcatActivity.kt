@@ -56,14 +56,15 @@ class AddcatActivity : AppCompatActivity() {
         // camera
         imageButton = findViewById(R.id.btn_camera)
         imageButton.setOnClickListener {
-           imagePath = CaptureImage.captureImage(this) ?: ""
+            if (binding.cat?.name?.isNotEmpty() == true)
+                imagePath = CaptureImage.captureImage(this, "cats/${binding.cat!!.name}") ?: ""
         }
 
-        if (binding.cat?.imageString?.isNotEmpty() == true)
+        if (binding.cat?.imageString?.isNotEmpty() == true && binding.cat?.name?.isNotEmpty() == true)
         {
-            val file = CaptureImage.createImageFile(this)
+            val file = CaptureImage.createImageFile(this, "cats/${binding.cat!!.name}")
             imagePath = file.absolutePath
-            DatabaseHelper.get().getImage(binding.cat!!.imageString!!, file) {
+            DatabaseHelper.get().getImage("${DatabaseHelper.get().getUserId()}/${binding.cat!!.imageString!!}", file) {
                 imageButton.setImageURI(Uri.fromFile(file))
             }
         }
@@ -245,11 +246,10 @@ class AddcatActivity : AppCompatActivity() {
 
         val file = File(imagePath)
         val uri = Uri.fromFile(file)
-        val img = "cats/${file.name}"
 
-        DatabaseHelper.get().uploadImagesToFirebase(img, uri) {
+        DatabaseHelper.get().uploadImagesToFirebase("${DatabaseHelper.get().getUserId()}/cats/${binding.cat!!.name}/${file.name}", uri) {
             imageButton.setImageURI(uri)
-            binding.cat!!.imageString = img
+            binding.cat!!.imageString = "cats/${binding.cat!!.name}/${file.name}"
         }
     }
 

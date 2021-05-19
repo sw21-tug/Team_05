@@ -123,8 +123,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateCatImage(binding: CatAccordionBinding) {
         if (binding.cat?.imageString?.isNotEmpty() == true) {
-            val file = CaptureImage.createImageFile(this)
-            DatabaseHelper.get().getImage(binding.cat!!.imageString!!, file) {
+            val file = CaptureImage.createImageFile(this, "cats/${binding.cat!!.name}")
+            DatabaseHelper.get().getImage("${DatabaseHelper.get().getUserId()}/${binding.cat!!.imageString!!}", file) {
                 binding.root.findViewById<ImageView>(R.id.imageView).setImageURI(Uri.fromFile(file))
             }
         }
