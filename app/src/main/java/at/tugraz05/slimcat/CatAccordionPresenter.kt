@@ -4,6 +4,10 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Resources
+import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableBoolean
 import at.tugraz05.slimcat.databinding.CatAccordionBinding
@@ -39,4 +43,13 @@ data class CatAccordionPresenter(val context: Context, val binding: CatAccordion
 @BindingAdapter("cat", "presenter")
 fun catWeightBinding(view: TextView, cat:CatDataClass, presenter: CatAccordionPresenter){
     view.text = presenter.getWeightStr(cat)
+}
+
+@BindingAdapter("cat", "food")
+fun setGrams(view: TextView, cat: CatDataClass, food: Food) {
+    if(cat.calorieRecommendation == null){
+        return
+    }
+    Log.d("setGrams", "${food.name}: ${food.kcalPer100G} ${cat.calorieRecommendation} ${Util.calcGramsOfFood(food, cat.calorieRecommendation!!)}")
+    view.text = view.resources.getString(R.string.catlist_text_food_amount, Util.calcGramsOfFood(food, cat.calorieRecommendation!!))
 }

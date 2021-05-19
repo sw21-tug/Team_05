@@ -110,6 +110,12 @@ class UtilTest {
 
         assert(Util.convertInchToCm(inch1) in 54.60..54.62)
         assert(Util.convertInchToCm(inch2) == 0.0)
+     
+    @Test
+    fun testWetFoodGivesCorrectCalories1G() {
+        val f = Food.wetFood
+        assert(Util.calcGramsOfFood(f, f.kcalPer100G) == 100)
+
     }
 }
 
