@@ -12,15 +12,19 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.google.firebase.database.core.Path
 import java.io.File
 import java.io.IOException
 import java.net.URI
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.io.path.absolutePathString
 
 class CaptureImage {
     companion object {
-        fun captureImage(context: Activity): String? {
+        fun captureImage(context: Activity, givenPath: String = ""): String? {
             lateinit var photoURI: Uri
             lateinit var path: String
 
@@ -38,9 +42,10 @@ class CaptureImage {
             }
             // Create the File where the photo should go
             val photoFile: File? = try {
-                createImageFile(context)
+                createImageFile(context, givenPath)
             } catch (ex: IOException) {
                 // Error occurred while creating the File
+                Log.w("image", ex.toString())
                 return null
             }
             photoFile?.also {
@@ -62,18 +67,19 @@ class CaptureImage {
             return path
         }
 
-
         @Throws(IOException::class)
-        fun createImageFile(context: Activity): File {
+        fun createImageFile(context: Activity, path: String = ""): File {
             // Create an image file name
             val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
             val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             if (storageDir == null)
                 Log.d("photo", "getExternalFilesDir failed")
+            val newpath = Files.createDirectories(storageDir!!.toPath().resolve(path))
+            Log.d("photo", "new path ${newpath.toFile().absolutePath}")
             return File.createTempFile(
                     "JPEG_${timeStamp}_", /* prefix */
                     ".jpg", /* suffix */
-                    storageDir /* directory */
+                    newpath.toFile() /* directory */
             )
         }
     }
