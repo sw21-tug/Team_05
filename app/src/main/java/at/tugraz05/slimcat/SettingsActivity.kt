@@ -28,8 +28,8 @@ import java.util.jar.Manifest
 
 class SettingsActivity: AppCompatActivity() {
     companion object {
-            const val KG = 0
-            const val LF = 1
+            const val METRIC = 0
+            const val IMPERIAL = 1
 
             const val MALE = 0
             const val FEMALE = 1
@@ -54,8 +54,8 @@ class SettingsActivity: AppCompatActivity() {
         val unitSeeker = findViewById<SeekBar>(R.id.settings_seek_measurement)
 
         // unit seeker helpers
-        findViewById<TextView>(R.id.settings_unit_of_measurement_kg).setOnClickListener { unitSeeker.progress = KG }
-        findViewById<TextView>(R.id.settings_unit_of_measurement_lbs).setOnClickListener { unitSeeker.progress = LF }
+        findViewById<TextView>(R.id.settings_unit_of_measurement_kg).setOnClickListener { unitSeeker.progress = METRIC }
+        findViewById<TextView>(R.id.settings_unit_of_measurement_lbs).setOnClickListener { unitSeeker.progress = IMPERIAL }
 
         // gender spinner
         val spinnerGender = findViewById<Spinner>(R.id.settings_gender_spinner)

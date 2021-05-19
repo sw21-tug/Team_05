@@ -6,6 +6,7 @@
     <!-- Cat List -->
     <string name="catlist_text_age">年龄: %d 年 </string>
     <string name="catlist_text_weight">重量: %.2f 公斤</string>
+    <string name="catlist_text_weight_lbs">重量: %.2f 磅</string>
     <string name="catlist_text_calorie_recommendation">卡路里建议: %d 千卡/天</string>
     <string name="catlist_text_food_amount">%d 克</string>
     <string name="catlist_edit_cat">编辑</string>
@@ -37,6 +38,8 @@
     <string name="input_race_hint">松狮犬(Chow Chow)</string>
     <string name="input_size_hint">厘米</string>
     <string name="input_weight_hint">公斤</string>
+    <string name="input_size_hint_imperial">英寸</string>
+    <string name="input_weight_hint_imperial">磅</string>
     <!-- Add cat error messages -->
     <string name="error_create_cat">请输入您的猫的名字</string>
     <string name="error_delete_cat">请输入您要删除的猫的名字</string>
@@ -48,8 +51,8 @@
     <string name="settings_gender_male">男性</string>
     <string name="settings_gender_female">女性</string>
     <string name="settings_unit_of_measurement">单元</string>
-    <string name="settings_unit_of_measurement_kg">公斤</string>
-    <string name="settings_unit_of_measurement_lbs">磅</string>
+    <string name="settings_unit_of_measurement_kg">公制</string>
+    <string name="settings_unit_of_measurement_lbs">帝國的</string>
     <string name="settings_language">语</string>
     <!--<string name="settings_language_en">en</string>
     <string name="settings_language_de">de</string>-->

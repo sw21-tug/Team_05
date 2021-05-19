@@ -15,6 +15,9 @@ object Util {
     const val FACTOR_NEUTERED = 1.2
     const val FACTOR_GESTATION = 2.5
     const val FACTOR_LACTATION = 4
+    const val FACTOR_KG_TO_LBS = 2.205
+    const val FACTOR_CM_TO_INCHES = 2.54
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun calculateAge(date_of_birth: LocalDate, current_date : LocalDate) : Int{
@@ -60,7 +63,24 @@ object Util {
         return maintenceEnergyRequirements.roundToInt()
     }
 
+    fun convertKgToLbs(kg: Double): Double {
+        return kg * FACTOR_KG_TO_LBS
+    }
+
+    fun convertLbsToKg(lbs: Double): Double {
+        return lbs / FACTOR_KG_TO_LBS
+    }
+
+    fun convertCmToInch(cm: Double): Double {
+        return cm / FACTOR_CM_TO_INCHES
+    }
+
+    fun convertInchToCm(inch: Double): Double {
+        return inch * FACTOR_CM_TO_INCHES
+    }
+
     fun calcGramsOfFood(food: Food, kcal: Int): Int {
         return ((kcal.toDouble() / food.kcalPer100G) * 100).roundToInt()
+
     }
 }
