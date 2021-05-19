@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">瘦猫</string>
     <string name="action_settings">態度</string>
+    <string name="action_food">加食物</string>
+
 
     <!-- Cat List -->
     <string name="catlist_text_age">年龄: %d 年 </string>
