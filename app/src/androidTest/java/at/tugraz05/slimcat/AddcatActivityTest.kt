@@ -137,8 +137,6 @@ class AddcatActivityTest : TestCase() {
         // fill in cat data
         onView(withId(R.id.txt_name)).perform(scrollTo()).perform(typeText(cat.name))
         onView(withId(R.id.txt_race)).perform(scrollTo()).perform(typeText(cat.race))
-        Log.w("error", cat.getSizeStr())
-        Log.w("error", cat.getWeightStr())
         onView(withId(R.id.txt_size)).perform(scrollTo()).perform(clearText()).perform(typeText(cat.getSizeStr()))
         onView(withId(R.id.txt_weight)).perform(scrollTo()).perform(clearText()).perform(typeText(cat.getWeightStr()))
         onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = cat.gender!! })
@@ -148,7 +146,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun weightUnitSwitch() {
-        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "0", size = 3.5, weight = 3.5, gender = GenderSeeker.MALE)
         val inLbs = Util.convertKgToLbs(cat.weight)
 
         // switch to imperial system
@@ -172,7 +170,7 @@ class AddcatActivityTest : TestCase() {
     // after changing size from Int do Double adjust Test
     @Test
     fun sizeUnitSwitch() {
-        val cat = CatDataClass("test", "liger", 0, 12, 3.5, GenderSeeker.MALE, "", 179)
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "0", size = 3.5, weight = 3.5, gender = GenderSeeker.MALE)
         val inInch = Util.convertCmToInch(cat.size.toDouble())
 
         // switch to imperial system
