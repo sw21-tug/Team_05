@@ -56,7 +56,11 @@ class AddcatActivity : AppCompatActivity() {
         // camera
         imageButton = findViewById(R.id.btn_camera)
         imageButton.setOnClickListener {
-            if (binding.cat?.name?.isNotEmpty() == true)
+            if (TextUtils.isEmpty(nameField.text)) {
+                nameField.error = resources.getString(R.string.error_create_cat)
+                scrollView.fullScroll(ScrollView.FOCUS_UP)
+            }
+            else
                 imagePath = CaptureImage.captureImage(this, "cats/${binding.cat!!.name}") ?: ""
         }
 
