@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="food" type="at.tugraz05.slimcat.FoodDetailsDataClass"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SettingsActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/addFood_view_margin"
+                android:weightSum="3">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2sp"
+                    android:layout_weight="1" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addFood_row_margin"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:id="@+id/addFood_label_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addFood_tv_lineheight"
+                            android:text="@string/addFood_label_name"
+                            android:textSize="@dimen/addFood_tv_textsize" />
+
+                        <EditText
+                            android:id="@+id/addFood_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addFood_tv_input_margin"
+                            android:layout_marginLeft="@dimen/addFood_tv_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/addFood_hint_name"
+                            android:text="@={food.name}"
+                            android:inputType="textPersonName"
+                            android:textSize="@dimen/addFood_input_textsize" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addFood_row_margin"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:id="@+id/addFood_label_protein"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addFood_tv_lineheight"
+                            android:text="@string/addFood_label_protein"
+                            android:textSize="@dimen/addFood_tv_textsize" />
+
+                        <EditText
+                            android:id="@+id/addFood_protein"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addFood_tv_input_margin"
+                            android:layout_marginLeft="@dimen/addFood_tv_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/addFood_hint_percentage"
+                            android:text="@={food.rawProteinStr}"
+                            android:inputType="textPersonName"
+                            android:textSize="@dimen/addFood_input_textsize" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addFood_row_margin"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:id="@+id/addFood_label_fat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addFood_tv_lineheight"
+                            android:text="@string/addFood_label_fat"
+                            android:textSize="@dimen/addFood_tv_textsize" />
+
+                        <EditText
+                            android:id="@+id/addFood_fat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addFood_tv_input_margin"
+                            android:layout_marginLeft="@dimen/addFood_tv_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/addFood_hint_percentage"
+                            android:text="@={food.rawFatStr}"
+                            android:inputType="textPersonName"
+                            android:textSize="@dimen/addFood_input_textsize" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addFood_row_margin"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:id="@+id/addFood_label_ash"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addFood_tv_lineheight"
+                            android:text="@string/addFood_label_ash"
+                            android:textSize="@dimen/addFood_tv_textsize" />
+
+                        <EditText
+                            android:id="@+id/addFood_ash"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addFood_tv_input_margin"
+                            android:layout_marginLeft="@dimen/addFood_tv_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/addFood_hint_percentage"
+                            android:text="@={food.crudeAshStr}"
+                            android:inputType="textPersonName"
+                            android:textSize="@dimen/addFood_input_textsize" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addFood_row_margin"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:id="@+id/addFood_label_fiber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addFood_tv_lineheight"
+                            android:text="@string/addFood_label_fiber"
+                            android:textSize="@dimen/addFood_tv_textsize" />
+
+                        <EditText
+                            android:id="@+id/addFood_fiber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addFood_tv_input_margin"
+                            android:layout_marginLeft="@dimen/addFood_tv_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/addFood_hint_percentage"
+                            android:text="@={food.rawFiberStr}"
+                            android:inputType="textPersonName"
+                            android:textSize="@dimen/addFood_input_textsize" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/addFood_row_margin"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:id="@+id/addFood_label_water"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/addFood_tv_lineheight"
+                            android:text="@string/addFood_label_water"
+                            android:textSize="@dimen/addFood_tv_textsize" />
+
+                        <EditText
+                            android:id="@+id/addFood_water"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/addFood_tv_input_margin"
+                            android:layout_marginLeft="@dimen/addFood_tv_input_margin"
+                            android:layout_weight="1"
+                            android:hint="@string/addFood_hint_percentage"
+                            android:text="@={food.waterStr}"
+                            android:inputType="textPersonName"
+                            android:textSize="@dimen/addFood_input_textsize" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <LinearLayout
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="@dimen/addFood_view_margin"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/addFood_btn_save"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/addFood_button_margin"
+                        android:text="@string/save"
+                        android:textSize="@dimen/addFood_button_textsize" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
