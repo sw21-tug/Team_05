@@ -12,6 +12,21 @@
     <string name="catlist_text_food_amount">%d g</string>
     <string name="catlist_edit_cat">Edit</string>
 
+    <!-- Food List -->
+    <string name="add_food">Add Food</string>
+    <string name="title_food_back">Food List</string>
+
+    <!-- Add Food -->
+    <string name="addFood_label_name">Name</string>
+    <string name="addFood_label_protein">Raw Protein</string>
+    <string name="addFood_label_fat">Raw Fat</string>
+    <string name="addFood_label_ash">Crude Ash</string>
+    <string name="addFood_label_fiber">Raw Fiber</string>
+    <string name="addFood_label_water">Water</string>
+
+    <!-- Add Food Hints -->
+    <string name="addFood_hint_name">Sheba</string>
+    <string name="addFood_hint_percentage">in %</string>
 
     <!-- Add cat -->
     <string name="add_cat">Add Cat</string>
@@ -57,7 +72,6 @@
     <string name="settings_language">Language</string>
     <!--<string name="settings_language_en">en</string>
     <string name="settings_language_de">de</string>-->
-
 
     <string-array name="settings_gender">
         <item>male</item>
