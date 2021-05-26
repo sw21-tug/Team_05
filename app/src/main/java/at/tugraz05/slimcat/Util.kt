@@ -34,7 +34,7 @@ object Util {
         return age
     }
 
-    fun calculateCalories(cat: CatDataClass, obese : Boolean) : Int {
+    fun calculateCalories(cat: CatDataClass) : Int {
         val restingEnergyRequirements = FACTOR_RESTING_ENERGY_REQUIREMENT * cat.weight.pow(POW_RESTING_ENERGY_REQUIREMENT)
         var maintenceEnergyRequirements = restingEnergyRequirements
 
