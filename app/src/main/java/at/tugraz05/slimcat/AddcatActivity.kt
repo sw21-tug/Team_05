@@ -93,10 +93,11 @@ class AddcatActivity : AppCompatActivity() {
             else {
                 // TODO implement function to calc if cat is obese
                 val obese : Boolean = true
-                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!, obese)
 
                 if (binding.cat!!.date_of_birth != null)
                     binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
+
+                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!, obese)
 
                 if (edit) updateCat()
                 else createCat()

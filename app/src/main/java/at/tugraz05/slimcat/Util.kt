@@ -15,6 +15,7 @@ object Util {
     const val FACTOR_NEUTERED = 1.2
     const val FACTOR_GESTATION = 2.5
     const val FACTOR_LACTATION = 4
+    const val FACTOR_KITTEN = 2.5
     const val FACTOR_KG_TO_LBS = 2.205
     const val FACTOR_CM_TO_INCHES = 2.54
 
@@ -38,6 +39,9 @@ object Util {
         val restingEnergyRequirements = FACTOR_RESTING_ENERGY_REQUIREMENT * cat.weight.pow(POW_RESTING_ENERGY_REQUIREMENT)
         var maintenceEnergyRequirements = restingEnergyRequirements
 
+        if (cat.age <= 1) {
+            maintenceEnergyRequirements *= FACTOR_KITTEN
+        }
         if(obese) {
             maintenceEnergyRequirements *= FACTOR_OBESE
         }
