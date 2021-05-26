@@ -40,6 +40,8 @@
 
     <!-- Add cat error messages -->
     <string name="error_add_food">Please enter a name for your food.</string>
+    <string name="error_percentage_food">The filled percentages exceed 100%. Please change the input.</string>
+
 
     <!-- Add cat -->
     <string name="add_cat">Add Cat</string>

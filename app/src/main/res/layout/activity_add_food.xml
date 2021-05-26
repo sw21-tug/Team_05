@@ -221,8 +221,8 @@
                     android:textSize="@dimen/addFood_hint_textsize"/>
 
 
-
                 <LinearLayout
+                    android:id="@+id/add_food_save_layout"
                     style="?android:attr/buttonBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

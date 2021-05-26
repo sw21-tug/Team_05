@@ -15,6 +15,7 @@ class AddFoodActivity : AppCompatActivity() {
     private lateinit var scrollView: ScrollView
     private lateinit var nameField: EditText
     private lateinit var binding: ActivityAddFoodBinding
+    private lateinit var saveButton: Button
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -27,11 +28,15 @@ class AddFoodActivity : AppCompatActivity() {
         // initialize all fields
         scrollView = findViewById(R.id.addFood_scroll_view)
         nameField = findViewById(R.id.addFood_name)
+        saveButton = findViewById(R.id.addFood_btn_save)
 
-        findViewById<Button>(R.id.addFood_btn_save).setOnClickListener {
+        saveButton.setOnClickListener {
             if (TextUtils.isEmpty(nameField.text)) {
                 nameField.error = resources.getString(R.string.error_add_food)
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
+            }
+            if (!addUpCatPercentage()) {
+                saveButton.error = resources.getString(R.string.error_percentage_food)
             }
             else {
                 createFood()
@@ -55,4 +60,10 @@ class AddFoodActivity : AppCompatActivity() {
        //  DatabaseHelper.get().writeNewFood(binding.cat!!)
     }
 
+    private fun addUpCatPercentage(): Boolean {
+        if((binding.food!!.rawFiber + binding.food!!.crudeAsh + binding.food!!.rawFat + binding.food!!.rawProtein + binding.food!!.water) > 100.0){
+            return false
+        }
+        return true
+    }
 }

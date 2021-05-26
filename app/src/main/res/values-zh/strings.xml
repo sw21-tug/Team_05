@@ -39,6 +39,8 @@
 
     <!-- Add cat error messages -->
     <string name="error_add_food">请输入食物名称</string>
+    <string name="error_percentage_food">填充百分比超过100％。请更改输入。</string>
+
 
     <!-- Add cat -->
     <string name="add_cat">加猫</string>
