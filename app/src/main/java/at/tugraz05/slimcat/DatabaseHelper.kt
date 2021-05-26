@@ -148,4 +148,10 @@ open class DatabaseHelper private constructor() {
             return instance
         }
     }
+
+    open fun writeNewFood(food: FoodDetailsDataClass) {
+        val foodName: String = food.name!!
+        database.child(userId).child("foods").child(foodName).setValue(food.toMap())
+    }
+
 }

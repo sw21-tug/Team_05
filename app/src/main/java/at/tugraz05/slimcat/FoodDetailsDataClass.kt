@@ -6,14 +6,15 @@ import com.google.firebase.database.Exclude
 import java.lang.NumberFormatException
 
 data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double = 0.0, var rawFat: Double = 0.0,
-                                var crudeAsh: Double = 0.0, var rawFiber: Double = 0.0, var water: Double = 0.0) : Parcelable{
+                                var crudeAsh: Double = 0.0, var rawFiber: Double = 0.0, var water: Double = 0.0, var calories: Int = 0) : Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readDouble(),
         parcel.readDouble(),
         parcel.readDouble(),
         parcel.readDouble(),
-        parcel.readDouble()
+        parcel.readDouble(),
+        parcel.readInt()
     ) {
     }
 
@@ -25,6 +26,7 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
             "crudeAsh" to crudeAsh,
             "rawFiber" to rawFiber,
             "water" to water,
+            "calories" to calories
         )
     }
 
@@ -100,6 +102,7 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
         parcel.writeDouble(crudeAsh)
         parcel.writeDouble(rawFiber)
         parcel.writeDouble(water)
+        parcel.writeInt(calories)
     }
 
     override fun describeContents(): Int {
@@ -115,5 +118,4 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
             return arrayOfNulls(size)
         }
     }
-
 }

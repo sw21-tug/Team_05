@@ -11,6 +11,7 @@
         tools:context=".SettingsActivity">
 
         <ScrollView
+            android:id="@+id/addFood_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,8 +62,8 @@
                             android:layout_marginLeft="@dimen/addFood_tv_input_margin"
                             android:layout_weight="1"
                             android:hint="@string/addFood_hint_name"
-                            android:text="@={food.name}"
                             android:inputType="textPersonName"
+                            android:text="@={food.name}"
                             android:textSize="@dimen/addFood_input_textsize" />
                     </TableRow>
 
@@ -90,8 +91,8 @@
                             android:layout_marginLeft="@dimen/addFood_tv_input_margin"
                             android:layout_weight="1"
                             android:hint="@string/addFood_hint_percentage"
-                            android:text="@={food.rawProteinStr}"
                             android:inputType="textPersonName"
+                            android:text="@={food.rawProteinStr}"
                             android:textSize="@dimen/addFood_input_textsize" />
                     </TableRow>
 
@@ -119,8 +120,8 @@
                             android:layout_marginLeft="@dimen/addFood_tv_input_margin"
                             android:layout_weight="1"
                             android:hint="@string/addFood_hint_percentage"
-                            android:text="@={food.rawFatStr}"
                             android:inputType="textPersonName"
+                            android:text="@={food.rawFatStr}"
                             android:textSize="@dimen/addFood_input_textsize" />
                     </TableRow>
 
@@ -148,8 +149,8 @@
                             android:layout_marginLeft="@dimen/addFood_tv_input_margin"
                             android:layout_weight="1"
                             android:hint="@string/addFood_hint_percentage"
-                            android:text="@={food.crudeAshStr}"
                             android:inputType="textPersonName"
+                            android:text="@={food.crudeAshStr}"
                             android:textSize="@dimen/addFood_input_textsize" />
                     </TableRow>
 
@@ -177,8 +178,8 @@
                             android:layout_marginLeft="@dimen/addFood_tv_input_margin"
                             android:layout_weight="1"
                             android:hint="@string/addFood_hint_percentage"
-                            android:text="@={food.rawFiberStr}"
                             android:inputType="textPersonName"
+                            android:text="@={food.rawFiberStr}"
                             android:textSize="@dimen/addFood_input_textsize" />
                     </TableRow>
 
@@ -186,7 +187,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginBottom="@dimen/addFood_row_margin"
                         android:gravity="center_vertical">
 
 
@@ -206,12 +206,21 @@
                             android:layout_marginLeft="@dimen/addFood_tv_input_margin"
                             android:layout_weight="1"
                             android:hint="@string/addFood_hint_percentage"
-                            android:text="@={food.waterStr}"
                             android:inputType="textPersonName"
+                            android:text="@={food.waterStr}"
                             android:textSize="@dimen/addFood_input_textsize" />
                     </TableRow>
-
                 </TableLayout>
+
+                <TextView
+                    android:id="@+id/addFood_label_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/addFood_tv_lineheight"
+                    android:hint="@string/addFood_label_water_hint"
+                    android:textSize="@dimen/addFood_hint_textsize"/>
+
+
 
                 <LinearLayout
                     style="?android:attr/buttonBarStyle"
@@ -219,9 +228,9 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_marginTop="@dimen/addFood_view_margin"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/addFood_btn_save"
