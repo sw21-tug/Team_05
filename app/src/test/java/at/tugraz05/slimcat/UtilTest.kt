@@ -10,7 +10,6 @@ class UtilTest {
         val current_date = LocalDate.of(2021, 5, 6)
 
         val age = Util.calculateAge(date_of_birth, current_date)
-
         assert(age == 5)
     }
 
@@ -20,7 +19,6 @@ class UtilTest {
         val current_date = LocalDate.of(2021, 5, 6)
 
         val age = Util.calculateAge(date_of_birth, current_date)
-
         assert(age == 4)
     }
 
@@ -30,7 +28,6 @@ class UtilTest {
         val current_date = LocalDate.of(2021, 5, 6)
 
         val age = Util.calculateAge(date_of_birth, current_date)
-
         assert(age == 5)
     }
 
@@ -40,7 +37,6 @@ class UtilTest {
         val current_date = LocalDate.of(2021, 5, 6)
 
         val age = Util.calculateAge(date_of_birth, current_date)
-
         assert(age == 4)
     }
 
@@ -53,9 +49,6 @@ class UtilTest {
             gestation = false, lactation = false
         )
         val calRec = Util.calculateCalories(cat, obese)
-
-        print("$calRec\n")
-
         assert(calRec == 242)
     }
 
@@ -68,9 +61,6 @@ class UtilTest {
             gestation = false, lactation = false
         )
         val calRec = Util.calculateCalories(cat, obese)
-
-        print("$calRec\n")
-
         assert(calRec == 268)
     }
 
@@ -83,9 +73,6 @@ class UtilTest {
             gestation = true, lactation = true, gender = GenderSeeker.MALE
         )
         val calRec = Util.calculateCalories(cat, obese)
-
-        print("$calRec\n")
-
         assert(calRec == 268)
     }
 
@@ -98,9 +85,6 @@ class UtilTest {
             gestation = true, lactation = false, gender = GenderSeeker.FEMALE
         )
         val calRec = Util.calculateCalories(cat, obese)
-
-        print("$calRec\n")
-
         assert(calRec == 671)
     }
 
@@ -113,9 +97,6 @@ class UtilTest {
             gestation = false, lactation = true, gender = GenderSeeker.FEMALE
         )
         val calRec = Util.calculateCalories(cat, obese)
-
-        print("$calRec\n")
-
         assert(calRec == 1073)
     }
 
@@ -128,9 +109,6 @@ class UtilTest {
             gestation = true, lactation = true, gender = GenderSeeker.FEMALE
         )
         val calRec = Util.calculateCalories(cat, obese)
-
-        print("$calRec\n")
-
         assert(calRec == 1073)
     }
 
@@ -143,7 +121,6 @@ class UtilTest {
             gestation = false, lactation = false, gender = GenderSeeker.FEMALE
         )
         val calRec = Util.calculateCalories(cat, obese)
-
         assert(calRec == 671)
     }
 
