@@ -8,6 +8,7 @@
     <dimen name="catlist_card_padding_inner">5dp</dimen>
     <dimen name="catlist_card_textsize">20sp</dimen>
     <dimen name="catlist_card_body_textsize">18sp</dimen>
+    <dimen name="catlist_food_margin">15dp</dimen>
 
     <!-- Add cat -->
     <dimen name="addcat_view_margin">30dp</dimen>
@@ -30,9 +31,6 @@
     <dimen name="settings_tv_input_margin">15dp</dimen>
     <dimen name="settings_button_margin">20dp</dimen>
     <dimen name="settings_button_textsize">16sp</dimen>
-
-
-
 
 
 </resources>

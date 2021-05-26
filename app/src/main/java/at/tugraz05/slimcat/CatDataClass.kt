@@ -2,16 +2,23 @@ package at.tugraz05.slimcat
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.renderscript.Sampler
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import com.google.firebase.database.Exclude
 import java.lang.NumberFormatException
-import java.time.LocalDate
 
 
-data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
-                        var size: Double = 0.0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "",
-                        var calorieRecommendation: Int = 0, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
-                        var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable {
+class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
+                   var size: Double = 0.0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "",
+                   calorieRecommendation: Int = 0, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
+                   var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable, BaseObservable() {
+    var calorieRecommendation = calorieRecommendation
+        @Bindable get
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.calorieRecommendation)
+        }
+
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),

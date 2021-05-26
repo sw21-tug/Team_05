@@ -95,8 +95,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 if (foundCat != null) {
                     binding.cat = foundCat
-                    updateCatImage(binding)
-                    updateFoods(binding)
+                    binding.presenter!!.update()
                 }
                 else {
                     container.removeView(view)
@@ -110,52 +109,10 @@ class MainActivity : AppCompatActivity() {
                 binding.cat = cat
                 binding.presenter = CatAccordionPresenter(this, binding)
                 container.addView(binding.root)
-                binding.root.findViewById<Button>(R.id.edit_cat).setOnClickListener {
-                    val intent = Intent(this, AddcatActivity::class.java)
-                    val bundle = bundleOf("Cat" to binding!!.cat)
-                    intent.putExtras(bundle)
-                    startActivity(intent)
-                }
-                updateCatImage(binding)
-                updateFoods(binding)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                     binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
             }
-        }
-    }
-
-    private fun updateCatImage(binding: CatAccordionBinding) {
-        if (binding.cat?.imageString?.isNotEmpty() == true) {
-            val file = getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.toPath().resolve(binding.cat!!.imageString!!).toFile()
-
-            if (!file.exists()) {
-                Files.createDirectories(file.parentFile!!.toPath())
-                file.createNewFile()
-                DatabaseHelper.get().getImage("${DatabaseHelper.get().getUserId()}/${binding.cat!!.imageString!!}", file) {
-                    binding.root.findViewById<ImageView>(R.id.imageView).setImageURI(Uri.fromFile(file))
-                }
-            }
-            else {
-                binding.root.findViewById<ImageView>(R.id.imageView).setImageURI(Uri.fromFile(file))
-            }
-        }
-    }
-
-    private fun updateFoods(binding: CatAccordionBinding) {
-        val table = binding.root.findViewById<TableLayout>(R.id.accordion_food_list)
-        table.removeAllViews()
-
-        Food.foods.forEach {
-            val b = DataBindingUtil.inflate<CatAccordionFoodBinding>(
-                layoutInflater,
-                R.layout.cat_accordion_food,
-                table,
-                false
-            )
-            b.cat = binding.cat
-            b.food = it
-            table.addView(b.root)
         }
     }
 }

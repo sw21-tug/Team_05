@@ -8,6 +8,8 @@
     <string name="catlist_text_weight_lbs">Weight: %.2f lbs</string>
     <string name="catlist_text_calorie_recommendation">Cal. Rec.: %d kcal/day</string>
     <string name="catlist_text_food_amount">%d g</string>
+    <string name="catlist_food_recommendation">Food recommendation:</string>
+    <string name="catlist_track_food">Track Food</string>
     <string name="catlist_edit_cat">Edit</string>
 
 
@@ -69,18 +71,9 @@
     </string-array>
 
 
-
     <!-- Settings hints-->
     <string name="settings_name_hint">e.g. John Doe </string>
     <string name="settings_email_hint">e.g. john.doe@email.com</string>
-
-
-
-
-
-
-
-
 
 
     <!-- Details -->
@@ -98,7 +91,6 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>
