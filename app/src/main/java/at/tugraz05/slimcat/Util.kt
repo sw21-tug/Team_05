@@ -18,6 +18,11 @@ object Util {
     const val FACTOR_KG_TO_LBS = 2.205
     const val FACTOR_CM_TO_INCHES = 2.54
 
+    const val ATWATER_PROTEIN_FACTOR_PER_G = 3.5
+    const val ATWATER_FAT_FACTOR_PER_G = 8.5
+    const val ATWATER_NFE_FACTOR_PER_G = 3.5
+
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun calculateAge(date_of_birth: LocalDate, current_date : LocalDate) : Int{
@@ -90,5 +95,10 @@ object Util {
     fun calcGramsOfFood(food: Food, kcal: Int): Int {
         return ((kcal.toDouble() / food.kcalPer100G) * 100).roundToInt()
 
+    }
+
+    fun calcFoodCals(food: FoodDetailsDataClass) :Int {
+        return 0
+        //asserten dass nicht unter null nach abziehen aller prozent
     }
 }

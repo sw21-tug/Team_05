@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.view.ViewGroup" />
+        <variable
+            name="food"
+            type="at.tugraz05.slimcat.FoodDetailsDataClass" />
+        <variable
+            name="presenter"
+            type="at.tugraz05.slimcat.FoodAccordionPresenter" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/collapsible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/food_list_card_margin"
+            android:layout_marginRight="@dimen/food_list_card_margin"
+            android:layout_marginTop="@dimen/food_list_card_margin"
+            app:cardBackgroundColor="?attr/colorPrimary"
+            app:contentPadding="@dimen/food_list_card_padding"
+            android:animateLayoutChanges="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:animateLayoutChanges="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/food_list_card_padding_inner"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{presenter::toggleOpen}"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="@dimen/food_list_card_padding_inner"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="@{presenter::toggleOpen}"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/name_food"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{food.name}"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="@dimen/food_list_card_textsize"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/calories_food"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{@string/food_list_text_calories(0)}"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="@dimen/food_list_card_textsize" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/delete_food_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="@dimen/food_list_card_padding"
+                        app:icon="@drawable/ic_baseline_delete_24"
+                        app:iconGravity="textStart"
+                        app:iconPadding="10dp" />
+                </LinearLayout>
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="@dimen/food_list_card_padding_inner"
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="true"
+                    android:visibility="@{presenter.open ? View.VISIBLE : View.GONE}">
+
+                    <TextView
+                        android:id="@+id/text_rawProtein"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/food_list_text_protein(food.rawProtein)}"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/catlist_card_body_textsize" />
+
+                    <TextView
+                        android:id="@+id/text_rawFat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/food_list_text_fat(food.rawFat)}"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/catlist_card_body_textsize" />
+
+                    <TextView
+                        android:id="@+id/text_crudeAsh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/food_list_text_ash(food.crudeAsh)}"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/catlist_card_body_textsize" />
+
+                    <TextView
+                        android:id="@+id/text_rawFiber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/food_list_text_fiber(food.rawFiber)}"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/catlist_card_body_textsize" />
+
+                    <TextView
+                        android:id="@+id/text_water"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/food_list_text_water(food.water)}"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/catlist_card_body_textsize"/>
+
+                    <TableLayout
+                        android:id="@+id/accordion_food_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+</layout>
