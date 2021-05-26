@@ -49,10 +49,12 @@ class UtilTest {
         val obese = true
 
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = true, neutered = false,
+            age = 3, weight = 6.0, overweight_prone = false, hospitalized = true, neutered = false,
             gestation = false, lactation = false
         )
         val calRec = Util.calculateCalories(cat, obese)
+
+        print("$calRec\n")
 
         assert(calRec == 242)
     }
@@ -62,10 +64,12 @@ class UtilTest {
         val obese = false
 
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 2, weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = false, lactation = false
         )
         val calRec = Util.calculateCalories(cat, obese)
+
+        print("$calRec\n")
 
         assert(calRec == 268)
     }
@@ -75,10 +79,12 @@ class UtilTest {
         val obese = false
 
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 2, weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = true, lactation = true, gender = GenderSeeker.MALE
         )
         val calRec = Util.calculateCalories(cat, obese)
+
+        print("$calRec\n")
 
         assert(calRec == 268)
     }
@@ -88,10 +94,12 @@ class UtilTest {
         val obese = false
 
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 4, weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = true, lactation = false, gender = GenderSeeker.FEMALE
         )
         val calRec = Util.calculateCalories(cat, obese)
+
+        print("$calRec\n")
 
         assert(calRec == 671)
     }
@@ -101,10 +109,12 @@ class UtilTest {
         val obese = false
 
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 2, weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = false, lactation = true, gender = GenderSeeker.FEMALE
         )
         val calRec = Util.calculateCalories(cat, obese)
+
+        print("$calRec\n")
 
         assert(calRec == 1073)
     }
@@ -114,10 +124,12 @@ class UtilTest {
         val obese = false
 
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 2, weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = true, lactation = true, gender = GenderSeeker.FEMALE
         )
         val calRec = Util.calculateCalories(cat, obese)
+
+        print("$calRec\n")
 
         assert(calRec == 1073)
     }
@@ -125,12 +137,9 @@ class UtilTest {
     @Test
     fun testIsKitten() {
         val obese = false
-        val date_of_birth = LocalDate.of(2021, 5, 1)
-
-        var age = Util.calculateAge(date_of_birth, LocalDate.now())
 
         val cat = CatDataClass(
-            age = age, weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 0, weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = false, lactation = false, gender = GenderSeeker.FEMALE
         )
         val calRec = Util.calculateCalories(cat, obese)
