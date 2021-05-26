@@ -24,8 +24,8 @@ import java.time.LocalDate
 class AddcatActivityTest : TestCase() {
     private val txtids = arrayOf(R.id.txt_name, R.id.txt_race, R.id.txt_size, R.id.txt_weight)
     private val switchids = arrayOf(
-            R.id.switch_overweight, R.id.switch_hospitalized, R.id.switch_neutered,
-            R.id.switch_gestation, R.id.switch_lactation,
+            R.id.switch_obese, R.id.switch_overweight, R.id.switch_hospitalized,
+            R.id.switch_neutered, R.id.switch_gestation, R.id.switch_lactation
     )
     private val ids = arrayOf(R.id.seek_gender, R.id.btn_camera) + txtids + switchids
     private val rowids = arrayOf(R.id.row_gestation, R.id.row_lactation)
