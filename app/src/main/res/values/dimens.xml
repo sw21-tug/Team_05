@@ -32,5 +32,9 @@
     <dimen name="settings_button_margin">20dp</dimen>
     <dimen name="settings_button_textsize">16sp</dimen>
 
+    <!-- Track Food -->
+    <dimen name="trackfood_table_margin">20sp</dimen>
+    <dimen name="trackfood_row_margin">5sp</dimen>
+    <dimen name="trackfood_input_margin">5sp</dimen>
 
 </resources>
