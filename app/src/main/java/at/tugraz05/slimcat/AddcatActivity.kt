@@ -94,6 +94,7 @@ class AddcatActivity : AppCompatActivity() {
                 // TODO implement function to calc if cat is obese
                 val obese : Boolean = true
                 binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!, obese)
+                Log.d("cat", "${binding.cat!!.calorieRecommendation}")
 
                 if (binding.cat!!.date_of_birth != null)
                     binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
@@ -149,6 +150,9 @@ class AddcatActivity : AppCompatActivity() {
         // gender seeker helpers
         findViewById<TextView>(R.id.label_gender_male).setOnClickListener { genderSeeker.progress = GenderSeeker.MALE }
         findViewById<TextView>(R.id.label_gender_female).setOnClickListener { genderSeeker.progress = GenderSeeker.FEMALE }
+
+        if (!edit)
+            findViewById<Button>(R.id.btn_delete).visibility = View.GONE
 
         //Back-Button
         val actionbar = supportActionBar
