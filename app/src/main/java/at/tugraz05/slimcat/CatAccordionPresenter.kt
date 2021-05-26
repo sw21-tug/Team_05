@@ -46,12 +46,14 @@ data class CatAccordionPresenter(val context: Activity, val binding: CatAccordio
         context.startActivity(intent)
     }
 
-    fun getWeightStr(cat: CatDataClass):String{
+    fun getWeightStr(cat: CatDataClass): String {
         val metricSystem = context.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             context.getString(R.string.catlist_text_weight).format(cat.weight)
         } else {
-            context.getString(R.string.catlist_text_weight_lbs).format(Util.convertKgToLbs(cat.weight))
+            context.getString(R.string.catlist_text_weight_lbs).format(cat.weight?.let {
+                Util.convertKgToLbs(it)
+            } ?: 0.0)
         }
     }
 

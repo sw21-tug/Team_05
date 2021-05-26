@@ -8,11 +8,11 @@ import com.google.firebase.database.Exclude
 import java.lang.NumberFormatException
 
 
-class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
-                   var size: Double = 0.0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "",
-                   calorieRecommendation: Int = 0, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
-                   var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable, BaseObservable() {
-    var calorieRecommendation = calorieRecommendation
+data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
+                        var size: Double? = null, var weight: Double? = null, var gender: Int? = null, var imageString: String? = "",
+                        private val _calorieRecommendation: Int = 0, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
+                        var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable, BaseObservable() {
+    var calorieRecommendation = _calorieRecommendation
         @Bindable get
         set(value) {
             field = value
@@ -58,28 +58,12 @@ class CatDataClass(var name: String? = null, var race: String? = null, var date_
 
     @Exclude
     fun getSizeStr(): String {
-        return size.toString()
-    }
-    @Exclude
-    fun setSizeStr(s: String) {
-        size = try {
-            s.toDouble()
-        } catch (e: NumberFormatException) {
-            0.0
-        }
+        return size?.toString() ?: ""
     }
 
     @Exclude
     fun getWeightStr(): String {
-        return weight.toString()
-    }
-    @Exclude
-    fun setWeightStr(s: String) {
-        weight = try {
-            s.toDouble()
-        } catch (e: NumberFormatException) {
-            0.0
-        }
+        return weight?.toString() ?: ""
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -87,8 +71,8 @@ class CatDataClass(var name: String? = null, var race: String? = null, var date_
         parcel.writeString(race)
         parcel.writeString(date_of_birth)
         parcel.writeInt(age)
-        parcel.writeDouble(size)
-        parcel.writeDouble(weight)
+        parcel.writeDouble(size ?: 0.0)
+        parcel.writeDouble(weight ?: 0.0)
         parcel.writeValue(gender)
         parcel.writeString(imageString)
         parcel.writeInt(calorieRecommendation)
