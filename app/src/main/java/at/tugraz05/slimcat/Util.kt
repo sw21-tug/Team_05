@@ -38,7 +38,7 @@ object Util {
         val restingEnergyRequirements = FACTOR_RESTING_ENERGY_REQUIREMENT * cat.weight.pow(POW_RESTING_ENERGY_REQUIREMENT)
         var maintenceEnergyRequirements = restingEnergyRequirements
 
-        if(obese) {
+        if(cat.obese) {
             maintenceEnergyRequirements *= FACTOR_OBESE
         }
         if(cat.overweight_prone) {

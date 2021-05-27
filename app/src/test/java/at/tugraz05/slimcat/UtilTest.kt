@@ -74,7 +74,7 @@ class UtilTest {
         )
         val calRec = Util.calculateCalories(cat)
 
-        assert(calRec == 268)
+        assert(calRec == 242)
     }
 
     @Test
@@ -96,7 +96,7 @@ class UtilTest {
         )
         val calRec = Util.calculateCalories(cat)
 
-        assert(calRec == 1073)
+        assert(calRec == 966)
     }
 
     @Test
