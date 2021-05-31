@@ -9,6 +9,9 @@
         <variable
             name="food"
             type="at.tugraz05.slimcat.Food" />
+        <variable
+            name="activity"
+            type="at.tugraz05.slimcat.TrackFoodActivity" />
     </data>
 
     <TableRow android:layout_margin="@dimen/trackfood_row_margin"

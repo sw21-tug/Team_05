@@ -26,7 +26,8 @@
                     android:id="@+id/scroll_track_food"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/catlist_card_margin"></TableLayout>
+                    android:paddingBottom="@dimen/catlist_card_margin" />
+
                 <Button
                     android:id="@+id/trackfood_btn_save"
                     style="?android:attr/buttonBarButtonStyle"
@@ -35,7 +36,8 @@
                     android:layout_margin="@dimen/settings_button_margin"
                     android:text="@string/save"
                     android:textSize="@dimen/settings_button_textsize"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:onClick="save" />
 
             </LinearLayout>
         </ScrollView>

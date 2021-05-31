@@ -10,12 +10,13 @@ import java.lang.NumberFormatException
 
 data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
                         var size: Double? = null, var weight: Double? = null, var gender: Int? = null, var imageString: String? = "",
-                        private val _calorieRecommendation: Int = 0, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
+                        private var _calorieRecommendation: Int = 0, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
                         var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable, BaseObservable() {
     var calorieRecommendation = _calorieRecommendation
         @Bindable get
         set(value) {
             field = value
+            _calorieRecommendation = value
             notifyPropertyChanged(BR.calorieRecommendation)
         }
 
