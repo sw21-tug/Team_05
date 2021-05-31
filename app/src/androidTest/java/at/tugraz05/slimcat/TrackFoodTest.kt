@@ -32,13 +32,14 @@ class TrackFoodTest : TestCase() {
         Mockito.doAnswer { Log.d("openEditCat", "${it.arguments[0] as String}: ${it.arguments[1] as CatDataClass}") }.`when`(dbHelper).editUser(
             any(), any()
         )
+        val obese = true // TODO use obese calc
+        cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
+        cat.calorieRecommendation = Util.calculateCalories(cat, obese)
+
         val intent = Intent(ApplicationProvider.getApplicationContext(), TrackFoodActivity::class.java)
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<TrackFoodActivity>(intent)
 
-        val obese = true // TODO use obese calc
-        cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
-        cat.calorieRecommendation = Util.calculateCalories(cat, obese)
 
         val calories = cat.calorieRecommendation
         val cat2 = cat.copy()
