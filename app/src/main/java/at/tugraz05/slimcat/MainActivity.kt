@@ -158,4 +158,8 @@ class MainActivity : AppCompatActivity() {
             table.addView(b.root)
         }
     }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LanguageHandler.setLanguage(newBase!!))
+    }
 }

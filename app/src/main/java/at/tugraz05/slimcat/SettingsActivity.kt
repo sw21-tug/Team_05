@@ -73,7 +73,7 @@ class SettingsActivity: AppCompatActivity() {
 
         // change language selection in spinner
         val sharedpref = getSharedPreferences("userprefs", MODE_PRIVATE)
-        sharedpref.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+        sharedpref.registerOnSharedPreferenceChangeListener { _, _ ->
             LanguageHandler.setLanguage(this)
             finish()
         }
@@ -142,6 +142,10 @@ class SettingsActivity: AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         binding.user?.image = CaptureImage.captureImage(this) ?: ""
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LanguageHandler.setLanguage(newBase!!))
     }
 }
 

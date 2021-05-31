@@ -12,24 +12,30 @@ import java.util.*
 
 object LanguageHandler {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    fun setAppLocale(languageFromPreference: String?, context: Context)
+    fun setAppLocale(languageFromPreference: String?, context: Context): Context
     {
 
         if (languageFromPreference != null) {
 
             val resources: Resources = context.resources
-            val dm: DisplayMetrics = resources.displayMetrics
+            // val dm: DisplayMetrics = resources.displayMetrics
             val config: Configuration = resources.configuration
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                config.setLocale(Locale(languageFromPreference.toLowerCase(Locale.ROOT)))
+            // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            config.setLocale(Locale(languageFromPreference.toLowerCase(Locale.ROOT)))
+            /*
             } else {
+
                 config.setLocale(Locale(languageFromPreference.toLowerCase(Locale.ROOT)))
             }
-            resources.updateConfiguration(config, dm)
+            */
+
+            return context.createConfigurationContext(config)
         }
+        return context
     }
+
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    fun setLanguage(context: Context){
+    fun setLanguage(context: Context): Context{
         val language = context.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("language", 0 )
         if (language == SettingsActivity.ENGLISH) {
             Log.d("test", "english")
@@ -43,5 +49,6 @@ object LanguageHandler {
 
             //startActivity(intent)
         }
+        return context
     }
 }

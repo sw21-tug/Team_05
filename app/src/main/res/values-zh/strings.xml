@@ -44,6 +44,9 @@
     <string name="error_create_cat">请输入您的猫的名字</string>
     <string name="error_delete_cat">请输入您要删除的猫的名字</string>
 
+    <!-- Calendar picker -->
+    <string name="cancel">取消</string>
+
     <!-- Settings -->
     <string name="settings_name">名</string>
     <string name="settings_email">电子邮件</string>

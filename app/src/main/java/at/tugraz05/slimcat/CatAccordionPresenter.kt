@@ -11,6 +11,7 @@ import androidx.databinding.ObservableBoolean
 import at.tugraz05.slimcat.databinding.CatAccordionBinding
 
 data class CatAccordionPresenter(val context: Context, val binding: CatAccordionBinding, var open: ObservableBoolean = ObservableBoolean(false)) {
+    @Suppress("UNUSED_PARAMETER")
     fun toggleOpen(view: View) {
         open.set(!open.get())
     }
@@ -45,9 +46,6 @@ fun catWeightBinding(view: TextView, cat:CatDataClass, presenter: CatAccordionPr
 
 @BindingAdapter("cat", "food")
 fun setGrams(view: TextView, cat: CatDataClass, food: Food) {
-    if(cat.calorieRecommendation == null){
-        return
-    }
-    Log.d("setGrams", "${food.name}: ${food.kcalPer100G} ${cat.calorieRecommendation} ${Util.calcGramsOfFood(food, cat.calorieRecommendation!!)}")
-    view.text = view.resources.getString(R.string.catlist_text_food_amount, Util.calcGramsOfFood(food, cat.calorieRecommendation!!))
+    Log.d("setGrams", "${food.name}: ${food.kcalPer100G} ${cat.calorieRecommendation} ${Util.calcGramsOfFood(food, cat.calorieRecommendation)}")
+    view.text = view.resources.getString(R.string.catlist_text_food_amount, Util.calcGramsOfFood(food, cat.calorieRecommendation))
 }
