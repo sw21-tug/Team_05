@@ -2,11 +2,11 @@ package at.tugraz05.slimcat
 
 import android.view.View
 import androidx.test.espresso.*
-import androidx.test.espresso.matcher.ViewMatchers.assertThat
-import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.espresso.util.HumanReadables
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers.allOf
 import java.util.concurrent.TimeoutException
 import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
@@ -68,4 +68,8 @@ fun <T>waitFor(timeout:Long = 1000, someMethod: (view: T) -> Boolean): ViewActio
         }
     }
 
+}
+
+fun withPositionInParent(parentViewId: Int, position: Int): Matcher<View> {
+    return allOf(withParent(withId(parentViewId)), withParentIndex(position))
 }
