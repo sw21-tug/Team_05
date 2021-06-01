@@ -16,11 +16,11 @@
     <string name="add_food">Add Food</string>
     <string name="title_food_back">Food List</string>
     <string name="food_list_text_calories">Cal.: %d kcal/100g</string>
-    <string name="food_list_text_protein">Raw Protein: %.2f %</string>
-    <string name="food_list_text_fat">Raw Fat: %.2f %</string>
-    <string name="food_list_text_ash">Crude Ash: %.2f %</string>
-    <string name="food_list_text_fiber">Raw Fiber: %.2f %</string>
-    <string name="food_list_text_water">Water: %.2f %</string>
+    <string name="food_list_text_protein">Raw Protein: %.2f %%</string>
+    <string name="food_list_text_fat">Raw Fat: %.2f %%</string>
+    <string name="food_list_text_ash">Crude Ash: %.2f %%</string>
+    <string name="food_list_text_fiber">Raw Fiber: %.2f %%</string>
+    <string name="food_list_text_water">Water: %.2f %%</string>
 
 
     <!-- Add Food -->
