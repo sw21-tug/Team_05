@@ -25,10 +25,15 @@ class FoodListActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        DatabaseHelper.get().addValueEventListener{
+        /*DatabaseHelper.get().addValueEventListener{
             displayFoods(DatabaseHelper.get().readUserFoods())
-        }
+        }*/
 
+        /*val listfood = arrayOf(
+            FoodDetailsDataClass("Sheba", 20.0, 20.0, 20.0, 20.0, 10.0, 1) ,
+            FoodDetailsDataClass("Shea2", 20.0, 20.0, 20.0, 20.0, 10.0, 1)
+        )
+*/
         //LanguageHandler.setLanguage(this)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

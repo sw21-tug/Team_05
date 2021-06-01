@@ -17,11 +17,11 @@
     <string name="add_food">加猫</string>
     <string name="title_food_back">食物清单</string>
     <string name="food_list_text_calories">卡路里： %d 大卡/100克</string>
-    <string name="food_list_text_protein">原始蛋白质: %.2f %</string>
-    <string name="food_list_text_fat">生脂肪: %.2f %</string>
-    <string name="food_list_text_ash">粗灰分: %.2f %</string>
-    <string name="food_list_text_fiber">原始纤维: %.2f %</string>
-    <string name="food_list_text_water">水: %.2f %</string>
+    <string name="food_list_text_protein">原始蛋白质: %.2f %%</string>
+    <string name="food_list_text_fat">生脂肪: %.2f %%</string>
+    <string name="food_list_text_ash">粗灰分: %.2f %%</string>
+    <string name="food_list_text_fiber">原始纤维: %.2f %%</string>
+    <string name="food_list_text_water">水: %.2f %%</string>
 
     <!-- Add Food -->
     <string name="addFood_label_name">名称</string>
