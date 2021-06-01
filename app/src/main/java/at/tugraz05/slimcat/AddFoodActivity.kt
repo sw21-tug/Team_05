@@ -16,6 +16,8 @@ class AddFoodActivity : AppCompatActivity() {
     private lateinit var nameField: EditText
     private lateinit var binding: ActivityAddFoodBinding
     private lateinit var saveButton: Button
+    private lateinit var errorField: EditText
+
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -23,20 +25,21 @@ class AddFoodActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_food)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_food)
-
+        binding.food = FoodDetailsDataClass()
 
         // initialize all fields
         scrollView = findViewById(R.id.addFood_scroll_view)
         nameField = findViewById(R.id.addFood_name)
         saveButton = findViewById(R.id.addFood_btn_save)
+        errorField = findViewById(R.id.addFood_protein)
 
         saveButton.setOnClickListener {
             if (TextUtils.isEmpty(nameField.text)) {
                 nameField.error = resources.getString(R.string.error_add_food)
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
-            if (!addUpCatPercentage()) {
-                saveButton.error = resources.getString(R.string.error_percentage_food)
+            else if (!addUpCatPercentage()) {
+                errorField.error = resources.getString(R.string.error_percentage_food)
             }
             else {
                 createFood()
