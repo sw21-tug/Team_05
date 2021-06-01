@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_food -> {
                 val intent = Intent(this, FoodListActivity::class.java)
-                startActivityForResult(intent, 0)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
