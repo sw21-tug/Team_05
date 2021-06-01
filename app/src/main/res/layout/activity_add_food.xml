@@ -239,7 +239,9 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/addFood_button_margin"
                         android:text="@string/save"
-                        android:textSize="@dimen/addFood_button_textsize" />
+                        android:textSize="@dimen/addFood_button_textsize"
+                        />
+
                 </LinearLayout>
 
             </LinearLayout>
