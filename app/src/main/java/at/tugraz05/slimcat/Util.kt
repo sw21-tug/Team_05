@@ -15,8 +15,13 @@ object Util {
     const val FACTOR_NEUTERED = 1.2
     const val FACTOR_GESTATION = 2.5
     const val FACTOR_LACTATION = 4
+    const val FACTOR_KITTEN = 2.5
     const val FACTOR_KG_TO_LBS = 2.205
     const val FACTOR_CM_TO_INCHES = 2.54
+
+    const val ATWATER_PROTEIN_FACTOR_PER_G = 3.5
+    const val ATWATER_FAT_FACTOR_PER_G = 8.5
+    const val ATWATER_NFE_FACTOR_PER_G = 3.5
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -30,7 +35,6 @@ object Util {
             if (current_date.dayOfMonth < date_of_birth.dayOfMonth)
                 age--
         }
-
         return age
     }
 
@@ -38,6 +42,9 @@ object Util {
         val restingEnergyRequirements = FACTOR_RESTING_ENERGY_REQUIREMENT * cat.weight.pow(POW_RESTING_ENERGY_REQUIREMENT)
         var maintenceEnergyRequirements = restingEnergyRequirements
 
+        if (cat.age <= 1) {
+            maintenceEnergyRequirements *= FACTOR_KITTEN
+        }
         if(cat.obese) {
             maintenceEnergyRequirements *= FACTOR_OBESE
         }
@@ -84,6 +91,16 @@ object Util {
 
     fun calcGramsOfFood(food: Food, kcal: Int): Int {
         return ((kcal.toDouble() / food.kcalPer100G) * 100).roundToInt()
+    }
 
+    fun calcFoodCals(food: FoodDetailsDataClass) :Int {
+        var nfe = 100.0 - food.rawProtein - food.rawFat - food.crudeAsh - food.rawFiber - food.water
+        val ts = 100 - food.water
+        val protein = food.rawProtein / ts
+        val fat = food.rawFat / ts
+        nfe /= ts
+
+       return ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
+        //asserten dass nicht unter null nach abziehen aller prozent
     }
 }
