@@ -12,9 +12,9 @@
 | :---        |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |
 | Dev 1       | X           | HH:MM       | 17:00       | 07:30       | HH:MM       | HH:MM       | 14:00       | HH:MM       |
 | Dev 2       | HH:MM       | X           | HH:MM       | HH:MM       | 15:00       | 06:00       | 08:30       | HH:MM       |
-| Dev 3       | 17:90       | HH:MM       | X           | HH:MM       | HH:MM       | HH:MM       | 07:30       | 12:30       |
-| Dev 4       | 07:30       | HH:MM       | HH:MM       | X           | 17:30       | 07:30       | HH:MM       | 03:00       |
-| Dev 5       | HH:MM       | 15:00       | HH:MM       | 17:30       | X           | 05:00       | HH:MM       | HH:MM       |
+| Dev 3       | 17:90       | HH:MM       | X           | 02:30       | HH:MM       | HH:MM       | 07:30       | 12:30       |
+| Dev 4       | 07:30       | HH:MM       | 02:30       | X           | 17:30       | 07:30       | 07:00       | 03:00       |
+| Dev 5       | HH:MM       | 15:00       | HH:MM       | 17:30       | X           | 05:00       | HH:MM       | 11:45       |
 | Dev 6       | HH:MM       | 06:00       | HH:MM       | 07:30       | 05:00       | X           | HH:MM       | 22:00       |
-| Dev 7       | 14:00       | 08:30       | 07:30       | HH:MM       | HH:MM       | HH:MM       | X           | HH:MM       |
-| Dev 8       | HH:MM       | HH:MM       | 12:30       | 03:00       | HH:MM       | 22:00       | HH:MM       | X           |
+| Dev 7       | 14:00       | 08:30       | 07:30       | 07:00       | HH:MM       | HH:MM       | X           | HH:MM       |
+| Dev 8       | HH:MM       | HH:MM       | 12:30       | 03:00       | 11:45       | 22:00       | HH:MM       | X           |
