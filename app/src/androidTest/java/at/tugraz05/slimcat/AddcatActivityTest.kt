@@ -101,10 +101,8 @@ class AddcatActivityTest : TestCase() {
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
 
-        var obese : Boolean = true // TODO use obese calc
-
         cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
-        cat.calorieRecommendation = Util.calculateCalories(cat, obese)
+        cat.calorieRecommendation = Util.calculateCalories(cat)
 
         onView(withId(R.id.txt_name)).check(matches(withText(cat.name)))
         onView(withId(R.id.txt_race)).check(matches(withText(cat.race)))
@@ -123,9 +121,7 @@ class AddcatActivityTest : TestCase() {
         Mockito.doAnswer { Log.d("openAddCat", (it.arguments[0] as CatDataClass).name!!) }.`when`(dbHelper).writeNewCat(any())
         ActivityScenario.launch(AddcatActivity::class.java)
 
-        var obese : Boolean = true // TODO use obese calc
-
-        cat.calorieRecommendation = Util.calculateCalories(cat, obese)
+        cat.calorieRecommendation = Util.calculateCalories(cat)
 
         // check that empty
         onView(withId(R.id.txt_name)).check(matches(withText("")))
