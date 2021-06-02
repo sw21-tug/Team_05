@@ -30,6 +30,7 @@ class AddcatActivity : AppCompatActivity() {
     private lateinit var nameField: EditText
     private var edit = false
     private lateinit var oldName: String
+    private var calDiff = 0
 
     private lateinit var binding: ActivityAddcatBinding
     private lateinit var imageButton: ImageButton
@@ -46,6 +47,7 @@ class AddcatActivity : AppCompatActivity() {
             edit = true
             binding.cat = bundle.getParcelable("Cat")!!
             oldName = binding.cat!!.name!!
+            calDiff = calculateCalories(binding.cat!!) - binding.cat!!.calorieRecommendation
         }
         else
         {
@@ -94,7 +96,7 @@ class AddcatActivity : AppCompatActivity() {
                 if (binding.cat!!.date_of_birth != null)
                     binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
 
-                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!)
+                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!) - calDiff
 
                 if (edit) updateCat()
                 else createCat()

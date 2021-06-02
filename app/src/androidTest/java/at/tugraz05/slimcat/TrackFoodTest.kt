@@ -29,7 +29,10 @@ class TrackFoodTest : TestCase() {
         val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = GenderSeeker.MALE)
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
-        Mockito.doAnswer { Log.d("openEditCat", "${it.arguments[0] as String}: ${it.arguments[1] as CatDataClass}") }.`when`(dbHelper).editUser(
+        Mockito.doAnswer {
+            val cat = it.arguments[1] as CatDataClass
+            Log.d("trackFood", "${it.arguments[0] as String}: $cat ${cat.calorieRecommendation}")
+        }.`when`(dbHelper).editUser(
             any(), any()
         )
         cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
@@ -39,15 +42,14 @@ class TrackFoodTest : TestCase() {
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<TrackFoodActivity>(intent)
 
-        cat.calorieRecommendation -= Food.foods[0].kcalPer100G*20/100 -  Food.foods[1].kcalPer100G*10/100
+        cat.calorieRecommendation -= Food.foods[0].kcalPer100G*20/100 + Food.foods[1].kcalPer100G*10/100
 
-        onView(withId(R.id.scroll_track_food)).perform(waitFor<TableLayout> {it.childCount != 0})
-
+        onView(withId(R.id.scroll_track_food)).perform(waitFor<TableLayout> { it.childCount != 0 })
         onView(allOf(withParent(withPositionInParent(R.id.scroll_track_food, 0)), withId(R.id.text_food_eaten))).perform(scrollTo()).perform(typeText("20"))
         onView(allOf(withParent(withPositionInParent(R.id.scroll_track_food, 1)), withId(R.id.text_food_eaten))).perform(scrollTo()).perform(typeText("10"))
 
         onView(withId(R.id.trackfood_btn_save)).perform(scrollTo()).perform(click())
-        Log.d("openEditCat", "$cat")
+        Log.d("trackFood", "$cat ${cat.calorieRecommendation}")
         Mockito.verify(dbHelper).editUser("test", cat)
     }
 }

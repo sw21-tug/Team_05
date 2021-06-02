@@ -11,13 +11,12 @@ import java.sql.Timestamp
 
 data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
                         var size: Double? = null, var weight: Double? = null, var gender: Int? = null, var imageString: String? = "",
-                        private var _calorieRecommendation: Int = 0, var obese : Boolean = false, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
+                        private val _calorieRecommendation: Int = 0, var obese : Boolean = false, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
                         var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false, var timestamp: Long = 0): Parcelable, BaseObservable() {
     var calorieRecommendation = _calorieRecommendation
         @Bindable get
         set(value) {
             field = value
-            _calorieRecommendation = value
             notifyPropertyChanged(BR.calorieRecommendation)
             timestamp = System.currentTimeMillis()
         }
@@ -90,6 +89,15 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.writeValue(gestation)
         parcel.writeValue(lactation)
         parcel.writeLong(timestamp)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is CatDataClass)
+            return super.equals(other)
+        return other.name == name && other.race == race && other.date_of_birth == date_of_birth && other.age == age
+            && other.size == size && other.weight == weight && other.gender == gender && other.imageString == imageString
+            && other.calorieRecommendation == calorieRecommendation && other.obese == obese  && other.overweight_prone == overweight_prone && other.hospitalized == hospitalized
+            && other.neutered == neutered && other.gestation == gestation && other.lactation == lactation
     }
 
     override fun describeContents(): Int {
