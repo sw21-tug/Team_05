@@ -77,6 +77,11 @@
     <string name="error_create_cat">Please enter a name for your cat.</string>
     <string name="error_delete_cat">Please enter the name of the cat you want to delete.</string>
 
+
+    <!-- Track Food -->
+    <string name="trackfood_reset">Reset</string>
+
+
     <!-- Settings -->
     <string name="settings_name">Name</string>
     <string name="settings_email">Email</string>
