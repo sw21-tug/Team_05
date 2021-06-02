@@ -152,4 +152,18 @@ open class DatabaseHelper private constructor() {
             return instance
         }
     }
+
+    open fun writeNewFood(food: FoodDetailsDataClass) {
+        val foodName: String = food.name!!
+        database.child(userId).child("foods").child(foodName).setValue(food.toMap())
+    }
+
+    open fun deleteFood(foodName: String) {
+        database.child(userId).child("foods").child(foodName).removeValue()
+    }
+
+    open fun readUserFoods(): List<FoodDetailsDataClass?> {
+        return dataSnapshot.child(userId).child("foods").children.map { it.getValue(FoodDetailsDataClass::class.java) }
+    }
+
 }

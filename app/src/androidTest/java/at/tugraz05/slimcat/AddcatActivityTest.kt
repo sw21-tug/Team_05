@@ -25,8 +25,8 @@ import java.time.LocalDate
 class AddcatActivityTest : TestCase() {
     private val txtids = arrayOf(R.id.txt_name, R.id.txt_race, R.id.txt_size, R.id.txt_weight)
     private val switchids = arrayOf(
-            R.id.switch_overweight, R.id.switch_hospitalized, R.id.switch_neutered,
-            R.id.switch_gestation, R.id.switch_lactation,
+            R.id.switch_obese, R.id.switch_overweight, R.id.switch_hospitalized,
+            R.id.switch_neutered, R.id.switch_gestation, R.id.switch_lactation
     )
     private val ids = arrayOf(R.id.seek_gender, R.id.btn_camera) + txtids + switchids
     private val rowids = arrayOf(R.id.row_gestation, R.id.row_lactation)
@@ -112,13 +112,13 @@ class AddcatActivityTest : TestCase() {
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("openEditCat", "${it.arguments[0] as String}: ${it.arguments[1] as CatDataClass}") }.`when`(dbHelper).editUser(any(), any())
+
+        cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
+        cat.calorieRecommendation = Util.calculateCalories(cat)
+
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
-
-        val obese = true // TODO use obese calc
-        cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
-        cat.calorieRecommendation = Util.calculateCalories(cat, obese)
 
         onView(withId(R.id.txt_name)).check(matches(withText(cat.name)))
         onView(withId(R.id.txt_race)).check(matches(withText(cat.race)))
@@ -138,8 +138,7 @@ class AddcatActivityTest : TestCase() {
         Mockito.doAnswer { Log.d("openAddCat", (it.arguments[0] as CatDataClass).name!!) }.`when`(dbHelper).writeNewCat(any())
         ActivityScenario.launch(AddcatActivity::class.java)
 
-        val obese = true // TODO use obese calc
-        cat.calorieRecommendation = Util.calculateCalories(cat, obese)
+        cat.calorieRecommendation = Util.calculateCalories(cat)
 
         // check that empty
         onView(withId(R.id.txt_name)).check(matches(withText("")))
