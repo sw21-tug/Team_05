@@ -51,7 +51,20 @@ class MainActivity : AppCompatActivity() {
 //        cats.forEach { databaseHelper.writeNewCat(it) }
 
         DatabaseHelper.get().addValueEventListener{
-            displayCats(DatabaseHelper.get().readUserCats())
+            val today = Calendar.getInstance()
+            today.set(Calendar.HOUR_OF_DAY,0)
+            today.set(Calendar.MINUTE,0)
+            today.set(Calendar.SECOND,0)
+
+            val userCats = DatabaseHelper.get().readUserCats().map {
+                val date = Date(it!!.timestamp)
+                if (date.before(today.time)){
+                    it.calorieRecommendation = Util.calculateCalories(it, false)
+                    DatabaseHelper.get().editUser(it.name!!, it)
+                }
+                it
+            }
+            displayCats(userCats)
         }
 
         LanguageHandler.setLanguage(this)

@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="@dimen/catlist_card_body_textsize"
-            app:cat="@{cat}"
+            app:calories="@{cat.calorieRecommendation}"
             app:food="@{food}" />
     </TableRow>
 </layout>
