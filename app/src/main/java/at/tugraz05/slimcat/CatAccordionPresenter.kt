@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import android.content.res.Resources
 import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableBoolean
@@ -24,21 +23,8 @@ data class CatAccordionPresenter(val context: Context, val binding: CatAccordion
             context.getString(R.string.catlist_text_weight_lbs).format(Util.convertKgToLbs(cat.weight))
         }
     }
-
-
-/*
-    fun getSizeStr():String{
-        val metricSystem = context.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
-        return if (metricSystem == SettingsActivity.METRIC) {
-            cat.getSizeStr()
-            context.getString(R.string.catlist_text_size).format(cat.weight)
-        } else {
-            Util.convertCmToInch(cat.size.toDouble()).toInt().toString()
-        }
-    }
-    */
-
 }
+
 @BindingAdapter("cat", "presenter")
 fun catWeightBinding(view: TextView, cat:CatDataClass, presenter: CatAccordionPresenter){
     view.text = presenter.getWeightStr(cat)

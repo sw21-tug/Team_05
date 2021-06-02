@@ -44,7 +44,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun maleLabelClickHideFemale() {
-        ActivityScenario.launch(AddcatActivity::class.java)
+        ActivityScenario.launch(AddcatActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.label_gender_female)).perform(scrollTo()).perform(click())
         onView(withId(R.id.label_gender_male)).perform(scrollTo()).perform(click())
         rowids.forEach { id -> onView(withId(id)).perform(waitFor<View> { it.visibility == View.GONE }) }

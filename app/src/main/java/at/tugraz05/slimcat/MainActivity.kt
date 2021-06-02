@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.PersistableBundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -21,14 +20,10 @@ import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import androidx.fragment.app.commit
 import at.tugraz05.slimcat.databinding.CatAccordionBinding
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 import at.tugraz05.slimcat.databinding.CatAccordionFoodBinding
 import java.nio.file.Files
-import java.nio.file.Paths
+
 
 class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -43,12 +38,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddcatActivity::class.java)
             startActivity(intent)
         }
-
-//        val cats = arrayOf(
-//                CatDummy("cat1", 8, 5.4), CatDummy("cat2", 15, 2.1),
-//                CatDummy("cat3"), CatDummy("cat4"), CatDummy("cat5")
-//        )
-//        cats.forEach { databaseHelper.writeNewCat(it) }
 
         DatabaseHelper.get().addValueEventListener{
             displayCats(DatabaseHelper.get().readUserCats())

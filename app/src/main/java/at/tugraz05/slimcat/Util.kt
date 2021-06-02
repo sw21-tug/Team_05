@@ -1,7 +1,5 @@
 package at.tugraz05.slimcat
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import kotlin.math.pow
 import kotlin.math.roundToInt

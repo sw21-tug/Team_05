@@ -1,6 +1,5 @@
 package at.tugraz05.slimcat
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri

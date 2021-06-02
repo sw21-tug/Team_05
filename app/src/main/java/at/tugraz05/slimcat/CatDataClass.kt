@@ -2,10 +2,9 @@ package at.tugraz05.slimcat
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.renderscript.Sampler
 import com.google.firebase.database.Exclude
 import java.lang.NumberFormatException
-import java.time.LocalDate
+
 
 
 data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,

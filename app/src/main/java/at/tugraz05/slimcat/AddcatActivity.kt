@@ -1,7 +1,5 @@
 package at.tugraz05.slimcat
 
-import android.app.Activity
-import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -121,20 +119,6 @@ class AddcatActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
-            /*val getDate : Calendar = Calendar.getInstance()
-            val datepicker = DatePickerDialog(this, android.R.style.Theme_Material_Dialog_NoActionBar_MinWidth,
-                { _, year, month, day ->
-
-                    val selectDate = Calendar.getInstance()
-                    selectDate.set(Calendar.YEAR, year)
-                    selectDate.set(Calendar.MONTH, month)
-                    selectDate.set(Calendar.DAY_OF_MONTH, day)
-                    val date = formatDate.format((selectDate.time))
-                    Toast.makeText(this, "Date : $date", Toast.LENGTH_SHORT).show()
-                    findViewById<TextView>(R.id.txt_dob).text = date
-                    binding.cat!!.date_of_birth = date
-                }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
-            datepicker.show()*/
             showCalendarDialog()
         }
 
@@ -210,7 +194,7 @@ class AddcatActivity : AppCompatActivity() {
         return if (metricSystem == SettingsActivity.METRIC) {
             binding.cat!!.getSizeStr()
         } else {
-            Util.convertCmToInch(binding.cat!!.size.toDouble()).toInt().toString()
+            Util.convertCmToInch(binding.cat!!.size).toInt().toString()
         }
     }
 
@@ -232,7 +216,7 @@ class AddcatActivity : AppCompatActivity() {
                 0.0
             }
         }
-        binding.cat!!.size = finalSize.toDouble()
+        binding.cat!!.size = finalSize
     }
 
     fun getWeightHintStr():String{
