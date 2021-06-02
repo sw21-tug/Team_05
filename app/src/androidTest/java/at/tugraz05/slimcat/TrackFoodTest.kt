@@ -32,18 +32,14 @@ class TrackFoodTest : TestCase() {
         Mockito.doAnswer { Log.d("openEditCat", "${it.arguments[0] as String}: ${it.arguments[1] as CatDataClass}") }.`when`(dbHelper).editUser(
             any(), any()
         )
-        val obese = true // TODO use obese calc
         cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
-        cat.calorieRecommendation = Util.calculateCalories(cat, obese)
+        cat.calorieRecommendation = Util.calculateCalories(cat)
 
         val intent = Intent(ApplicationProvider.getApplicationContext(), TrackFoodActivity::class.java)
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<TrackFoodActivity>(intent)
 
-
-        val calories = cat.calorieRecommendation
-        val cat2 = cat.copy()
-        cat2.calorieRecommendation = calories - Food.foods[0].kcalPer100G*20/100 -  Food.foods[1].kcalPer100G*10/100
+        cat.calorieRecommendation -= Food.foods[0].kcalPer100G*20/100 -  Food.foods[1].kcalPer100G*10/100
 
         onView(withId(R.id.scroll_track_food)).perform(waitFor<TableLayout> {it.childCount != 0})
 
@@ -51,7 +47,7 @@ class TrackFoodTest : TestCase() {
         onView(allOf(withParent(withPositionInParent(R.id.scroll_track_food, 1)), withId(R.id.text_food_eaten))).perform(scrollTo()).perform(typeText("10"))
 
         onView(withId(R.id.trackfood_btn_save)).perform(scrollTo()).perform(click())
-        Log.d("openEditCat", "$cat2")
-        Mockito.verify(dbHelper).editUser("test", cat2)
+        Log.d("openEditCat", "$cat")
+        Mockito.verify(dbHelper).editUser("test", cat)
     }
 }
