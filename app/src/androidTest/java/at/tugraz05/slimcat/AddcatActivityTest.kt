@@ -70,7 +70,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun btnDatepickerIsClickable() {
-        ActivityScenario.launch(AddcatActivity::class.java)
+        ActivityScenario.launch(AddcatActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.btn_dob)).perform(scrollTo()).perform(click())
     }
 
