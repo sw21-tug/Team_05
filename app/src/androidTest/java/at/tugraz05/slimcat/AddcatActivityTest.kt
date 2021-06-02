@@ -52,7 +52,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun maleSeekerChangeHideFemale() {
-        ActivityScenario.launch(AddcatActivity::class.java)
+        ActivityScenario.launch(AddcatActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = GenderSeeker.FEMALE })
         onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = GenderSeeker.MALE })
         rowids.forEach { id -> onView(withId(id)).perform(waitFor<View> { it.visibility == View.GONE }) }
@@ -60,7 +60,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun clickingGenderLabelsChangesSeeker() {
-        ActivityScenario.launch(AddcatActivity::class.java)
+        ActivityScenario.launch(AddcatActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.label_gender_female)).perform(scrollTo()).perform(click())
         onView(withId(R.id.label_gender_male)).perform(scrollTo()).perform(click())
         onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == GenderSeeker.MALE })
@@ -76,7 +76,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun btnDatepickerIsDisplayed() {
-        ActivityScenario.launch(AddcatActivity::class.java)
+        ActivityScenario.launch(AddcatActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.btn_dob)).check(matches(isDisplayed()))
     }
 
@@ -150,7 +150,7 @@ class AddcatActivityTest : TestCase() {
         val inLbs = Util.convertKgToLbs(cat.weight)
 
         // switch to imperial system
-        ActivityScenario.launch(SettingsActivity::class.java)
+        ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
@@ -159,7 +159,7 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.txt_weight)).perform(scrollTo()).check(matches(withText(inLbs.toString())))
 
         // switch back to metric system
-        ActivityScenario.launch(SettingsActivity::class.java)
+        ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         intent.putExtras(bundleOf("Cat" to cat))
@@ -171,10 +171,10 @@ class AddcatActivityTest : TestCase() {
     @Test
     fun sizeUnitSwitch() {
         val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "0", size = 3.5, weight = 3.5, gender = GenderSeeker.MALE)
-        val inInch = Util.convertCmToInch(cat.size.toDouble())
+        val inInch = Util.convertCmToInch(cat.size)
 
         // switch to imperial system
-        ActivityScenario.launch(SettingsActivity::class.java)
+        ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)

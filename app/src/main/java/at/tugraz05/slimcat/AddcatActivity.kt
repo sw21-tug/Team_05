@@ -13,6 +13,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -308,6 +309,12 @@ class AddcatActivity : AppCompatActivity() {
         }
         noBtn.setOnClickListener { dialog.dismiss() }
         dialog.show()
+    }
+
+    fun hideKeyboard() {
+        val test: View? = window.decorView.rootView
+        val inputMethodManager = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(test!!.windowToken, 0)
     }
 }
 

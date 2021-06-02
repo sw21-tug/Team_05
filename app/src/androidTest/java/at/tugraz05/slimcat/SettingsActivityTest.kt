@@ -3,28 +3,19 @@ package at.tugraz05.slimcat
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import android.service.autofill.Validators.not
-import android.util.Log
-import android.widget.Button
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import org.junit.Test
 import org.junit.runner.RunWith
 import android.widget.SeekBar
-import android.widget.TextView
-import androidx.test.espresso.Espresso.pressBack
-import androidx.test.espresso.ViewInteraction
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 
 import junit.framework.TestCase
-import org.hamcrest.CoreMatchers
 import org.mockito.Mockito
-import java.util.EnumSet.allOf
 
 
 @RunWith(AndroidJUnit4::class)
@@ -47,7 +38,7 @@ class SettingsActivityTest : TestCase(){
 
     @Test
     fun clickingUnitLabelsChangesSeeker() {
-        ActivityScenario.launch(SettingsActivity::class.java)
+        ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
         onView(withId(R.id.settings_seek_measurement)).perform(waitFor<SeekBar> { it.progress == SettingsActivity.METRIC })
         onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
@@ -79,17 +70,21 @@ class SettingsActivityTest : TestCase(){
 
     @Test
     fun testMandarinBtnSave(){
-        ActivityScenario.launch(SettingsActivity::class.java)
+        ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
         onView(withText("mandarin (chinese)")).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         ActivityScenario.launch(MainActivity::class.java)
         onView(withId(R.id.btn_addcat)).perform(click())
         onView(withId(R.id.label_name)).check(matches(withText("名")))
+        ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
+        onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
+        onView(withText("english")).perform(scrollTo()).perform(click())
+        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
     }
     @Test
     fun testEnglishBtnSave(){
-        ActivityScenario.launch(SettingsActivity::class.java)
+        ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
         onView(withText("english")).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
