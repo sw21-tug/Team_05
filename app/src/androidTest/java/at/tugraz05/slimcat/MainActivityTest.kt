@@ -78,7 +78,7 @@ class MainActivityTest : TestCase() {
         DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
 
         val scenario = ActivityScenario.launch(MainActivity::class.java)
-        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5, calorieRecommendation = 125))
+        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5, _calorieRecommendation = 125))
         scenario.onActivity {
             it.displayCats(cats)
         }

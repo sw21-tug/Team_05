@@ -9,25 +9,37 @@
         <variable
             name="food"
             type="at.tugraz05.slimcat.Food" />
+        <variable
+            name="activity"
+            type="at.tugraz05.slimcat.TrackFoodActivity" />
     </data>
 
-    <TableRow>
+    <TableRow android:layout_margin="@dimen/trackfood_row_margin"
+              android:id="@+id/trackfood_table_row">
         <TextView
             android:id="@+id/text_food_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@{food.name}"
-            android:textColor="?attr/colorOnPrimary"
             android:textSize="@dimen/catlist_card_body_textsize" />
 
         <TextView
             android:id="@+id/text_food_cal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnPrimary"
+            android:layout_marginStart="@dimen/trackfood_input_margin"
+            android:layout_marginEnd="@dimen/trackfood_input_margin"
             android:textSize="@dimen/catlist_card_body_textsize"
             app:calories="@{cat.calorieRecommendation}"
             app:food="@{food}" />
+
+        <EditText
+            android:id="@+id/text_food_eaten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:inputType="number" />
+
     </TableRow>
 </layout>

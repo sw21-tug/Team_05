@@ -6,11 +6,13 @@
 
 
     <!-- Cat List -->
-    <string name="catlist_text_age">年龄: %d 年 </string>
+    <string name="catlist_text_age">年龄: %d 年</string>
     <string name="catlist_text_weight">重量: %.2f 公斤</string>
     <string name="catlist_text_weight_lbs">重量: %.2f 磅</string>
-    <string name="catlist_text_calorie_recommendation">卡路里建议: %d 千卡/天</string>
+    <string name="catlist_text_calorie_recommendation">卡路里建议: %d 千卡 今</string>
     <string name="catlist_text_food_amount">%d 克</string>
+    <string name="catlist_food_recommendation">食物推荐:</string>
+    <string name="catlist_track_food">追踪食物</string>
     <string name="catlist_edit_cat">编辑</string>
 
     <!-- Food List -->
@@ -73,6 +75,12 @@
     <!-- Add cat error messages -->
     <string name="error_create_cat">请输入您的猫的名字</string>
     <string name="error_delete_cat">请输入您要删除的猫的名字</string>
+
+
+    <!-- Track Food -->
+    <string name="trackfood_reset">复归</string>
+    <string name="trackfood_hint">请输入今天喂养的食物数量。建议将相应更新。</string>
+
 
     <!-- Settings -->
     <string name="settings_name">名</string>
