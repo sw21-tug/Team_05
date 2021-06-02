@@ -22,6 +22,12 @@
                 android:orientation="vertical"
                 android:padding="@dimen/trackfood_table_margin">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trackfood_hint"
+                    android:textSize="@dimen/catlist_card_body_textsize"/>
+
                 <TableLayout
                     android:id="@+id/scroll_track_food"
                     android:layout_width="match_parent"

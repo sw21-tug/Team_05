@@ -204,5 +204,24 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.txt_size)).perform(scrollTo()).check(matches(withText(cat.getSizeStr())))
     }
 
+    @Test
+    fun updateCalories(){
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = GenderSeeker.MALE)
+        val dbHelper = Mockito.mock(DatabaseHelper::class.java)
+        DatabaseHelper.mock(dbHelper)
+        Mockito.doAnswer { Log.d("openEditCat", "${it.arguments[0] as String}: ${it.arguments[1] as CatDataClass}") }.`when`(dbHelper).editUser(any(), any())
+
+        cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
+        cat.calorieRecommendation = Util.calculateCalories(cat) - 20
+
+        val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
+        intent.putExtras(bundleOf("Cat" to cat))
+        ActivityScenario.launch<AddcatActivity>(intent)
+
+        // this triggers a recalculation of the calories
+        onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
+        Log.d("openEditCat", "$cat")
+        Mockito.verify(dbHelper).editUser("test", cat)
+    }
 
 }
