@@ -24,7 +24,6 @@ object Util {
     const val ATWATER_NFE_FACTOR_PER_G = 3.5
 
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun calculateAge(date_of_birth: LocalDate, current_date : LocalDate) : Int{
         var age = current_date.year - date_of_birth.year
@@ -36,18 +35,17 @@ object Util {
             if (current_date.dayOfMonth < date_of_birth.dayOfMonth)
                 age--
         }
-
         return age
     }
 
-    fun calculateCalories(cat: CatDataClass, obese : Boolean) : Int {
+    fun calculateCalories(cat: CatDataClass) : Int {
         val restingEnergyRequirements = FACTOR_RESTING_ENERGY_REQUIREMENT * cat.weight.pow(POW_RESTING_ENERGY_REQUIREMENT)
         var maintenceEnergyRequirements = restingEnergyRequirements
 
         if (cat.age <= 1) {
             maintenceEnergyRequirements *= FACTOR_KITTEN
         }
-        if(obese) {
+        if(cat.obese) {
             maintenceEnergyRequirements *= FACTOR_OBESE
         }
         if(cat.overweight_prone) {
@@ -93,7 +91,6 @@ object Util {
 
     fun calcGramsOfFood(food: Food, kcal: Int): Int {
         return ((kcal.toDouble() / food.kcalPer100G) * 100).roundToInt()
-
     }
 
     fun calcFoodCals(food: FoodDetailsDataClass) :Int {

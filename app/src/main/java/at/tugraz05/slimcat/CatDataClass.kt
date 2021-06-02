@@ -10,7 +10,7 @@ import java.time.LocalDate
 
 data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
                         var size: Double = 0.0, var weight: Double = 0.0, var gender: Int? = null, var imageString: String? = "",
-                        var calorieRecommendation: Int = 0, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
+                        var calorieRecommendation: Int = 0, var obese : Boolean = false, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
                         var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -22,6 +22,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
         parcel.readInt(),
+        parcel.readValue(Int::class.java.classLoader) as Boolean,
         parcel.readValue(Int::class.java.classLoader) as Boolean,
         parcel.readValue(Int::class.java.classLoader) as Boolean,
         parcel.readValue(Int::class.java.classLoader) as Boolean,
@@ -41,6 +42,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
             "gender" to gender,
             "imageString" to imageString,
             "calorieRecommendation" to calorieRecommendation,
+            "obese" to obese,
             "overweight_prone" to overweight_prone,
             "hospitalized" to hospitalized,
             "neutered" to neutered,
@@ -85,6 +87,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.writeValue(gender)
         parcel.writeString(imageString)
         parcel.writeInt(calorieRecommendation)
+        parcel.writeValue(obese)
         parcel.writeValue(overweight_prone)
         parcel.writeValue(hospitalized)
         parcel.writeValue(neutered)
