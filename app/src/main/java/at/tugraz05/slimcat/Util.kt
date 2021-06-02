@@ -15,6 +15,7 @@ object Util {
     const val FACTOR_NEUTERED = 1.2
     const val FACTOR_GESTATION = 2.5
     const val FACTOR_LACTATION = 4
+    const val FACTOR_KITTEN = 2.5
     const val FACTOR_KG_TO_LBS = 2.205
     const val FACTOR_CM_TO_INCHES = 2.54
 
@@ -40,36 +41,34 @@ object Util {
     }
 
     fun calculateCalories(cat: CatDataClass, obese : Boolean) : Int {
-        var maintenceEnergyRequirements = 0.0
-        var restingEnergyRequirements = FACTOR_RESTING_ENERGY_REQUIREMENT * cat.weight.pow(POW_RESTING_ENERGY_REQUIREMENT)
+        val restingEnergyRequirements = FACTOR_RESTING_ENERGY_REQUIREMENT * cat.weight.pow(POW_RESTING_ENERGY_REQUIREMENT)
+        var maintenceEnergyRequirements = restingEnergyRequirements
 
+        if (cat.age <= 1) {
+            maintenceEnergyRequirements *= FACTOR_KITTEN
+        }
         if(obese) {
-            maintenceEnergyRequirements += FACTOR_OBESE * restingEnergyRequirements
+            maintenceEnergyRequirements *= FACTOR_OBESE
         }
         if(cat.overweight_prone) {
-            maintenceEnergyRequirements += FACTOR_OVERWEIGHT_PRONE * restingEnergyRequirements
+            maintenceEnergyRequirements *= FACTOR_OVERWEIGHT_PRONE
         }
         if(cat.hospitalized) {
-            maintenceEnergyRequirements += FACTOR_HOSPITALIZED * restingEnergyRequirements
+            maintenceEnergyRequirements *= FACTOR_HOSPITALIZED
         }
         if(cat.neutered) {
-            maintenceEnergyRequirements += FACTOR_NEUTERED * restingEnergyRequirements
+            maintenceEnergyRequirements *= FACTOR_NEUTERED
         }
 
         if(cat.gender == GenderSeeker.FEMALE){
-            if(cat.gestation) {
-                maintenceEnergyRequirements += FACTOR_GESTATION * restingEnergyRequirements
+            if(cat.gestation && cat.lactation){
+                maintenceEnergyRequirements *= FACTOR_LACTATION
             }
-            if(cat.lactation) {
-                maintenceEnergyRequirements += FACTOR_LACTATION * restingEnergyRequirements
+            else if(cat.gestation) {
+                maintenceEnergyRequirements *= FACTOR_GESTATION
             }
-            if(!obese && !cat.overweight_prone && !cat.hospitalized && !cat.neutered && !cat.gestation && !cat.lactation){
-                maintenceEnergyRequirements = restingEnergyRequirements
-            }
-        }
-        else{
-            if(!obese && !cat.overweight_prone && !cat.hospitalized && !cat.neutered){
-                maintenceEnergyRequirements = restingEnergyRequirements
+            else if(cat.lactation) {
+                maintenceEnergyRequirements *= FACTOR_LACTATION
             }
         }
 

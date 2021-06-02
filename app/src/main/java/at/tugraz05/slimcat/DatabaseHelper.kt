@@ -41,6 +41,10 @@ open class DatabaseHelper private constructor() {
         return this.userId
     }
 
+    fun getUserId(): String {
+        return this.userId
+    }
+
     private fun checkAndCreateUserId(applicationContext: Context) {
         try {
             val slimCatDir = File(applicationContext.filesDir, "slimCat")
