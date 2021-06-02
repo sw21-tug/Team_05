@@ -104,13 +104,11 @@ class UtilTest {
 
     @Test
     fun testIsKitten() {
-        val obese = false
-
         val cat = CatDataClass(
-            age = 0, weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 0, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = false, lactation = false, gender = GenderSeeker.FEMALE
         )
-        val calRec = Util.calculateCalories(cat, obese)
+        val calRec = Util.calculateCalories(cat)
         assert(calRec == 671)
     }
 
