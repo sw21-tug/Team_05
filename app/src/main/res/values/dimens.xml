@@ -8,6 +8,7 @@
     <dimen name="catlist_card_padding_inner">5dp</dimen>
     <dimen name="catlist_card_textsize">20sp</dimen>
     <dimen name="catlist_card_body_textsize">18sp</dimen>
+    <dimen name="catlist_food_margin">15dp</dimen>
 
     <!-- Add cat -->
     <dimen name="addcat_view_margin">30dp</dimen>
@@ -31,12 +32,10 @@
     <dimen name="settings_button_margin">20dp</dimen>
     <dimen name="settings_button_textsize">16sp</dimen>
 
-    <!-- Food List -->
-    <dimen name="foodlist_card_margin">30dp</dimen>
-    <dimen name="foodlist_card_padding">10dp</dimen>
-    <dimen name="foodlist_card_padding_inner">5dp</dimen>
-    <dimen name="foodlist_card_textsize">20sp</dimen>
-    <dimen name="foodlist_card_body_textsize">18sp</dimen>
+    <!-- Track Food -->
+    <dimen name="trackfood_table_margin">20sp</dimen>
+    <dimen name="trackfood_row_margin">5sp</dimen>
+    <dimen name="trackfood_input_margin">5sp</dimen>
 
     <!-- Add Food -->
     <dimen name="addFood_tv_textsize">20sp</dimen>
@@ -56,7 +55,4 @@
     <dimen name="food_list_card_padding_inner">5dp</dimen>
     <dimen name="food_list_card_textsize">20sp</dimen>
     <dimen name="food_list_card_body_textsize">18sp</dimen>
-
-
-
 </resources>
