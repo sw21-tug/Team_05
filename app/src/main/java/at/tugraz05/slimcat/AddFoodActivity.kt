@@ -60,7 +60,7 @@ class AddFoodActivity : AppCompatActivity() {
     }
 
     private fun createFood() {
-       //  DatabaseHelper.get().writeNewFood(binding.cat!!)
+       DatabaseHelper.get().writeNewFood(binding.food!!)
     }
 
     private fun addUpCatPercentage(): Boolean {
