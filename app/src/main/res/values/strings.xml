@@ -8,7 +8,7 @@
     <string name="catlist_text_age">Age: %d years</string>
     <string name="catlist_text_weight">Weight: %.2f kg</string>
     <string name="catlist_text_weight_lbs">Weight: %.2f lbs</string>
-    <string name="catlist_text_calorie_recommendation">Cal. Rec.: %d kcal/day</string>
+    <string name="catlist_text_calorie_recommendation">Cal. Rec.: %d kcal today</string>
     <string name="catlist_text_food_amount">%d g</string>
     <string name="catlist_food_recommendation">Food recommendation:</string>
     <string name="catlist_track_food">Track Food</string>
@@ -80,7 +80,7 @@
 
     <!-- Track Food -->
     <string name="trackfood_reset">Reset</string>
-
+    <string name="trackfood_hint">Please enter the amount of food fed today. The recommendations will update accordingly.</string>
 
     <!-- Settings -->
     <string name="settings_name">Name</string>
