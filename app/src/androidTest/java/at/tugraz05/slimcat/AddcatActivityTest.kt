@@ -77,7 +77,7 @@ class AddcatActivityTest : TestCase() {
     @Test
     fun btnDatepickerIsDisplayed() {
         ActivityScenario.launch(AddcatActivity::class.java).onActivity { it.hideKeyboard() }
-        onView(withId(R.id.btn_dob)).check(matches(isDisplayed()))
+        onView(withId(R.id.btn_dob)).perform(scrollTo()).check(matches(isDisplayed()))
     }
 
     @Test
@@ -151,7 +151,7 @@ class AddcatActivityTest : TestCase() {
 
         // switch to imperial system
         ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
-        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
+        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
         intent.putExtras(bundleOf("Cat" to cat))
@@ -160,7 +160,7 @@ class AddcatActivityTest : TestCase() {
 
         // switch back to metric system
         ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
-        onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
+        onView(withId(R.id.settings_unit_of_measurement_kg)).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
@@ -175,7 +175,7 @@ class AddcatActivityTest : TestCase() {
 
         // switch to imperial system
         ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
-        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
+        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
         intent.putExtras(bundleOf("Cat" to cat))
@@ -183,8 +183,8 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.txt_size)).perform(scrollTo()).check(matches(withText(inInch.toInt().toString())))
 
         // switch back to metric system
-        ActivityScenario.launch(SettingsActivity::class.java)
-        onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
+        ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
+        onView(withId(R.id.settings_unit_of_measurement_kg)).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<AddcatActivity>(intent)

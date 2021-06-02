@@ -39,9 +39,9 @@ class SettingsActivityTest : TestCase(){
     @Test
     fun clickingUnitLabelsChangesSeeker() {
         ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
-        onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
+        onView(withId(R.id.settings_unit_of_measurement_kg)).perform(scrollTo()).perform(click())
         onView(withId(R.id.settings_seek_measurement)).perform(waitFor<SeekBar> { it.progress == SettingsActivity.METRIC })
-        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
+        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(scrollTo()).perform(click())
         onView(withId(R.id.settings_seek_measurement)).perform(waitFor<SeekBar> { it.progress == SettingsActivity.IMPERIAL })
     }
 
