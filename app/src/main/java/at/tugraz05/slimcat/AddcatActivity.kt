@@ -1,10 +1,12 @@
 package at.tugraz05.slimcat
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -16,13 +18,11 @@ import at.tugraz05.slimcat.Util.calculateCalories
 import at.tugraz05.slimcat.databinding.ActivityAddcatBinding
 import java.io.File
 import java.lang.NumberFormatException
+import java.nio.file.Files
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.log
-import kotlin.math.pow
-import kotlin.math.roundToInt
 
 class AddcatActivity : AppCompatActivity() {
     private lateinit var scrollView: ScrollView
@@ -56,14 +56,27 @@ class AddcatActivity : AppCompatActivity() {
         // camera
         imageButton = findViewById(R.id.btn_camera)
         imageButton.setOnClickListener {
-           imagePath = CaptureImage.captureImage(this) ?: ""
+            if (TextUtils.isEmpty(nameField.text)) {
+                nameField.error = resources.getString(R.string.error_create_cat)
+                scrollView.fullScroll(ScrollView.FOCUS_UP)
+            }
+            else
+                imagePath = CaptureImage.captureImage(this, "cats/${binding.cat!!.name}") ?: ""
         }
 
-        if (binding.cat?.imageString?.isNotEmpty() == true)
+        if (binding.cat?.imageString?.isNotEmpty() == true && binding.cat?.name?.isNotEmpty() == true)
         {
-            val file = CaptureImage.createImageFile(this)
+            val file = getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.toPath().resolve(binding.cat!!.imageString!!).toFile()
             imagePath = file.absolutePath
-            DatabaseHelper.get().getImage(binding.cat!!.imageString!!, file) {
+
+            if (!file.exists()) {
+                Files.createDirectories(file.parentFile!!.toPath())
+                file.createNewFile()
+                DatabaseHelper.get().getImage("${DatabaseHelper.get().getUserId()}/${binding.cat!!.imageString!!}", file) {
+                    imageButton.setImageURI(Uri.fromFile(file))
+                }
+            }
+            else {
                 imageButton.setImageURI(Uri.fromFile(file))
             }
         }
@@ -80,10 +93,11 @@ class AddcatActivity : AppCompatActivity() {
             else {
                 // TODO implement function to calc if cat is obese
                 val obese : Boolean = true
-                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!, obese)
 
                 if (binding.cat!!.date_of_birth != null)
                     binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
+
+                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!, obese)
 
                 if (edit) updateCat()
                 else createCat()
@@ -244,12 +258,12 @@ class AddcatActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         val file = File(imagePath)
-        val uri = Uri.fromFile(file)
-        val img = "cats/${file.name}"
+        CaptureImage.receiveIntent(requestCode, resultCode, data, this, file)
 
-        DatabaseHelper.get().uploadImagesToFirebase(img, uri) {
+        val uri = Uri.fromFile(file)
+        DatabaseHelper.get().uploadImagesToFirebase("${DatabaseHelper.get().getUserId()}/cats/${binding.cat!!.name}/${file.name}", uri) {
             imageButton.setImageURI(uri)
-            binding.cat!!.imageString = img
+            binding.cat!!.imageString = "cats/${binding.cat!!.name}/${file.name}"
         }
     }
 
