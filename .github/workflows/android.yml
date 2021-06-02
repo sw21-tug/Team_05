@@ -10,6 +10,7 @@ jobs:
     runs-on: macos-latest
 
     strategy:
+      fail-fast: false
       matrix:
         api-level: [26, 28]
 
@@ -38,6 +39,7 @@ jobs:
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: ${{ matrix.api-level }}
+        disable-animations: true
         script: ./gradlew connectedCheck
 
     - name: Archive production artifacts
