@@ -2,15 +2,44 @@
 <resources>
     <string name="app_name">瘦猫</string>
     <string name="action_settings">態度</string>
+    <string name="action_food">加食物</string>
 
     <!-- Cat List -->
-    <string name="catlist_text_age">年龄: %d 年 </string>
+    <string name="catlist_text_age">年龄: %d 年</string>
     <string name="catlist_text_weight">重量: %.2f 公斤</string>
     <string name="catlist_text_weight_lbs">重量: %.2f 磅</string>
-    <string name="catlist_text_calorie_recommendation">卡路里建议: %d 千卡/天</string>
+    <string name="catlist_text_calorie_recommendation">卡路里建议: %d 千卡 今</string>
     <string name="catlist_text_food_amount">%d 克</string>
+    <string name="catlist_food_recommendation">食物推荐:</string>
+    <string name="catlist_track_food">追踪食物</string>
     <string name="catlist_edit_cat">编辑</string>
 
+    <!-- Food List -->
+    <string name="add_food">加猫</string>
+    <string name="title_food_back">食物清单</string>
+    <string name="food_list_text_calories">卡路里： %d 大卡/100克</string>
+    <string name="food_list_text_protein">原始蛋白质: %.2f %%</string>
+    <string name="food_list_text_fat">生脂肪: %.2f %%</string>
+    <string name="food_list_text_ash">粗灰分: %.2f %%</string>
+    <string name="food_list_text_fiber">原始纤维: %.2f %%</string>
+    <string name="food_list_text_water">水: %.2f %%</string>
+
+    <!-- Add Food -->
+    <string name="addFood_label_name">名称</string>
+    <string name="addFood_label_protein">原始蛋白质</string>
+    <string name="addFood_label_fat">生脂肪</string>
+    <string name="addFood_label_ash">粗灰分</string>
+    <string name="addFood_label_fiber">原始纤维</string>
+    <string name="addFood_label_water">水</string>
+
+    <!-- Add Food Hints -->
+    <string name="addFood_hint_name">凯锐思</string>
+    <string name="addFood_hint_percentage">以百分比</string>
+    <string name="addFood_label_water_hint">如果未给出水的百分比，请使用8％到10％之间的值.</string>
+
+    <!-- Add cat error messages -->
+    <string name="error_add_food">请输入食物名称</string>
+    <string name="error_percentage_food">填充百分比超过100％。请更改输入。</string>
 
     <!-- Add cat -->
     <string name="add_cat">加猫</string>
@@ -46,6 +75,10 @@
 
     <!-- Calendar picker -->
     <string name="cancel">取消</string>
+
+    <!-- Track Food -->
+    <string name="trackfood_reset">复归</string>
+    <string name="trackfood_hint">请输入今天喂养的食物数量。建议将相应更新。</string>
 
     <!-- Settings -->
     <string name="settings_name">名</string>

@@ -100,15 +100,15 @@ open class DatabaseHelper private constructor() {
 
     open fun writeNewCat(cat: CatDataClass) {
         val catName: String = cat.name!!
-        database.child(userId).child(catName).setValue(cat.toMap())
+        database.child(userId).child("cats").child(catName).setValue(cat.toMap())
     }
 
     open fun readUserCat(catName: String): CatDataClass? {
-        return dataSnapshot.child(userId).child(catName).getValue(CatDataClass::class.java)
+        return dataSnapshot.child(userId).child("cats").child(catName).getValue(CatDataClass::class.java)
     }
 
     open fun readUserCats(): List<CatDataClass?> {
-        return dataSnapshot.child(userId).children.map { it.getValue(CatDataClass::class.java) }
+        return dataSnapshot.child(userId).child("cats").children.map { it.getValue(CatDataClass::class.java) }
     }
 
     open fun editUser(oldCatName: String, cat: CatDataClass) {
@@ -119,11 +119,11 @@ open class DatabaseHelper private constructor() {
         val map = catNewMap.mapValues { if(it.value == null) catOldMap[it.key] else it.value }
         if (oldCatName != cat.name)
             deleteCat(oldCatName)
-        database.child(userId).child(cat.name!!).updateChildren(map)
+        database.child(userId).child("cats").child(cat.name!!).updateChildren(map)
     }
 
     open fun deleteCat(catName: String) {
-        database.child(userId).child(catName).removeValue()
+        database.child(userId).child("cats").child(catName).removeValue()
     }
 
     open fun uploadImagesToFirebase(name: String, contentUri: Uri, onSuccess: (Uri) -> Unit) {
@@ -152,4 +152,18 @@ open class DatabaseHelper private constructor() {
             return instance
         }
     }
+
+    open fun writeNewFood(food: FoodDetailsDataClass) {
+        val foodName: String = food.name!!
+        database.child(userId).child("foods").child(foodName).setValue(food.toMap())
+    }
+
+    open fun deleteFood(foodName: String) {
+        database.child(userId).child("foods").child(foodName).removeValue()
+    }
+
+    open fun readUserFoods(): List<FoodDetailsDataClass?> {
+        return dataSnapshot.child(userId).child("foods").children.map { it.getValue(FoodDetailsDataClass::class.java) }
+    }
+
 }

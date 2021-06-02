@@ -10,7 +10,6 @@ class UtilTest {
         val current_date = LocalDate.of(2021, 5, 6)
 
         val age = Util.calculateAge(date_of_birth, current_date)
-
         assert(age == 5)
     }
 
@@ -20,7 +19,6 @@ class UtilTest {
         val current_date = LocalDate.of(2021, 5, 6)
 
         val age = Util.calculateAge(date_of_birth, current_date)
-
         assert(age == 4)
     }
 
@@ -30,7 +28,6 @@ class UtilTest {
         val current_date = LocalDate.of(2021, 5, 6)
 
         val age = Util.calculateAge(date_of_birth, current_date)
-
         assert(age == 5)
     }
 
@@ -40,88 +37,81 @@ class UtilTest {
         val current_date = LocalDate.of(2021, 5, 6)
 
         val age = Util.calculateAge(date_of_birth, current_date)
-
         assert(age == 4)
     }
 
     @Test
     fun testCalorieRecommendation() {
-        val obese = true
-
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = true, neutered = false,
+            age = 3, weight = 6.0, obese = true, overweight_prone = false, hospitalized = true, neutered = false,
             gestation = false, lactation = false
         )
-        val calRec = Util.calculateCalories(cat, obese)
-
+        val calRec = Util.calculateCalories(cat)
         assert(calRec == 242)
     }
 
     @Test
     fun testCalorieRecommendationAllFalse() {
-        val obese = false
-
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 2, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = false, lactation = false
         )
-        val calRec = Util.calculateCalories(cat, obese)
-
+        val calRec = Util.calculateCalories(cat)
         assert(calRec == 268)
     }
 
     @Test
     fun testCalorieRecommendationMaleWithFemaleAttr() {
-        val obese = false
-
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 2, weight = 6.0, obese = true, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = true, lactation = true, gender = GenderSeeker.MALE
         )
-        val calRec = Util.calculateCalories(cat, obese)
+        val calRec = Util.calculateCalories(cat)
 
-        assert(calRec == 268)
+        assert(calRec == 242)
     }
 
     @Test
     fun testCalorieRecommendationFemaleGestation() {
-        val obese = false
-
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 4, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = true, lactation = false, gender = GenderSeeker.FEMALE
         )
-        val calRec = Util.calculateCalories(cat, obese)
-
+        val calRec = Util.calculateCalories(cat)
         assert(calRec == 671)
     }
 
     @Test
     fun testCalorieRecommendationFemaleLactation() {
-        val obese = false
-
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 2, weight = 6.0, obese = true, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = false, lactation = true, gender = GenderSeeker.FEMALE
         )
-        val calRec = Util.calculateCalories(cat, obese)
+        val calRec = Util.calculateCalories(cat)
 
-        assert(calRec == 1073)
+        assert(calRec == 966)
     }
 
     @Test
     fun testCalorieRecommendationFemaleGestationAndLactation() {
-        val obese = false
-
         val cat = CatDataClass(
-            weight = 6.0, overweight_prone = false, hospitalized = false, neutered = false,
+            age = 2, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
             gestation = true, lactation = true, gender = GenderSeeker.FEMALE
         )
-        val calRec = Util.calculateCalories(cat, obese)
-
+        val calRec = Util.calculateCalories(cat)
         assert(calRec == 1073)
     }
-    
+
+    @Test
+    fun testIsKitten() {
+        val cat = CatDataClass(
+            age = 0, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
+            gestation = false, lactation = false, gender = GenderSeeker.FEMALE
+        )
+        val calRec = Util.calculateCalories(cat)
+        assert(calRec == 671)
+    }
+
     @Test
     fun testKgToLbs() {
         val kg1 = 17.5
@@ -162,6 +152,32 @@ class UtilTest {
     fun testWetFoodGivesCorrectCalories1G() {
         val f = Food.wetFood
         assert(Util.calcGramsOfFood(f, f.kcalPer100G) == 100)
+    }
+
+    @Test
+    fun testCalculateWetFoodCalories() {
+        val f = FoodDetailsDataClass("wet",10.0, 5.5, 2.5, 1.0,79.0)
+        var nfe = 100.0 - f.rawProtein - f.rawFat - f.crudeAsh - f.rawFiber - f.water
+        val ts = 100 - f.water
+        val protein = f.rawProtein / ts
+        val fat = f.rawFat / ts
+        nfe /= ts
+
+        val result = ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
+        assert(Util.calcFoodCals(f) == result)
+    }
+
+    @Test
+    fun testCalculateDryFoodCalories() {
+        val f = FoodDetailsDataClass("dry",30.0, 10.0, 6.5, 2.5,9.0)
+        var nfe = 100.0 - f.rawProtein - f.rawFat - f.crudeAsh - f.rawFiber - f.water
+        val ts = 100 - f.water
+        val protein = f.rawProtein / ts
+        val fat = f.rawFat / ts
+        nfe /= ts
+
+        val result = ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
+        assert(Util.calcFoodCals(f) == result)
     }
 }
 

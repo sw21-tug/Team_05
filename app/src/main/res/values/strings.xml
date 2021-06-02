@@ -1,15 +1,44 @@
 <resources>
     <string name="app_name">SlimCat</string>
     <string name="action_settings">Settings</string>
+    <string name="action_food">Add Food</string>
 
     <!-- Cat List -->
     <string name="catlist_text_age">Age: %d years</string>
     <string name="catlist_text_weight">Weight: %.2f kg</string>
     <string name="catlist_text_weight_lbs">Weight: %.2f lbs</string>
-    <string name="catlist_text_calorie_recommendation">Cal. Rec.: %d kcal/day</string>
+    <string name="catlist_text_calorie_recommendation">Cal. Rec.: %d kcal today</string>
     <string name="catlist_text_food_amount">%d g</string>
+    <string name="catlist_food_recommendation">Food recommendation:</string>
+    <string name="catlist_track_food">Track Food</string>
     <string name="catlist_edit_cat">Edit</string>
 
+    <!-- Food List -->
+    <string name="add_food">Add Food</string>
+    <string name="title_food_back">Food List</string>
+    <string name="food_list_text_calories">Cal.: %d kcal/100g</string>
+    <string name="food_list_text_protein">Raw Protein: %.2f %%</string>
+    <string name="food_list_text_fat">Raw Fat: %.2f %%</string>
+    <string name="food_list_text_ash">Crude Ash: %.2f %%</string>
+    <string name="food_list_text_fiber">Raw Fiber: %.2f %%</string>
+    <string name="food_list_text_water">Water: %.2f %%</string>
+
+    <!-- Add Food -->
+    <string name="addFood_label_name">Name</string>
+    <string name="addFood_label_protein">Raw Protein</string>
+    <string name="addFood_label_fat">Raw Fat</string>
+    <string name="addFood_label_ash">Crude Ash</string>
+    <string name="addFood_label_fiber">Raw Fiber</string>
+    <string name="addFood_label_water">Water</string>
+
+    <!-- Add Food Hints -->
+    <string name="addFood_hint_name">Sheba</string>
+    <string name="addFood_hint_percentage">in %</string>
+    <string name="addFood_label_water_hint">Hint: In case the percentage of water is not given, use a value between 8-10%.</string>
+
+    <!-- Add cat error messages -->
+    <string name="error_add_food">Please enter a name for your food.</string>
+    <string name="error_percentage_food">The filled percentages exceed 100%. Please change the input.</string>
 
     <!-- Add cat -->
     <string name="add_cat">Add Cat</string>
@@ -46,6 +75,9 @@
     <!-- Calendar picker -->
     <string name="cancel">Cancel</string>
 
+    <!-- Track Food -->
+    <string name="trackfood_reset">Reset</string>
+    <string name="trackfood_hint">Please enter the amount of food fed today. The recommendations will update accordingly.</string>
 
     <!-- Settings -->
     <string name="settings_name">Name</string>
@@ -60,7 +92,6 @@
     <!--<string name="settings_language_en">en</string>
     <string name="settings_language_de">de</string>-->
 
-
     <string-array name="settings_gender">
         <item>male</item>
         <item>female</item>
@@ -73,18 +104,9 @@
     </string-array>
 
 
-
     <!-- Settings hints-->
     <string name="settings_name_hint">e.g. John Doe </string>
     <string name="settings_email_hint">e.g. john.doe@email.com</string>
-
-
-
-
-
-
-
-
 
 
     <!-- Details -->
@@ -102,7 +124,6 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

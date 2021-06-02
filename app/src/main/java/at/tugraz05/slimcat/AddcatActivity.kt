@@ -32,6 +32,7 @@ class AddcatActivity : AppCompatActivity() {
     private lateinit var nameField: EditText
     private var edit = false
     private lateinit var oldName: String
+    private var calDiff = 0
 
     private lateinit var binding: ActivityAddcatBinding
     private lateinit var imageButton: ImageButton
@@ -48,6 +49,7 @@ class AddcatActivity : AppCompatActivity() {
             edit = true
             binding.cat = bundle.getParcelable("Cat")!!
             oldName = binding.cat!!.name!!
+            calDiff = calculateCalories(binding.cat!!) - binding.cat!!.calorieRecommendation
         }
         else
         {
@@ -93,12 +95,10 @@ class AddcatActivity : AppCompatActivity() {
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
             else {
-                // TODO implement function to calc if cat is obese
-                val obese : Boolean = true
-                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!, obese)
-
                 if (binding.cat!!.date_of_birth != null)
                     binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
+
+                binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!) - calDiff
 
                 if (edit) updateCat()
                 else createCat()
@@ -135,6 +135,9 @@ class AddcatActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.label_gender_male).setOnClickListener { genderSeeker.progress = GenderSeeker.MALE }
         findViewById<TextView>(R.id.label_gender_female).setOnClickListener { genderSeeker.progress = GenderSeeker.FEMALE }
 
+        if (!edit)
+            findViewById<Button>(R.id.btn_delete).visibility = View.GONE
+
         //Back-Button
         val actionbar = supportActionBar
         actionbar!!.title = getString(R.string.title_cat_details)
@@ -164,22 +167,20 @@ class AddcatActivity : AppCompatActivity() {
         return if (metricSystem == SettingsActivity.METRIC) {
             binding.cat!!.getWeightStr()
         } else {
-            Util.convertKgToLbs(binding.cat!!.weight).toString()
+            binding.cat!!.weight?.let { Util.convertKgToLbs(it).toString() } ?: ""
         }
     }
 
     fun setWeightStr(weight:String){
-        val finalWeight: Double
         val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
-        if (metricSystem == SettingsActivity.METRIC) {
-            finalWeight = try {
+        val finalWeight = if (metricSystem == SettingsActivity.METRIC) {
+            try {
                 weight.toDouble()
             } catch (e: NumberFormatException) {
                 0.0
             }
-        }
-        else {
-            finalWeight = try {
+        } else {
+            try {
                 Util.convertLbsToKg(weight.toDouble())
             } catch (e: NumberFormatException) {
                 0.0
@@ -194,23 +195,21 @@ class AddcatActivity : AppCompatActivity() {
         return if (metricSystem == SettingsActivity.METRIC) {
             binding.cat!!.getSizeStr()
         } else {
-            Util.convertCmToInch(binding.cat!!.size).toInt().toString()
+            binding.cat!!.size?.let { Util.convertCmToInch(it).toInt().toString() } ?: ""
         }
     }
 
     // adjust when size change to double!!!!!
     fun setSizeStr(size: String){
-        var finalSize: Double
         val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
-        if (metricSystem == SettingsActivity.METRIC) {
-            finalSize = try {
+        val finalSize = if (metricSystem == SettingsActivity.METRIC) {
+            try {
                 size.toDouble()
             } catch (e: NumberFormatException) {
                 0.0
             }
-        }
-        else {
-            finalSize = try {
+        } else {
+            try {
                 Util.convertLbsToKg(size.toDouble())
             } catch (e: NumberFormatException) {
                 0.0
