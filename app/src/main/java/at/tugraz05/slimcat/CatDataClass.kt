@@ -6,18 +6,20 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.google.firebase.database.Exclude
 import java.lang.NumberFormatException
+import java.sql.Timestamp
 
 
 data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
                         var size: Double? = null, var weight: Double? = null, var gender: Int? = null, var imageString: String? = "",
                         private var _calorieRecommendation: Int = 0, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
-                        var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false): Parcelable, BaseObservable() {
+                        var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false, var timestamp: Long = 0): Parcelable, BaseObservable() {
     var calorieRecommendation = _calorieRecommendation
         @Bindable get
         set(value) {
             field = value
             _calorieRecommendation = value
             notifyPropertyChanged(BR.calorieRecommendation)
+            timestamp = System.currentTimeMillis()
         }
 
     constructor(parcel: Parcel) : this(
@@ -34,7 +36,8 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.readValue(Int::class.java.classLoader) as Boolean,
         parcel.readValue(Int::class.java.classLoader) as Boolean,
         parcel.readValue(Int::class.java.classLoader) as Boolean,
-        parcel.readValue(Int::class.java.classLoader) as Boolean
+        parcel.readValue(Int::class.java.classLoader) as Boolean,
+        parcel.readLong()
     ) {
     }
 
@@ -53,7 +56,8 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
             "hospitalized" to hospitalized,
             "neutered" to neutered,
             "gestation" to gestation,
-            "lactation" to lactation
+            "lactation" to lactation,
+            "timestamp" to timestamp
         )
     }
 
@@ -82,6 +86,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.writeValue(neutered)
         parcel.writeValue(gestation)
         parcel.writeValue(lactation)
+        parcel.writeLong(timestamp)
     }
 
     override fun describeContents(): Int {

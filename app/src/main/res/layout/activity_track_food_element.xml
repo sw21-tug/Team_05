@@ -31,7 +31,7 @@
             android:layout_marginStart="@dimen/trackfood_input_margin"
             android:layout_marginEnd="@dimen/trackfood_input_margin"
             android:textSize="@dimen/catlist_card_body_textsize"
-            app:cat="@{cat}"
+            app:calories="@{cat.calorieRecommendation}"
             app:food="@{food}" />
 
         <EditText
