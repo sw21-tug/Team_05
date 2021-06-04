@@ -182,11 +182,11 @@ class UtilTest {
 
     @Test
     fun testGrammToLbs(){
-        val gram1 = 250.0
-        val gram2 = 0.0
+        val gram1 = 250
+        val gram2 = 0
 
-        //assert(Util.convertGrammToLbs(gram1) in 0.54..0.56)
-        //assert(Util.convertGrammToLbs(gram2) == 0.0)
+        assert(Util.convertGrammToLbs(gram1) in 0.54..0.56)
+        assert(Util.convertGrammToLbs(gram2) == 0.0)
     }
 
 }

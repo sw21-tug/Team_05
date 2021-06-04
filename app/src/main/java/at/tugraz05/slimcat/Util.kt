@@ -18,6 +18,8 @@ object Util {
     const val FACTOR_KITTEN = 2.5
     const val FACTOR_KG_TO_LBS = 2.205
     const val FACTOR_CM_TO_INCHES = 2.54
+    const val FACTOR_GRAMM_TO_LBS = (2.205/1000)
+
 
     const val ATWATER_PROTEIN_FACTOR_PER_G = 3.5
     const val ATWATER_FAT_FACTOR_PER_G = 8.5
@@ -75,6 +77,10 @@ object Util {
 
     fun convertKgToLbs(kg: Double): Double {
         return kg * FACTOR_KG_TO_LBS
+    }
+
+    fun convertGrammToLbs(g: Int): Double {
+        return g * FACTOR_GRAMM_TO_LBS
     }
 
     fun convertLbsToKg(lbs: Double): Double {
