@@ -179,5 +179,15 @@ class UtilTest {
         val result = ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
         assert(Util.calcFoodCals(f) == result)
     }
+
+    @Test
+    fun testGrammToLbs(){
+        val gram1 = 250.0
+        val gram2 = 0.0
+
+        //assert(Util.convertGrammToLbs(gram1) in 0.54..0.56)
+        //assert(Util.convertGrammToLbs(gram2) == 0.0)
+    }
+
 }
 
