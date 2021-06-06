@@ -9,6 +9,7 @@
     <dimen name="catlist_card_textsize">20sp</dimen>
     <dimen name="catlist_card_body_textsize">18sp</dimen>
     <dimen name="catlist_food_margin">15dp</dimen>
+    <dimen name="catlist_hint_textsize">20sp</dimen>
 
     <!-- Add cat -->
     <dimen name="addcat_view_margin">30dp</dimen>

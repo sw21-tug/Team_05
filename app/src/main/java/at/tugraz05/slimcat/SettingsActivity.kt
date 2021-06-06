@@ -77,6 +77,7 @@ class SettingsActivity: AppCompatActivity() {
             LanguageHandler.setLanguage(this)
             finish()
         }
+
         imageButton = findViewById(R.id.imageButton)
         imageButton.setOnClickListener {
             binding.user?.image = CaptureImage.captureImage(this) ?: ""
@@ -93,6 +94,7 @@ class SettingsActivity: AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.title_activity_settings)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -143,10 +145,8 @@ class SettingsActivity: AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         binding.user?.image = CaptureImage.captureImage(this) ?: ""
     }
+
+    // data class for binding of userdata from sharedpreferences
+    data class UserData(var name: String, var email: String, var gender: Int, var unit: Int, var language: Int, var image: String)
 }
-
-// data class for binding of userdata from sharedpreferences
-data class UserData(var name: String, var email: String, var gender: Int, var unit: Int, var language: Int, var image: String)
-
-
 
