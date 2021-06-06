@@ -9,11 +9,11 @@ import java.lang.NumberFormatException
 import java.sql.Timestamp
 
 
-class CatDataClass(var name: String? = null, var race: String? = null, date_of_birth: String? = null,
+class CatDataClass(var name: String? = null, var race: String? = null, date_of_birth: String? = null, age: Int = 0,
                    var size: Double? = null, var weight: Double? = null, gender: Int = AddcatActivity.FEMALE, var imageString: String? = "",
                    calorieRecommendation: Int = 0, var obese : Boolean = false, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
                    var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false, var timestamp: Long = 0): Parcelable, BaseObservable() {
-    var age = date_of_birth?.let { Util.calculateAge(it) } ?: 0
+    var age = date_of_birth?.let { Util.calculateAge(it) } ?: age
 
     var date_of_birth = date_of_birth
         @Bindable get
@@ -42,6 +42,7 @@ class CatDataClass(var name: String? = null, var race: String? = null, date_of_b
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        0,
         parcel.readDouble(),
         parcel.readDouble(),
         parcel.readValue(Int::class.java.classLoader) as? Int ?: AddcatActivity.FEMALE,
