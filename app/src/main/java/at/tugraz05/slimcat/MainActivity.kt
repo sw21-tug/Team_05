@@ -34,20 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         DatabaseHelper.get().addValueEventListener {
-            val today = Calendar.getInstance()
-            today.set(Calendar.HOUR_OF_DAY,0)
-            today.set(Calendar.MINUTE,0)
-            today.set(Calendar.SECOND,0)
-
-            val userCats = DatabaseHelper.get().readUserCats()
-            userCats.forEach {
-                val date = Date(it!!.timestamp)
-                if (date.before(today.time)) {
-                    it.calorieRecommendation = Util.calculateCalories(it)
-                    DatabaseHelper.get().editUser(it.name!!, it)
-                }
-            }
-            displayCats(userCats, DatabaseHelper.get().readUserFoods())
+            initDisplay()
         }
 
         LanguageHandler.setLanguage(this)
@@ -84,6 +71,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+    }
+
+    @Synchronized
+    private fun initDisplay() {
+        val today = Calendar.getInstance()
+        today.set(Calendar.HOUR_OF_DAY,0)
+        today.set(Calendar.MINUTE,0)
+        today.set(Calendar.SECOND,0)
+
+        val userCats = DatabaseHelper.get().readUserCats()
+        userCats.forEach {
+            val date = Date(it!!.timestamp)
+            if (date.before(today.time)) {
+                it.calorieRecommendation = Util.calculateCalories(it)
+                DatabaseHelper.get().editUser(it.name!!, it)
+            }
+        }
+        var userFoods = DatabaseHelper.get().readUserFoods()
+        if (userFoods.isEmpty()) {
+            userFoods = FoodDetailsDataClass.defaultFoods()
+            userFoods.forEach {
+                DatabaseHelper.get().writeNewFood(it!!)
+            }
+        }
+        displayCats(userCats, userFoods)
     }
 
     fun displayCats(cats: List<CatDataClass?>, foods: List<FoodDetailsDataClass?>) {

@@ -39,6 +39,7 @@ class FoodListActivity : AppCompatActivity() {
         return true
     }
 
+    @Synchronized
     fun displayFoods(foods: List<FoodDetailsDataClass?>) {
         val container = findViewById<LinearLayout>(R.id.food_scroll_content)
         val f = arrayOfNulls<Boolean>(foods.size)

@@ -69,6 +69,7 @@ class TrackFoodActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    @Synchronized
     private fun updateList(container: TableLayout, foods: List<FoodDetailsDataClass?>) {
         container.removeAllViews()
         bindings = foods.map {

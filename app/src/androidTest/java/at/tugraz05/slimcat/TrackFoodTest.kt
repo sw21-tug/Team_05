@@ -13,6 +13,7 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.firebase.database.DataSnapshot
 import junit.framework.TestCase
 import org.hamcrest.Matchers.allOf
 import org.junit.Test
@@ -30,6 +31,7 @@ class TrackFoodTest : TestCase() {
         val foods = listOf(FoodDetailsDataClass(calories = 240), FoodDetailsDataClass(calories = 320))
 
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
+        val snap = Mockito.mock(DataSnapshot::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer {
             val c = it.arguments[1] as CatDataClass
@@ -38,6 +40,7 @@ class TrackFoodTest : TestCase() {
             any(), any()
         )
         Mockito.doReturn(foods).`when`(dbHelper).readUserFoods()
+        Mockito.doAnswer { (it.arguments[1] as (DataSnapshot) -> Unit)(snap) }.`when`(dbHelper).addValueEventListener(any(), any())
 
         cat.age = Util.calculateAge(date_of_birth = LocalDate.of(2019, 5, 12), LocalDate.now())
         cat.calorieRecommendation = Util.calculateCalories(cat)

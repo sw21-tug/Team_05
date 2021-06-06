@@ -42,7 +42,7 @@ class MainActivityTest : TestCase() {
         val scenario = ActivityScenario.launch(MainActivity::class.java)
         val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5), CatDataClass(name = "Johnny", age = 7, weight = 10.0), CatDataClass(name = "Katze", age = 2, weight = 1.0))
         scenario.onActivity {
-            it.displayCats(cats)
+            it.displayCats(cats, listOf())
         }
         onView(withId(R.id.scroll_content)).perform(waitFor<LinearLayout> { it.childCount == cats.size })
     }
