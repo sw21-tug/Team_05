@@ -59,7 +59,7 @@ class SettingsActivityTest : TestCase(){
         val scenario = ActivityScenario.launch(SettingsActivity::class.java)
         val sharedPreferences = Mockito.mock(SharedPreferences::class.java)
         val context = Mockito.mock(Context::class.java)
-        Mockito.`when`(context.getSharedPreferences("userprefs", MODE_PRIVATE)).thenReturn(sharedPreferences)
+        Mockito.`when`(context.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)).thenReturn(sharedPreferences)
         Mockito.`when`(sharedPreferences.getString("name","" )).thenReturn("test")
         Mockito.`when`(sharedPreferences.getString("email","" )).thenReturn("test@email")
         Mockito.`when`(sharedPreferences.getInt("gender", 0)).thenReturn(0)

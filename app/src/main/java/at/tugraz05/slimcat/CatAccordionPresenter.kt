@@ -34,22 +34,22 @@ data class CatAccordionPresenter(val context: Activity, val binding: CatAccordio
 
     fun edit(view: View) {
         val intent = Intent(context, AddcatActivity::class.java)
-        val bundle = bundleOf("Cat" to binding.cat)
+        val bundle = bundleOf(Constants.CAT_PARAM to binding.cat)
         intent.putExtras(bundle)
         context.startActivity(intent)
     }
 
     fun track(view: View) {
         val intent = Intent(context, TrackFoodActivity::class.java)
-        val bundle = bundleOf("Cat" to binding.cat)
+        val bundle = bundleOf(Constants.CAT_PARAM to binding.cat)
         intent.putExtras(bundle)
         context.startActivity(intent)
     }
 
     fun getWeightStr(cat: CatDataClass): String {
-        val metricSystem = context.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = context.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
-            context.getString(R.string.catlist_text_weight).format(cat.weight)
+            context.getString(R.string.catlist_text_weight).format(cat.weight ?: 0.0)
         } else {
             context.getString(R.string.catlist_text_weight_lbs).format(cat.weight?.let {
                 Util.convertKgToLbs(it)
@@ -99,6 +99,6 @@ fun catWeightBinding(view: TextView, cat:CatDataClass, presenter: CatAccordionPr
 
 @BindingAdapter("calories", "food")
 fun setGrams(view: TextView, calories: Int, food: Food) {
-    Log.d("setGrams", "${food.name}: ${food.kcalPer100G} ${calories} ${Util.calcGramsOfFood(food, calories)}")
+    Log.d("setGrams", "${food.name}: ${food.kcalPer100G} $calories ${Util.calcGramsOfFood(food, calories)}")
     view.text = view.resources.getString(R.string.catlist_text_food_amount, Util.calcGramsOfFood(food, calories))
 }
