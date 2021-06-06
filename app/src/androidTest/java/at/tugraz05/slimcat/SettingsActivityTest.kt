@@ -78,7 +78,8 @@ class SettingsActivityTest : TestCase(){
     }
 
     @Test
-    fun testMandarinBtnSave(){
+    fun testMandarinBtnSave() {
+        DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
         ActivityScenario.launch(SettingsActivity::class.java)
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
         onView(withText("mandarin (chinese)")).perform(scrollTo()).perform(click())
@@ -88,7 +89,8 @@ class SettingsActivityTest : TestCase(){
         onView(withId(R.id.label_name)).check(matches(withText("名")))
     }
     @Test
-    fun testEnglishBtnSave(){
+    fun testEnglishBtnSave() {
+        DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
         ActivityScenario.launch(SettingsActivity::class.java)
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
         onView(withText("english")).perform(scrollTo()).perform(click())
