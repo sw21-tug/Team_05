@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -19,7 +20,9 @@ import java.lang.NumberFormatException
 import java.nio.file.Files
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.*
 
 class AddcatActivity : AppCompatActivity() {
@@ -92,9 +95,6 @@ class AddcatActivity : AppCompatActivity() {
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
             else {
-                if (binding.cat!!.date_of_birth != null)
-                    binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
-
                 binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!) - calDiff
 
                 if (edit) updateCat()
@@ -117,10 +117,16 @@ class AddcatActivity : AppCompatActivity() {
 
         //click on btn_dob to open the datepicker
         Locale.setDefault(Locale.CHINA)
-        val formatDate = SimpleDateFormat("y-M-d", Locale.CHINESE)
+        val formatDate = SimpleDateFormat(Constants.DATE_FORMAT, Locale.CHINESE)
 
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
             val getDate : Calendar = Calendar.getInstance()
+            try {
+                getDate.time = Date.from(LocalDate.parse(binding.cat!!.date_of_birth ?: "", DateTimeFormatter.ofPattern(Constants.DATE_FORMAT))
+                    .atStartOfDay(ZoneId.systemDefault()).toInstant())
+            } catch (e: DateTimeParseException) {
+                Log.d("addcat", "invalid date ${binding.cat!!.date_of_birth}")
+            }
             val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 { _, year, month, day ->
 
@@ -128,7 +134,7 @@ class AddcatActivity : AppCompatActivity() {
                     selectDate.set(Calendar.YEAR, year)
                     selectDate.set(Calendar.MONTH, month)
                     selectDate.set(Calendar.DAY_OF_MONTH, day)
-                    val date = formatDate.format((selectDate.time))
+                    val date = formatDate.format(selectDate.time)
                     findViewById<TextView>(R.id.txt_dob).text = date
                     binding.cat!!.date_of_birth = date
                 }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
