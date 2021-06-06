@@ -8,14 +8,19 @@
             type="at.tugraz05.slimcat.CatDataClass" />
         <variable
             name="food"
-            type="at.tugraz05.slimcat.Food" />
+            type="at.tugraz05.slimcat.FoodDetailsDataClass" />
         <variable
             name="activity"
             type="at.tugraz05.slimcat.TrackFoodActivity" />
     </data>
 
-    <TableRow android:layout_margin="@dimen/trackfood_row_margin"
-              android:id="@+id/trackfood_table_row">
+    <TableRow
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_margin="@dimen/trackfood_row_margin"
+        android:id="@+id/trackfood_table_row">
+
         <TextView
             android:id="@+id/text_food_name"
             android:layout_width="wrap_content"

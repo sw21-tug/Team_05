@@ -25,6 +25,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/trackfood_row_margin"
                     android:text="@string/trackfood_hint"
                     android:textSize="@dimen/catlist_card_body_textsize"/>
 

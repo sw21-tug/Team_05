@@ -38,27 +38,8 @@ class TrackFoodActivity : AppCompatActivity() {
         cat = intent.extras!!.getParcelable("Cat")!!
         cals = cat.calorieRecommendation
 
-        bindings = Food.foods.map {
-            val binding = DataBindingUtil.inflate<ActivityTrackFoodElementBinding>(layoutInflater, R.layout.activity_track_food_element, container, false)
-            binding.cat = cat
-            binding.food = it
-            binding.activity = this
-            container.addView(binding.root)
-            binding.root.findViewById<EditText>(R.id.text_food_eaten).addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    updateCals()
-                }
-                override fun afterTextChanged(s: Editable?) {
-                }
-            })
-            binding
+        DatabaseHelper.get().addValueEventListener {
+            updateList(container, DatabaseHelper.get().readUserFoods())
         }
 
         val actionbar = supportActionBar
@@ -88,10 +69,31 @@ class TrackFoodActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun updateCals() {
+    private fun updateList(container: TableLayout, foods: List<FoodDetailsDataClass?>) {
+        container.removeAllViews()
+        bindings = foods.map {
+            val binding = DataBindingUtil.inflate<ActivityTrackFoodElementBinding>(layoutInflater, R.layout.activity_track_food_element, container, false)
+            binding.cat = cat
+            binding.food = it!!
+            binding.activity = this
+            container.addView(binding.root)
+            binding.root.findViewById<EditText>(R.id.text_food_eaten).addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    updateCals()
+                }
+                override fun afterTextChanged(s: Editable?) {
+                }
+            })
+            binding
+        }
+    }
+
+    private fun updateCals() {
         cat.calorieRecommendation = cals - bindings.sumOf {
             try {
-                it.food!!.kcalPer100G * Integer.parseInt(it.root.findViewById<EditText>(R.id.text_food_eaten).text.toString()) / 100
+                it.food!!.calories * Integer.parseInt(it.root.findViewById<EditText>(R.id.text_food_eaten).text.toString()) / 100
             } catch (e: NumberFormatException) {
                 0
             }
