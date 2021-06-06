@@ -3,6 +3,8 @@ package at.tugraz05.slimcat
 import android.os.Build
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -23,9 +25,16 @@ object Util {
     const val ATWATER_FAT_FACTOR_PER_G = 8.5
     const val ATWATER_NFE_FACTOR_PER_G = 3.5
 
+    fun calculateAge(date_of_birth: String): Int {
+        return try {
+            calculateAge(LocalDate.parse(date_of_birth, DateTimeFormatter.ofPattern(Constants.DATE_FORMAT)), LocalDate.now())
+        } catch (e: DateTimeParseException) {
+            0
+        }
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun calculateAge(date_of_birth: LocalDate, current_date : LocalDate) : Int{
+    fun calculateAge(date_of_birth: LocalDate, current_date : LocalDate): Int {
         var age = current_date.year - date_of_birth.year
 
         if (current_date.month < date_of_birth.month){

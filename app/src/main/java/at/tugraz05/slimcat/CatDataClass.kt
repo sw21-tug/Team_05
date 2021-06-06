@@ -9,10 +9,20 @@ import java.lang.NumberFormatException
 import java.sql.Timestamp
 
 
-class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
+class CatDataClass(var name: String? = null, var race: String? = null, date_of_birth: String? = null,
                    var size: Double? = null, var weight: Double? = null, gender: Int = AddcatActivity.FEMALE, var imageString: String? = "",
                    calorieRecommendation: Int = 0, var obese : Boolean = false, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
                    var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false, var timestamp: Long = 0): Parcelable, BaseObservable() {
+    var age = date_of_birth?.let { Util.calculateAge(it) } ?: 0
+
+    var date_of_birth = date_of_birth
+        @Bindable get
+        set(value) {
+            field = value
+            if (value != null) age = Util.calculateAge(value)
+            notifyPropertyChanged(BR.gender)
+        }
+
     var gender = gender
         @Bindable get
         set(value) {
@@ -32,7 +42,6 @@ class CatDataClass(var name: String? = null, var race: String? = null, var date_
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readInt(),
         parcel.readDouble(),
         parcel.readDouble(),
         parcel.readValue(Int::class.java.classLoader) as? Int ?: AddcatActivity.FEMALE,
@@ -53,7 +62,6 @@ class CatDataClass(var name: String? = null, var race: String? = null, var date_
             "name" to name,
             "race" to race,
             "date_of_birth" to date_of_birth,
-            "age" to age,
             "size" to size,
             "weight" to weight,
             "gender" to gender,
@@ -83,7 +91,6 @@ class CatDataClass(var name: String? = null, var race: String? = null, var date_
         parcel.writeString(name)
         parcel.writeString(race)
         parcel.writeString(date_of_birth)
-        parcel.writeInt(age)
         parcel.writeDouble(size ?: 0.0)
         parcel.writeDouble(weight ?: 0.0)
         parcel.writeValue(gender)
