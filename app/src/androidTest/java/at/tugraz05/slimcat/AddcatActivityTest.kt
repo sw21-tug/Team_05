@@ -54,8 +54,8 @@ class AddcatActivityTest : TestCase() {
     @Test
     fun maleSeekerChangeHideFemale() {
         ActivityScenario.launch(AddcatActivity::class.java)
-        onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = GenderSeeker.FEMALE })
-        onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = GenderSeeker.MALE })
+        onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = AddcatActivity.FEMALE })
+        onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = AddcatActivity.MALE })
         rowids.forEach { id -> onView(withId(id)).perform(waitFor<View> { it.visibility == View.GONE }) }
     }
 
@@ -64,9 +64,9 @@ class AddcatActivityTest : TestCase() {
         ActivityScenario.launch(AddcatActivity::class.java)
         onView(withId(R.id.label_gender_female)).perform(scrollTo()).perform(click())
         onView(withId(R.id.label_gender_male)).perform(scrollTo()).perform(click())
-        onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == GenderSeeker.MALE })
+        onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == AddcatActivity.MALE })
         onView(withId(R.id.label_gender_female)).perform(scrollTo()).perform(click())
-        onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == GenderSeeker.FEMALE })
+        onView(withId(R.id.seek_gender)).perform(waitFor<SeekBar> { it.progress == AddcatActivity.FEMALE })
     }
 
     @Test
@@ -94,7 +94,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun removeCatTestOnEdit() {
-        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = GenderSeeker.MALE)
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = AddcatActivity.MALE)
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("removeCatTest", it.arguments[0] as String) }.`when`(dbHelper).deleteCat("test")
@@ -108,7 +108,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun openEditCat() {
-        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = GenderSeeker.MALE)
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = AddcatActivity.MALE)
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("openEditCat", "${it.arguments[0] as String}: ${it.arguments[1] as CatDataClass}") }.`when`(dbHelper).editUser(any(), any())
@@ -124,7 +124,7 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.txt_race)).check(matches(withText(cat.race)))
         onView(withId(R.id.txt_size)).check(matches(withText(cat.getSizeStr())))
         onView(withId(R.id.txt_weight)).check(matches(withText(cat.getWeightStr())))
-        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { assertEquals(GenderSeeker.MALE, it.progress) })
+        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { assertEquals(AddcatActivity.MALE, it.progress) })
         onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
         Log.d("openEditCat", "$cat")
         Mockito.verify(dbHelper).editUser("test", cat)
@@ -132,7 +132,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun openAddCat() {
-        val cat = CatDataClass(name = "test", race = "liger", size = 12.0, weight = 3.5, gender = GenderSeeker.MALE)
+        val cat = CatDataClass(name = "test", race = "liger", size = 12.0, weight = 3.5, gender = AddcatActivity.MALE)
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("openAddCat", (it.arguments[0] as CatDataClass).name!!) }.`when`(dbHelper).writeNewCat(any())
@@ -145,7 +145,7 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.txt_race)).check(matches(withText("")))
         onView(withId(R.id.txt_size)).check(matches(withText("")))
         onView(withId(R.id.txt_weight)).check(matches(withText("")))
-        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { assertEquals(GenderSeeker.FEMALE, it.progress) })
+        onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { assertEquals(AddcatActivity.FEMALE, it.progress) })
 
         // fill in cat data
         onView(withId(R.id.txt_name)).perform(scrollTo()).perform(typeText(cat.name))
@@ -159,7 +159,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun weightUnitSwitch() {
-        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "0", size = 3.5, weight = 3.5, gender = GenderSeeker.MALE)
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "0", size = 3.5, weight = 3.5, gender = AddcatActivity.MALE)
         val inLbs = Util.convertKgToLbs(cat.weight!!)
 
         // switch to imperial system
@@ -183,7 +183,7 @@ class AddcatActivityTest : TestCase() {
     // after changing size from Int do Double adjust Test
     @Test
     fun sizeUnitSwitch() {
-        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "0", size = 3.5, weight = 3.5, gender = GenderSeeker.MALE)
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "0", size = 3.5, weight = 3.5, gender = AddcatActivity.MALE)
         val inInch = Util.convertCmToInch(cat.size!!)
 
         // switch to imperial system
@@ -206,7 +206,7 @@ class AddcatActivityTest : TestCase() {
 
     @Test
     fun updateCalories(){
-        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = GenderSeeker.MALE)
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = AddcatActivity.MALE)
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("openEditCat", "${it.arguments[0] as String}: ${it.arguments[1] as CatDataClass}") }.`when`(dbHelper).editUser(any(), any())

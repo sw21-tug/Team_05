@@ -64,7 +64,7 @@ class UtilTest {
     fun testCalorieRecommendationMaleWithFemaleAttr() {
         val cat = CatDataClass(
             age = 2, weight = 6.0, obese = true, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = true, lactation = true, gender = GenderSeeker.MALE
+            gestation = true, lactation = true, gender = AddcatActivity.MALE
         )
         val calRec = Util.calculateCalories(cat)
 
@@ -75,7 +75,7 @@ class UtilTest {
     fun testCalorieRecommendationFemaleGestation() {
         val cat = CatDataClass(
             age = 4, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = true, lactation = false, gender = GenderSeeker.FEMALE
+            gestation = true, lactation = false, gender = AddcatActivity.FEMALE
         )
         val calRec = Util.calculateCalories(cat)
         assert(calRec == 671)
@@ -85,7 +85,7 @@ class UtilTest {
     fun testCalorieRecommendationFemaleLactation() {
         val cat = CatDataClass(
             age = 2, weight = 6.0, obese = true, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = false, lactation = true, gender = GenderSeeker.FEMALE
+            gestation = false, lactation = true, gender = AddcatActivity.FEMALE
         )
         val calRec = Util.calculateCalories(cat)
 
@@ -96,7 +96,7 @@ class UtilTest {
     fun testCalorieRecommendationFemaleGestationAndLactation() {
         val cat = CatDataClass(
             age = 2, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = true, lactation = true, gender = GenderSeeker.FEMALE
+            gestation = true, lactation = true, gender = AddcatActivity.FEMALE
         )
         val calRec = Util.calculateCalories(cat)
         assert(calRec == 1073)
@@ -106,7 +106,7 @@ class UtilTest {
     fun testIsKitten() {
         val cat = CatDataClass(
             age = 0, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = false, lactation = false, gender = GenderSeeker.FEMALE
+            gestation = false, lactation = false, gender = AddcatActivity.FEMALE
         )
         val calRec = Util.calculateCalories(cat)
         assert(calRec == 671)

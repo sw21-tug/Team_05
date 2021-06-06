@@ -9,11 +9,18 @@ import java.lang.NumberFormatException
 import java.sql.Timestamp
 
 
-data class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
-                        var size: Double? = null, var weight: Double? = null, var gender: Int? = null, var imageString: String? = "",
-                        private val _calorieRecommendation: Int = 0, var obese : Boolean = false, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
-                        var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false, var timestamp: Long = 0): Parcelable, BaseObservable() {
-    var calorieRecommendation = _calorieRecommendation
+class CatDataClass(var name: String? = null, var race: String? = null, var date_of_birth: String? = null, var age: Int = 0,
+                   var size: Double? = null, var weight: Double? = null, gender: Int = AddcatActivity.FEMALE, var imageString: String? = "",
+                   calorieRecommendation: Int = 0, var obese : Boolean = false, var overweight_prone: Boolean = false, var hospitalized: Boolean = false,
+                   var neutered: Boolean = false, var gestation: Boolean = false, var lactation: Boolean = false, var timestamp: Long = 0): Parcelable, BaseObservable() {
+    var gender = gender
+        @Bindable get
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.gender)
+        }
+
+    var calorieRecommendation = calorieRecommendation
         @Bindable get
         set(value) {
             field = value
@@ -28,7 +35,7 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
         parcel.readInt(),
         parcel.readDouble(),
         parcel.readDouble(),
-        parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readValue(Int::class.java.classLoader) as? Int ?: AddcatActivity.FEMALE,
         parcel.readString(),
         parcel.readInt(),
         parcel.readValue(Int::class.java.classLoader) as Boolean,
@@ -96,12 +103,32 @@ data class CatDataClass(var name: String? = null, var race: String? = null, var 
             return super.equals(other)
         return other.name == name && other.race == race && other.date_of_birth == date_of_birth && other.age == age
             && other.size == size && other.weight == weight && other.gender == gender && other.imageString == imageString
-            && other.calorieRecommendation == calorieRecommendation && other.obese == obese  && other.overweight_prone == overweight_prone && other.hospitalized == hospitalized
+            && other.calorieRecommendation == calorieRecommendation && other.obese == obese && other.overweight_prone == overweight_prone && other.hospitalized == hospitalized
             && other.neutered == neutered && other.gestation == gestation && other.lactation == lactation
     }
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    override fun hashCode(): Int {
+        var result = name?.hashCode() ?: 0
+        result = 31 * result + (race?.hashCode() ?: 0)
+        result = 31 * result + (date_of_birth?.hashCode() ?: 0)
+        result = 31 * result + age
+        result = 31 * result + (size?.hashCode() ?: 0)
+        result = 31 * result + (weight?.hashCode() ?: 0)
+        result = 31 * result + (imageString?.hashCode() ?: 0)
+        result = 31 * result + obese.hashCode()
+        result = 31 * result + overweight_prone.hashCode()
+        result = 31 * result + hospitalized.hashCode()
+        result = 31 * result + neutered.hashCode()
+        result = 31 * result + gestation.hashCode()
+        result = 31 * result + lactation.hashCode()
+        result = 31 * result + timestamp.hashCode()
+        result = 31 * result + gender
+        result = 31 * result + calorieRecommendation
+        return result
     }
 
     companion object CREATOR : Parcelable.Creator<CatDataClass> {

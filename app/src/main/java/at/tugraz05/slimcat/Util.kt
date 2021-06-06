@@ -58,7 +58,7 @@ object Util {
             maintenceEnergyRequirements *= FACTOR_NEUTERED
         }
 
-        if(cat.gender == GenderSeeker.FEMALE){
+        if(cat.gender == AddcatActivity.FEMALE){
             if(cat.gestation && cat.lactation){
                 maintenceEnergyRequirements *= FACTOR_LACTATION
             }
