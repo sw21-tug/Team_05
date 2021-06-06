@@ -126,5 +126,10 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                 binding.root.findViewById<FrameLayout>(R.id.collapsible).layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
         }
+
+        findViewById<TextView>(R.id.main_text_add).let {
+            it.visibility = if (container.childCount == 0) View.VISIBLE else View.GONE
+            it.text = getString(R.string.catlist_hint_add) // this line is necessary because context
+        }
     }
 }

@@ -1,6 +1,5 @@
 package at.tugraz05.slimcat
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,17 +9,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.TableLayout
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import at.tugraz05.slimcat.databinding.ActivityTrackFoodBinding
 import at.tugraz05.slimcat.databinding.ActivityTrackFoodElementBinding
-import at.tugraz05.slimcat.databinding.CatAccordionBinding
 import kotlin.properties.Delegates
 
 class TrackFoodActivity : AppCompatActivity() {
@@ -34,12 +26,11 @@ class TrackFoodActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_track_food)
 
-        val container = findViewById<TableLayout>(R.id.scroll_track_food)
-        cat = intent.extras!!.getParcelable("Cat")!!
+        cat = intent.extras!!.getParcelable(Constants.CAT_PARAM)!!
         cals = cat.calorieRecommendation
 
         DatabaseHelper.get().addValueEventListener {
-            updateList(container, DatabaseHelper.get().readUserFoods())
+            updateList(DatabaseHelper.get().readUserFoods())
         }
 
         val actionbar = supportActionBar
@@ -70,7 +61,8 @@ class TrackFoodActivity : AppCompatActivity() {
     }
 
     @Synchronized
-    private fun updateList(container: TableLayout, foods: List<FoodDetailsDataClass?>) {
+    private fun updateList(foods: List<FoodDetailsDataClass?>) {
+        val container = findViewById<TableLayout>(R.id.scroll_track_food)
         container.removeAllViews()
         bindings = foods.map {
             val binding = DataBindingUtil.inflate<ActivityTrackFoodElementBinding>(layoutInflater, R.layout.activity_track_food_element, container, false)
