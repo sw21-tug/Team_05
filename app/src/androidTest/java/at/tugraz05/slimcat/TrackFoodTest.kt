@@ -27,7 +27,7 @@ import java.time.LocalDate
 class TrackFoodTest : TestCase() {
     @Test
     fun trackFood() {
-        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = GenderSeeker.MALE)
+        val cat = CatDataClass(name = "test", race = "liger", date_of_birth = "2019-5-12", size = 12.0, weight = 3.5, gender = AddcatActivity.MALE)
         val foods = listOf(FoodDetailsDataClass(calories = 240), FoodDetailsDataClass(calories = 320))
 
         val dbHelper = Mockito.mock(DatabaseHelper::class.java)
