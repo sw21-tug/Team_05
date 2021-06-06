@@ -178,7 +178,7 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     fun getWeightStr():String{
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             binding.cat!!.getWeightStr()
         } else {
@@ -187,7 +187,7 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     fun setWeightStr(weight:String){
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         val finalWeight = if (metricSystem == SettingsActivity.METRIC) {
             try {
                 weight.toDouble()
@@ -206,7 +206,7 @@ class AddcatActivity : AppCompatActivity() {
 
     // adjust when size change to double!!!!!
     fun getSizeStr():String{
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             binding.cat!!.getSizeStr()
         } else {
@@ -216,7 +216,7 @@ class AddcatActivity : AppCompatActivity() {
 
     // adjust when size change to double!!!!!
     fun setSizeStr(size: String){
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         val finalSize = if (metricSystem == SettingsActivity.METRIC) {
             try {
                 size.toDouble()
@@ -234,7 +234,7 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     fun getWeightHintStr():String{
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             getString(R.string.input_weight_hint)
         } else {
@@ -243,7 +243,7 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     fun getSizeHintStr():String{
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             getString(R.string.input_size_hint)
         } else {

@@ -99,7 +99,7 @@ class AddcatActivityTest : TestCase() {
         DatabaseHelper.mock(dbHelper)
         Mockito.doAnswer { Log.d("removeCatTest", it.arguments[0] as String) }.`when`(dbHelper).deleteCat("test")
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
-        intent.putExtras(bundleOf("Cat" to cat))
+        intent.putExtras(bundleOf(Constants.CAT_PARAM to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
 
         onView(withId(R.id.btn_delete)).perform(scrollTo()).perform(click())
@@ -117,7 +117,7 @@ class AddcatActivityTest : TestCase() {
         cat.calorieRecommendation = Util.calculateCalories(cat)
 
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
-        intent.putExtras(bundleOf("Cat" to cat))
+        intent.putExtras(bundleOf(Constants.CAT_PARAM to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
 
         onView(withId(R.id.txt_name)).check(matches(withText(cat.name)))
@@ -167,7 +167,7 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
-        intent.putExtras(bundleOf("Cat" to cat))
+        intent.putExtras(bundleOf(Constants.CAT_PARAM to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
         onView(withId(R.id.txt_weight)).perform(scrollTo()).check(matches(withText(inLbs.toString())))
 
@@ -175,7 +175,7 @@ class AddcatActivityTest : TestCase() {
         ActivityScenario.launch(SettingsActivity::class.java)
         onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
-        intent.putExtras(bundleOf("Cat" to cat))
+        intent.putExtras(bundleOf(Constants.CAT_PARAM to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
         onView(withId(R.id.txt_weight)).perform(scrollTo()).check(matches(withText(cat.getWeightStr())))
     }
@@ -191,7 +191,7 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
-        intent.putExtras(bundleOf("Cat" to cat))
+        intent.putExtras(bundleOf(Constants.CAT_PARAM to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
         onView(withId(R.id.txt_size)).perform(scrollTo()).check(matches(withText(inInch.toInt().toString())))
 
@@ -199,7 +199,7 @@ class AddcatActivityTest : TestCase() {
         ActivityScenario.launch(SettingsActivity::class.java)
         onView(withId(R.id.settings_unit_of_measurement_kg)).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
-        intent.putExtras(bundleOf("Cat" to cat))
+        intent.putExtras(bundleOf(Constants.CAT_PARAM to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
         onView(withId(R.id.txt_size)).perform(scrollTo()).check(matches(withText(cat.getSizeStr())))
     }
@@ -215,7 +215,7 @@ class AddcatActivityTest : TestCase() {
         cat.calorieRecommendation = Util.calculateCalories(cat) - 20
 
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
-        intent.putExtras(bundleOf("Cat" to cat))
+        intent.putExtras(bundleOf(Constants.CAT_PARAM to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
 
         // this triggers a recalculation of the calories

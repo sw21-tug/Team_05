@@ -94,13 +94,13 @@ object Util {
     }
 
     fun calcFoodCals(food: FoodDetailsDataClass) :Int {
-        var nfe = 100.0 - food.rawProtein - food.rawFat - food.crudeAsh - food.rawFiber - food.water
-        val ts = 100 - food.water
-        val protein = food.rawProtein / ts
-        val fat = food.rawFat / ts
+        var nfe = 100.0 - (food.rawProtein ?: 0.0) - (food.rawFat ?: 0.0) - (food.crudeAsh ?: 0.0) - (food.rawFiber ?: 0.0) - (food.water ?: 0.0)
+        val ts = 1 - (food.water ?: 0.0) / 100
+        val protein = (food.rawProtein ?: 0.0) / ts
+        val fat = (food.rawFat ?: 0.0) / ts
         nfe /= ts
 
-       return ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
+       return ((protein * ATWATER_PROTEIN_FACTOR_PER_G) + (fat * ATWATER_FAT_FACTOR_PER_G) + (nfe * ATWATER_NFE_FACTOR_PER_G)).toInt()
         //asserten dass nicht unter null nach abziehen aller prozent
     }
 }

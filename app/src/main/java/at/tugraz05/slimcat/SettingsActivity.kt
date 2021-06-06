@@ -72,7 +72,7 @@ class SettingsActivity: AppCompatActivity() {
         }
 
         // change language selection in spinner
-        val sharedpref = getSharedPreferences("userprefs", MODE_PRIVATE)
+        val sharedpref = getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
         sharedpref.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
             LanguageHandler.setLanguage(this)
             finish()
@@ -100,7 +100,7 @@ class SettingsActivity: AppCompatActivity() {
 
     // Saves data
     private fun saveData(context: Context) {
-        val sharedpref = context.getSharedPreferences("userprefs", MODE_PRIVATE)
+        val sharedpref = context.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
         val editor = sharedpref.edit()
         editor.putString("name", binding.user?.name)
         editor.putString("email", binding.user?.email)
@@ -112,7 +112,7 @@ class SettingsActivity: AppCompatActivity() {
     }
 
     fun loadData(context: Context): UserData {
-        val sharedpref = context.getSharedPreferences("userprefs", MODE_PRIVATE)
+        val sharedpref = context.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
         return UserData(
             sharedpref.getString("name", "")!!,
             sharedpref.getString("email", "")!!,

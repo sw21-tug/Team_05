@@ -30,7 +30,7 @@ object LanguageHandler {
     }
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     fun setLanguage(context: Context){
-        val language = context.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("language", 0 )
+        val language = context.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("language", 0 )
         if (language == SettingsActivity.ENGLISH) {
             Log.d("test", "english")
             setAppLocale("", context)

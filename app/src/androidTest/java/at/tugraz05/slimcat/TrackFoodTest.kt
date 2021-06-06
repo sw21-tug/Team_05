@@ -39,7 +39,7 @@ class TrackFoodTest : TestCase() {
         cat.calorieRecommendation = Util.calculateCalories(cat)
 
         val intent = Intent(ApplicationProvider.getApplicationContext(), TrackFoodActivity::class.java)
-        intent.putExtras(bundleOf("Cat" to cat))
+        intent.putExtras(bundleOf(Constants.CAT_PARAM to cat))
         ActivityScenario.launch<TrackFoodActivity>(intent)
 
         cat.calorieRecommendation -= Food.foods[0].kcalPer100G*20/100 + Food.foods[1].kcalPer100G*10/100
