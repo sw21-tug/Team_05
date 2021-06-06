@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     DatabaseHelper.get().editUser(it.name!!, it)
                 }
             }
-            displayCats(userCats)
+            displayCats(userCats, DatabaseHelper.get().readUserFoods())
         }
 
         LanguageHandler.setLanguage(this)
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
     }
 
-    fun displayCats(cats: List<CatDataClass?>) {
+    fun displayCats(cats: List<CatDataClass?>, foods: List<FoodDetailsDataClass?>) {
         val container = findViewById<LinearLayout>(R.id.scroll_content)
         val f = arrayOfNulls<Boolean>(cats.size)
         val toRemove = arrayOfNulls<View>(container.childCount)
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             val index = cats.indexOfFirst { it?.name == binding.cat?.name }
             if (index != -1) {
                 binding.cat = cats[index]
-                binding.presenter!!.update()
+                binding.presenter!!.update(foods)
                 f[index] = true
             }
             else {
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
                 return@forEachIndexed
             val binding = DataBindingUtil.inflate<CatAccordionBinding>(layoutInflater, R.layout.cat_accordion, container, false)
             binding.cat = cat
-            binding.presenter = CatAccordionPresenter(this, binding)
+            binding.presenter = CatAccordionPresenter(this, binding, foods)
             container.addView(binding.root)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)

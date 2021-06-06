@@ -79,9 +79,10 @@ class MainActivityTest : TestCase() {
 
         val scenario = ActivityScenario.launch(MainActivity::class.java)
         val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5, _calorieRecommendation = 125))
+        val foods = listOf(FoodDetailsDataClass(), FoodDetailsDataClass())
         scenario.onActivity {
-            it.displayCats(cats)
+            it.displayCats(cats, foods)
         }
-        onView(withId(R.id.accordion_food_list)).perform(waitFor<TableLayout> { it.childCount == Food.foods.size })
+        onView(withId(R.id.accordion_food_list)).perform(waitFor<TableLayout> { it.childCount == foods.size })
     }
 }

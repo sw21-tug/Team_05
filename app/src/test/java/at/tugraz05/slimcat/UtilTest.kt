@@ -150,34 +150,20 @@ class UtilTest {
     
     @Test
     fun testWetFoodGivesCorrectCalories1G() {
-        val f = Food.wetFood
-        assert(Util.calcGramsOfFood(f, f.kcalPer100G) == 100)
+        val f = FoodDetailsDataClass(calories = 123)
+        assert(Util.calcGramsOfFood(f, f.calories) == 100)
     }
 
     @Test
     fun testCalculateWetFoodCalories() {
         val f = FoodDetailsDataClass("wet",10.0, 5.5, 2.5, 1.0,79.0)
-        var nfe = 100.0 - (f.rawProtein ?: 0.0) - (f.rawFat ?: 0.0) - (f.crudeAsh ?: 0.0) - (f.rawFiber ?: 0.0) - (f.water ?: 0.0)
-        val ts = 1 - (f.water ?: 0.0) / 100
-        val protein = (f.rawProtein ?: 0.0) / ts
-        val fat = (f.rawFat ?: 0.0) / ts
-        nfe /= ts
-
-        val result = ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
-        assert(Util.calcFoodCals(f) == result)
+        assert(Util.calcFoodCals(f) == 422)
     }
 
     @Test
     fun testCalculateDryFoodCalories() {
-        val f = FoodDetailsDataClass("dry",30.0, 10.0, 6.5, 2.5,9.0)
-        var nfe = 100.0 - (f.rawProtein ?: 0.0) - (f.rawFat ?: 0.0) - (f.crudeAsh ?: 0.0) - (f.rawFiber ?: 0.0) - (f.water ?: 0.0)
-        val ts = 1 - (f.water ?: 0.0) / 100
-        val protein = (f.rawProtein ?: 0.0) / ts
-        val fat = (f.rawFat ?: 0.0) / ts
-        nfe /= ts
-
-        val result = ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
-        assert(Util.calcFoodCals(f) == result)
+        val f = FoodDetailsDataClass("dry",30.0, 12.0, 6.0, 3.0,8.0)
+        assert(Util.calcFoodCals(f) == 380)
     }
 }
 

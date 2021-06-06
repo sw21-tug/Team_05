@@ -89,8 +89,8 @@ object Util {
         return inch * FACTOR_CM_TO_INCHES
     }
 
-    fun calcGramsOfFood(food: Food, kcal: Int): Int {
-        return ((kcal.toDouble() / food.kcalPer100G) * 100).roundToInt()
+    fun calcGramsOfFood(food: FoodDetailsDataClass, kcal: Int): Int {
+        return ((kcal.toDouble() / food.calories) * 100).roundToInt()
     }
 
     fun calcFoodCals(food: FoodDetailsDataClass) :Int {
