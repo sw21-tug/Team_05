@@ -15,6 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
@@ -59,7 +60,7 @@ class SettingsActivityTest : TestCase(){
         val scenario = ActivityScenario.launch(SettingsActivity::class.java)
         val sharedPreferences = Mockito.mock(SharedPreferences::class.java)
         val context = Mockito.mock(Context::class.java)
-        Mockito.`when`(context.getSharedPreferences("userprefs", MODE_PRIVATE)).thenReturn(sharedPreferences)
+        Mockito.`when`(context.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)).thenReturn(sharedPreferences)
         Mockito.`when`(sharedPreferences.getString("name","" )).thenReturn("test")
         Mockito.`when`(sharedPreferences.getString("email","" )).thenReturn("test@email")
         Mockito.`when`(sharedPreferences.getInt("gender", 0)).thenReturn(0)
@@ -70,7 +71,7 @@ class SettingsActivityTest : TestCase(){
             val user = it.loadData(context)
             assertEquals( "test",user.name)
             assertEquals("test@email",user.email)
-            assertEquals(0, user.gender )
+            assertEquals(0, user.gender)
             assertEquals(0, user.language)
             assertEquals(0, user.unit)
             assertEquals("testimage", user.image)
@@ -78,20 +79,25 @@ class SettingsActivityTest : TestCase(){
     }
 
     @Test
-    fun testMandarinBtnSave(){
+    fun testMandarinBtnSave() {
+        val targetContext: Context = ApplicationProvider.getApplicationContext()
+        DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
         ActivityScenario.launch(SettingsActivity::class.java)
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
-        onView(withText("mandarin (chinese)")).perform(scrollTo()).perform(click())
+        onView(withText(targetContext.resources.getStringArray(R.array.settings_language)[1])).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         ActivityScenario.launch(MainActivity::class.java)
         onView(withId(R.id.btn_addcat)).perform(click())
         onView(withId(R.id.label_name)).check(matches(withText("名")))
     }
+
     @Test
-    fun testEnglishBtnSave(){
+    fun testEnglishBtnSave() {
+        val targetContext: Context = ApplicationProvider.getApplicationContext()
+        DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
         ActivityScenario.launch(SettingsActivity::class.java)
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
-        onView(withText("english")).perform(scrollTo()).perform(click())
+        onView(withText(targetContext.resources.getStringArray(R.array.settings_language)[0])).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
         ActivityScenario.launch(MainActivity::class.java)
         onView(withId(R.id.btn_addcat)).perform(click())

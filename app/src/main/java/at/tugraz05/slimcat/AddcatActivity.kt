@@ -1,6 +1,5 @@
 package at.tugraz05.slimcat
 
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
@@ -21,20 +20,26 @@ import java.lang.NumberFormatException
 import java.nio.file.Files
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.*
 
 class AddcatActivity : AppCompatActivity() {
     private lateinit var scrollView: ScrollView
-    private lateinit var seeker: GenderSeeker
     private lateinit var nameField: EditText
     private var edit = false
-    private lateinit var oldName: String
+    private var oldName = ""
     private var calDiff = 0
 
     private lateinit var binding: ActivityAddcatBinding
     private lateinit var imageButton: ImageButton
     private var imagePath: String = ""
+
+    companion object {
+        const val MALE = 0
+        const val FEMALE = 1
+    }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,15 +50,12 @@ class AddcatActivity : AppCompatActivity() {
         val bundle = intent.extras
         if (bundle != null) {
             edit = true
-            binding.cat = bundle.getParcelable("Cat")!!
+            binding.cat = bundle.getParcelable(Constants.CAT_PARAM)!!
             oldName = binding.cat!!.name!!
             calDiff = calculateCalories(binding.cat!!) - binding.cat!!.calorieRecommendation
         }
         else
-        {
             binding.cat = CatDataClass()
-            oldName = ""
-        }
 
         // camera
         imageButton = findViewById(R.id.btn_camera)
@@ -93,9 +95,6 @@ class AddcatActivity : AppCompatActivity() {
                 scrollView.fullScroll(ScrollView.FOCUS_UP)
             }
             else {
-                if (binding.cat!!.date_of_birth != null)
-                    binding.cat!!.age = Util.calculateAge(LocalDate.parse(binding.cat!!.date_of_birth, DateTimeFormatter.ofPattern("y-M-d")), LocalDate.now())
-
                 binding.cat!!.calorieRecommendation = calculateCalories(binding.cat!!) - calDiff
 
                 if (edit) updateCat()
@@ -118,10 +117,16 @@ class AddcatActivity : AppCompatActivity() {
 
         //click on btn_dob to open the datepicker
         Locale.setDefault(Locale.CHINA)
-        val formatDate = SimpleDateFormat("y-M-d", Locale.CHINESE)
+        val formatDate = SimpleDateFormat(Constants.DATE_FORMAT, Locale.CHINESE)
 
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
             val getDate : Calendar = Calendar.getInstance()
+            try {
+                getDate.time = Date.from(LocalDate.parse(binding.cat!!.date_of_birth ?: "", DateTimeFormatter.ofPattern(Constants.DATE_FORMAT))
+                    .atStartOfDay(ZoneId.systemDefault()).toInstant())
+            } catch (e: DateTimeParseException) {
+                Log.d("addcat", "invalid date ${binding.cat!!.date_of_birth}")
+            }
             val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 { _, year, month, day ->
 
@@ -129,26 +134,16 @@ class AddcatActivity : AppCompatActivity() {
                     selectDate.set(Calendar.YEAR, year)
                     selectDate.set(Calendar.MONTH, month)
                     selectDate.set(Calendar.DAY_OF_MONTH, day)
-                    val date = formatDate.format((selectDate.time))
-                    Toast.makeText(this, "Date : $date", Toast.LENGTH_SHORT).show()
+                    val date = formatDate.format(selectDate.time)
                     findViewById<TextView>(R.id.txt_dob).text = date
                     binding.cat!!.date_of_birth = date
                 }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
             datepicker.show()
         }
 
-        // make gender seeker hide female-only options
-        val genderSeeker = findViewById<SeekBar>(R.id.seek_gender)
-        val femaleSwitches = listOf<TableRow>(
-                findViewById(R.id.row_gestation),
-                findViewById(R.id.row_lactation),
-        )
-        genderSeeker.progress = binding.cat?.gender ?: 1
-        seeker = GenderSeeker(genderSeeker.progress, femaleSwitches, binding)
-        genderSeeker.setOnSeekBarChangeListener(seeker)
         // gender seeker helpers
-        findViewById<TextView>(R.id.label_gender_male).setOnClickListener { genderSeeker.progress = GenderSeeker.MALE }
-        findViewById<TextView>(R.id.label_gender_female).setOnClickListener { genderSeeker.progress = GenderSeeker.FEMALE }
+        findViewById<TextView>(R.id.label_gender_male).setOnClickListener { binding.cat!!.gender = MALE }
+        findViewById<TextView>(R.id.label_gender_female).setOnClickListener { binding.cat!!.gender = FEMALE }
 
         if (!edit)
             findViewById<Button>(R.id.btn_delete).visibility = View.GONE
@@ -178,7 +173,7 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     fun getWeightStr():String{
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             binding.cat!!.getWeightStr()
         } else {
@@ -187,7 +182,7 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     fun setWeightStr(weight:String){
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         val finalWeight = if (metricSystem == SettingsActivity.METRIC) {
             try {
                 weight.toDouble()
@@ -206,7 +201,7 @@ class AddcatActivity : AppCompatActivity() {
 
     // adjust when size change to double!!!!!
     fun getSizeStr():String{
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             binding.cat!!.getSizeStr()
         } else {
@@ -216,7 +211,7 @@ class AddcatActivity : AppCompatActivity() {
 
     // adjust when size change to double!!!!!
     fun setSizeStr(size: String){
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         val finalSize = if (metricSystem == SettingsActivity.METRIC) {
             try {
                 size.toDouble()
@@ -234,7 +229,7 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     fun getWeightHintStr():String{
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             getString(R.string.input_weight_hint)
         } else {
@@ -243,7 +238,7 @@ class AddcatActivity : AppCompatActivity() {
     }
 
     fun getSizeHintStr():String{
-        val metricSystem = this.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = this.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             getString(R.string.input_size_hint)
         } else {
@@ -273,31 +268,4 @@ class AddcatActivity : AppCompatActivity() {
         imagePath = CaptureImage.captureImage(this) ?: ""
     }
 
-}
-
-class GenderSeeker(p: Int, private var switches: List<TableRow>, private var binding: ActivityAddcatBinding) : SeekBar.OnSeekBarChangeListener {
-    companion object {
-        const val MALE = 0
-        const val FEMALE = 1
-    }
-    init {
-        updateSwitches(p)
-    }
-
-    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        Log.d("SeekBar", "%d".format(progress))
-        updateSwitches(progress)
-    }
-
-    override fun onStartTrackingTouch(seekBar: SeekBar?) {
-    }
-
-    override fun onStopTrackingTouch(seekBar: SeekBar?) {
-    }
-
-    fun updateSwitches(progress: Int) {
-        val visible = if (progress == FEMALE) View.VISIBLE else View.GONE
-        switches.forEach { it.visibility = visible }
-        binding.cat?.gender = progress
-    }
 }
