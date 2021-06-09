@@ -1,6 +1,8 @@
 package at.tugraz05.slimcat
 
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
@@ -16,11 +18,19 @@ object Util {
     const val FACTOR_KITTEN = 2.5
     const val FACTOR_KG_TO_LBS = 2.205
     const val FACTOR_CM_TO_INCHES = 2.54
+    const val FACTOR_GRAMM_TO_LBS = (2.205/1000)
 
     const val ATWATER_PROTEIN_FACTOR_PER_G = 3.5
     const val ATWATER_FAT_FACTOR_PER_G = 8.5
     const val ATWATER_NFE_FACTOR_PER_G = 3.5
 
+    fun calculateAge(date_of_birth: String): Int {
+        return try {
+            calculateAge(LocalDate.parse(date_of_birth, DateTimeFormatter.ofPattern(Constants.DATE_FORMAT)), LocalDate.now())
+        } catch (e: DateTimeParseException) {
+            0
+        }
+    }
 
     fun calculateAge(date_of_birth: LocalDate, current_date : LocalDate) : Int{
         var age = current_date.year - date_of_birth.year
@@ -55,7 +65,7 @@ object Util {
             maintenceEnergyRequirements *= FACTOR_NEUTERED
         }
 
-        if(cat.gender == GenderSeeker.FEMALE){
+        if(cat.gender == AddcatActivity.FEMALE){
             if(cat.gestation && cat.lactation){
                 maintenceEnergyRequirements *= FACTOR_LACTATION
             }
@@ -74,6 +84,10 @@ object Util {
         return kg * FACTOR_KG_TO_LBS
     }
 
+    fun convertGrammToLbs(g: Int): Double {
+        return g * FACTOR_GRAMM_TO_LBS
+    }
+
     fun convertLbsToKg(lbs: Double): Double {
         return lbs / FACTOR_KG_TO_LBS
     }
@@ -86,18 +100,18 @@ object Util {
         return inch * FACTOR_CM_TO_INCHES
     }
 
-    fun calcGramsOfFood(food: Food, kcal: Int): Int {
-        return ((kcal.toDouble() / food.kcalPer100G) * 100).roundToInt()
+    fun calcGramsOfFood(food: FoodDetailsDataClass, kcal: Int): Int {
+        return ((kcal.toDouble() / food.calories) * 100).roundToInt()
     }
 
     fun calcFoodCals(food: FoodDetailsDataClass) :Int {
-        var nfe = 100.0 - food.rawProtein - food.rawFat - food.crudeAsh - food.rawFiber - food.water
-        val ts = 100 - food.water
-        val protein = food.rawProtein / ts
-        val fat = food.rawFat / ts
+        var nfe = 100.0 - (food.rawProtein ?: 0.0) - (food.rawFat ?: 0.0) - (food.crudeAsh ?: 0.0) - (food.rawFiber ?: 0.0) - (food.water ?: 0.0)
+        val ts = 1 - (food.water ?: 0.0) / 100
+        val protein = (food.rawProtein ?: 0.0) / ts
+        val fat = (food.rawFat ?: 0.0) / ts
         nfe /= ts
 
-       return ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
+       return ((protein * ATWATER_PROTEIN_FACTOR_PER_G) + (fat * ATWATER_FAT_FACTOR_PER_G) + (nfe * ATWATER_NFE_FACTOR_PER_G)).toInt()
         //asserten dass nicht unter null nach abziehen aller prozent
     }
 }

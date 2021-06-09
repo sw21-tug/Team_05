@@ -5,14 +5,18 @@
     <string name="action_food">加食物</string>
 
     <!-- Cat List -->
-    <string name="catlist_text_age">年龄: %d 年</string>
+    <plurals name="catlist_text_age">
+        <item quantity="other">年龄: %d 年</item>
+    </plurals>
     <string name="catlist_text_weight">重量: %.2f 公斤</string>
     <string name="catlist_text_weight_lbs">重量: %.2f 磅</string>
-    <string name="catlist_text_calorie_recommendation">卡路里建议: %d 千卡 今</string>
+    <string name="catlist_text_calorie_recommendation">卡路里建议: %d 千卡今</string>
     <string name="catlist_text_food_amount">%d 克</string>
+    <string name="catlist_text_food_amount_lbs">%.2f 磅</string>
     <string name="catlist_food_recommendation">食物推荐:</string>
     <string name="catlist_track_food">追踪食物</string>
     <string name="catlist_edit_cat">编辑</string>
+    <string name="catlist_hint_add">这里还没有。点击+按钮来注册新的猫。</string>
 
     <!-- Food List -->
     <string name="add_food">加猫</string>
@@ -99,8 +103,8 @@
     </string-array>
     <!-- Not usefull, should be standard, not usefull to translate to mandarin-->
     <string-array name="settings_language">
-        <item>english</item> //
-        <item>mandarin (chinese)</item>
+        <item>英语 / en</item>
+        <item>官话 / zn</item>
     </string-array>
     <!-- Settings hints-->
     <string name="settings_name_hint">大同王大同王</string>

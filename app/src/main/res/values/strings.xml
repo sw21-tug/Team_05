@@ -4,14 +4,19 @@
     <string name="action_food">Add Food</string>
 
     <!-- Cat List -->
-    <string name="catlist_text_age">Age: %d years</string>
+    <plurals name="catlist_text_age">
+        <item quantity="one">Age: %d year</item>
+        <item quantity="other">Age: %d years</item>
+    </plurals>
     <string name="catlist_text_weight">Weight: %.2f kg</string>
     <string name="catlist_text_weight_lbs">Weight: %.2f lbs</string>
     <string name="catlist_text_calorie_recommendation">Cal. Rec.: %d kcal today</string>
     <string name="catlist_text_food_amount">%d g</string>
+    <string name="catlist_text_food_amount_lbs">%.2f lbs</string>
     <string name="catlist_food_recommendation">Food recommendation:</string>
     <string name="catlist_track_food">Track Food</string>
     <string name="catlist_edit_cat">Edit</string>
+    <string name="catlist_hint_add">Nothing here yet. Click the `+` button to register new cats.</string>
 
     <!-- Food List -->
     <string name="add_food">Add Food</string>
@@ -34,7 +39,7 @@
     <!-- Add Food Hints -->
     <string name="addFood_hint_name">Sheba</string>
     <string name="addFood_hint_percentage">in %</string>
-    <string name="addFood_label_water_hint">Hint: In case the percentage of water is not given, use a value between 8-10%.</string>
+    <string name="addFood_label_water_hint">Hint: In case the percentage of water is not given, use a value between 8–10%.</string>
 
     <!-- Add cat error messages -->
     <string name="error_add_food">Please enter a name for your food.</string>
@@ -99,8 +104,8 @@
     </string-array>
 
     <string-array name="settings_language">
-        <item>english</item>
-        <item>mandarin (chinese)</item>
+        <item>english / 英语</item>
+        <item>mandarin (chinese) / 官话</item>
     </string-array>
 
 

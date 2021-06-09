@@ -73,7 +73,7 @@
                             android:id="@+id/calories_food"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/food_list_text_calories(0)}"
+                            android:text="@{@string/food_list_text_calories(food.calories)}"
                             android:textColor="?attr/colorOnPrimary"
                             android:textSize="@dimen/food_list_card_textsize" />
                     </LinearLayout>

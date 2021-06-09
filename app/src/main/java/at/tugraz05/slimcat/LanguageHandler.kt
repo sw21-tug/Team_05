@@ -29,16 +29,12 @@ object LanguageHandler {
     fun setLanguage(context: Context): Context{
         val language = context.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("language", 0 )
         if (language == SettingsActivity.ENGLISH) {
-            Log.d("test", "english")
-            setAppLocale("", context)
-
-            //startActivity(intent)
+            Log.d("language", "English")
+            setAppLocale("en", context)
         }
         else if (language == SettingsActivity.MANDARIN){
-            Log.d("test", "Mandarin")
+            Log.d("language", "Mandarin")
             setAppLocale("zh", context)
-
-            //startActivity(intent)
         }
         return context
     }

@@ -64,7 +64,7 @@ class UtilTest {
     fun testCalorieRecommendationMaleWithFemaleAttr() {
         val cat = CatDataClass(
             age = 2, weight = 6.0, obese = true, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = true, lactation = true, gender = GenderSeeker.MALE
+            gestation = true, lactation = true, gender = AddcatActivity.MALE
         )
         val calRec = Util.calculateCalories(cat)
 
@@ -75,7 +75,7 @@ class UtilTest {
     fun testCalorieRecommendationFemaleGestation() {
         val cat = CatDataClass(
             age = 4, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = true, lactation = false, gender = GenderSeeker.FEMALE
+            gestation = true, lactation = false, gender = AddcatActivity.FEMALE
         )
         val calRec = Util.calculateCalories(cat)
         assert(calRec == 671)
@@ -85,7 +85,7 @@ class UtilTest {
     fun testCalorieRecommendationFemaleLactation() {
         val cat = CatDataClass(
             age = 2, weight = 6.0, obese = true, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = false, lactation = true, gender = GenderSeeker.FEMALE
+            gestation = false, lactation = true, gender = AddcatActivity.FEMALE
         )
         val calRec = Util.calculateCalories(cat)
 
@@ -96,7 +96,7 @@ class UtilTest {
     fun testCalorieRecommendationFemaleGestationAndLactation() {
         val cat = CatDataClass(
             age = 2, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = true, lactation = true, gender = GenderSeeker.FEMALE
+            gestation = true, lactation = true, gender = AddcatActivity.FEMALE
         )
         val calRec = Util.calculateCalories(cat)
         assert(calRec == 1073)
@@ -106,7 +106,7 @@ class UtilTest {
     fun testIsKitten() {
         val cat = CatDataClass(
             age = 0, weight = 6.0, obese = false, overweight_prone = false, hospitalized = false, neutered = false,
-            gestation = false, lactation = false, gender = GenderSeeker.FEMALE
+            gestation = false, lactation = false, gender = AddcatActivity.FEMALE
         )
         val calRec = Util.calculateCalories(cat)
         assert(calRec == 671)
@@ -150,34 +150,30 @@ class UtilTest {
     
     @Test
     fun testWetFoodGivesCorrectCalories1G() {
-        val f = Food.wetFood
-        assert(Util.calcGramsOfFood(f, f.kcalPer100G) == 100)
+        val f = FoodDetailsDataClass(calories = 123)
+        assert(Util.calcGramsOfFood(f, f.calories) == 100)
     }
 
     @Test
     fun testCalculateWetFoodCalories() {
         val f = FoodDetailsDataClass("wet",10.0, 5.5, 2.5, 1.0,79.0)
-        var nfe = 100.0 - f.rawProtein - f.rawFat - f.crudeAsh - f.rawFiber - f.water
-        val ts = 100 - f.water
-        val protein = f.rawProtein / ts
-        val fat = f.rawFat / ts
-        nfe /= ts
-
-        val result = ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
-        assert(Util.calcFoodCals(f) == result)
+        assert(Util.calcFoodCals(f) == 422)
     }
 
     @Test
     fun testCalculateDryFoodCalories() {
-        val f = FoodDetailsDataClass("dry",30.0, 10.0, 6.5, 2.5,9.0)
-        var nfe = 100.0 - f.rawProtein - f.rawFat - f.crudeAsh - f.rawFiber - f.water
-        val ts = 100 - f.water
-        val protein = f.rawProtein / ts
-        val fat = f.rawFat / ts
-        nfe /= ts
-
-        val result = ((protein * Util.ATWATER_PROTEIN_FACTOR_PER_G) + (fat * Util.ATWATER_FAT_FACTOR_PER_G) + (nfe * Util.ATWATER_NFE_FACTOR_PER_G)).toInt()
-        assert(Util.calcFoodCals(f) == result)
+        val f = FoodDetailsDataClass("dry",30.0, 12.0, 6.0, 3.0,8.0)
+        assert(Util.calcFoodCals(f) == 380)
     }
+
+    @Test
+    fun testGrammToLbs(){
+        val gram1 = 250
+        val gram2 = 0
+
+        assert(Util.convertGrammToLbs(gram1) in 0.54..0.56)
+        assert(Util.convertGrammToLbs(gram2) == 0.0)
+    }
+
 }
 

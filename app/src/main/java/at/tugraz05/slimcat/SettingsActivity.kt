@@ -66,6 +66,7 @@ class SettingsActivity: AppCompatActivity() {
             LanguageHandler.setLanguage(this)
             finish()
         }
+
         imageButton = findViewById(R.id.imageButton)
         imageButton.setOnClickListener {
             binding.user?.image = CaptureImage.captureImage(this) ?: ""
@@ -82,6 +83,7 @@ class SettingsActivity: AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.title_activity_settings)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -89,7 +91,7 @@ class SettingsActivity: AppCompatActivity() {
 
     // Saves data
     private fun saveData(context: Context) {
-        val sharedpref = context.getSharedPreferences("userprefs", MODE_PRIVATE)
+        val sharedpref = context.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
         val editor = sharedpref.edit()
         editor.putString("name", binding.user?.name)
         editor.putString("email", binding.user?.email)
@@ -101,7 +103,7 @@ class SettingsActivity: AppCompatActivity() {
     }
 
     fun loadData(context: Context): UserData {
-        val sharedpref = context.getSharedPreferences("userprefs", MODE_PRIVATE)
+        val sharedpref = context.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
         return UserData(
             sharedpref.getString("name", "")!!,
             sharedpref.getString("email", "")!!,
@@ -142,10 +144,7 @@ class SettingsActivity: AppCompatActivity() {
         val inputMethodManager = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(test!!.windowToken, 0)
     }
+
+    // data class for binding of userdata from sharedpreferences
+    data class UserData(var name: String, var email: String, var gender: Int, var unit: Int, var language: Int, var image: String)
 }
-
-// data class for binding of userdata from sharedpreferences
-data class UserData(var name: String, var email: String, var gender: Int, var unit: Int, var language: Int, var image: String)
-
-
-
