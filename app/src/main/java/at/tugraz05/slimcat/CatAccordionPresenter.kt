@@ -18,6 +18,8 @@ import androidx.databinding.DataBindingUtil
 import at.tugraz05.slimcat.databinding.CatAccordionFoodBinding
 import java.nio.file.Files
 
+var calType:Int = 0
+
 data class CatAccordionPresenter(val context: Activity, val binding: CatAccordionBinding, var foods: List<FoodDetailsDataClass?>, var open: ObservableBoolean = ObservableBoolean(false)) {
     init {
         update()
@@ -50,8 +52,10 @@ data class CatAccordionPresenter(val context: Activity, val binding: CatAccordio
     fun getWeightStr(cat: CatDataClass): String {
         val metricSystem = context.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
+            calType = 0
             context.getString(R.string.catlist_text_weight).format(cat.weight ?: 0.0)
         } else {
+            calType = 1
             context.getString(R.string.catlist_text_weight_lbs).format(cat.weight?.let {
                 Util.convertKgToLbs(it)
             } ?: 0.0)
@@ -100,6 +104,11 @@ fun catWeightBinding(view: TextView, cat:CatDataClass, presenter: CatAccordionPr
 
 @BindingAdapter("calories", "food")
 fun setGrams(view: TextView, calories: Int, food: FoodDetailsDataClass) {
-    Log.d("setGrams", "${food.name}: ${food.calories} $calories ${Util.calcGramsOfFood(food, calories)}")
-    view.text = view.resources.getString(R.string.catlist_text_food_amount, Util.calcGramsOfFood(food, calories))
+    Log.d("setGrams", "${food.name}: ${food.calories} ${calories} ${Util.calcGramsOfFood(food, calories)}")
+    if (calType == 0){
+        view.text = view.resources.getString(R.string.catlist_text_food_amount, Util.calcGramsOfFood(food, calories))
+    }
+    else{
+        view.text = view.resources.getString(R.string.catlist_text_food_amount_lbs, Util.convertGrammToLbs(Util.calcGramsOfFood(food, calories)))
+    }
 }
