@@ -31,10 +31,12 @@ data class CatAccordionPresenter(val context: Activity, val binding: CatAccordio
         updateFoods()
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun toggleOpen(view: View) {
         open.set(!open.get())
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun edit(view: View) {
         val intent = Intent(context, AddcatActivity::class.java)
         val bundle = bundleOf(Constants.CAT_PARAM to binding.cat)
@@ -42,6 +44,7 @@ data class CatAccordionPresenter(val context: Activity, val binding: CatAccordio
         context.startActivity(intent)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun track(view: View) {
         val intent = Intent(context, TrackFoodActivity::class.java)
         val bundle = bundleOf(Constants.CAT_PARAM to binding.cat)

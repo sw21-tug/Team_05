@@ -64,7 +64,7 @@ class MainActivityTest : TestCase() {
         val mock = Mockito.mock(DatabaseHelper::class.java)
         val snap = Mockito.mock(DataSnapshot::class.java)
 
-        Mockito.doAnswer { (it.arguments[1] as (DataSnapshot) -> Unit)(snap) }.`when`(mock).addValueEventListener(any(), any())
+        Mockito.doAnswer { cast<(DataSnapshot) -> Unit>(it.arguments[1])(snap) }.`when`(mock).addValueEventListener(any(), any())
         Mockito.doReturn(cats).`when`(mock).readUserCats()
         DatabaseHelper.mock(mock)
 

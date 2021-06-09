@@ -1,6 +1,8 @@
 package at.tugraz05.slimcat
 
 import android.app.DatePickerDialog
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -9,6 +11,8 @@ import android.os.Environment
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -122,11 +126,13 @@ class AddcatActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
             val getDate : Calendar = Calendar.getInstance()
             try {
-                getDate.time = Date.from(LocalDate.parse(binding.cat!!.date_of_birth ?: "", DateTimeFormatter.ofPattern(Constants.DATE_FORMAT))
+                getDate.time = Date.from(
+                    LocalDate.parse(binding.cat!!.date_of_birth ?: "", DateTimeFormatter.ofPattern(Constants.DATE_FORMAT))
                     .atStartOfDay(ZoneId.systemDefault()).toInstant())
             } catch (e: DateTimeParseException) {
                 Log.d("addcat", "invalid date ${binding.cat!!.date_of_birth}")
             }
+            @Suppress("DEPRECATION")
             val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 { _, year, month, day ->
 
@@ -268,4 +274,13 @@ class AddcatActivity : AppCompatActivity() {
         imagePath = CaptureImage.captureImage(this) ?: ""
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LanguageHandler.setLanguage(newBase!!))
+    }
+
+    fun hideKeyboard() {
+        val test: View? = window.decorView.rootView
+        val inputMethodManager = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(test!!.windowToken, 0)
+    }
 }

@@ -1,6 +1,7 @@
 package at.tugraz05.slimcat
 
 import android.animation.LayoutTransition
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -131,5 +132,9 @@ class MainActivity : AppCompatActivity() {
             it.visibility = if (container.childCount == 0) View.VISIBLE else View.GONE
             it.text = getString(R.string.catlist_hint_add) // this line is necessary because context
         }
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LanguageHandler.setLanguage(newBase!!))
     }
 }

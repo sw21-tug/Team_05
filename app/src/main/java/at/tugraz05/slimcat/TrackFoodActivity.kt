@@ -94,6 +94,7 @@ class TrackFoodActivity : AppCompatActivity() {
         Log.d("trackFood", "new calories ${cat.calorieRecommendation}")
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun save(view: View) {
         DatabaseHelper.get().editUser(cat.name!!, cat)
         finish()

@@ -52,7 +52,7 @@ open class DatabaseHelper private constructor() {
                 slimCatDir.mkdirs()
 
             val file = File(slimCatDir, "userId.txt")
-            var userId = ""
+            var userId: String
 
             if(!file.exists())
                 file.createNewFile()
