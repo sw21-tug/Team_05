@@ -10,7 +10,7 @@ import org.hamcrest.Matchers.allOf
 import java.util.concurrent.TimeoutException
 import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
-fun <T>callMethod(message: String = "", someMethod: (view: T) -> Unit): ViewAction {
+inline fun <reified T>callMethod(message: String = "", noinline someMethod: (view: T) -> Unit): ViewAction {
     return object: ViewAction {
         override fun getDescription(): String {
             return if(message.isBlank()) someMethod.toString() else message
@@ -21,16 +21,16 @@ fun <T>callMethod(message: String = "", someMethod: (view: T) -> Unit): ViewActi
         }
 
         override fun perform(uiController: UiController?, view: View?) {
-            someMethod(view!! as T)
+            someMethod(cast(view!!))
         }
     }
 }
 
-fun <T>assertView(someMethod: (view: T) -> Unit): ViewAssertion {
+inline fun <reified T>assertView(crossinline someMethod: (view: T) -> Unit): ViewAssertion {
     return ViewAssertion { view, noViewFoundException ->
         if (noViewFoundException != null)
             throw noViewFoundException
-        someMethod(view!! as T)
+        someMethod(cast(view!!))
     }
 }
 
@@ -42,7 +42,7 @@ fun isVisibility(vis: Int): ViewAssertion {
     }
 }
 
-fun <T>waitFor(timeout:Long = 1000, someMethod: (view: T) -> Boolean): ViewAction {
+inline fun <reified T>waitFor(timeout:Long = 1000, crossinline someMethod: (view: T) -> Boolean): ViewAction {
     return object:ViewAction{
         override fun getConstraints(): Matcher<View> {
             return isEnabled()
@@ -56,7 +56,7 @@ fun <T>waitFor(timeout:Long = 1000, someMethod: (view: T) -> Boolean): ViewActio
             val endTime = System.currentTimeMillis() + timeout
 
             do {
-                if (someMethod(view as T)) return
+                if (someMethod(cast(view))) return
                 uiController.loopMainThreadForAtLeast(50)
             } while (System.currentTimeMillis() < endTime)
 
@@ -72,4 +72,11 @@ fun <T>waitFor(timeout:Long = 1000, someMethod: (view: T) -> Boolean): ViewActio
 
 fun withPositionInParent(parentViewId: Int, position: Int): Matcher<View> {
     return allOf(withParent(withId(parentViewId)), withParentIndex(position))
+}
+
+inline fun <reified T> cast(value: Any): T {
+    return when (value is T) {
+        true -> value
+        else -> throw IllegalArgumentException("Unsupported Cast")
+    }
 }

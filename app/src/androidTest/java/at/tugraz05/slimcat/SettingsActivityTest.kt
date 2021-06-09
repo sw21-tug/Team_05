@@ -13,7 +13,6 @@ import org.junit.runner.RunWith
 import android.widget.SeekBar
 import androidx.test.espresso.Espresso.onView
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.google.firebase.database.DataSnapshot
@@ -96,7 +95,7 @@ class SettingsActivityTest : TestCase(){
         }
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
         onView(withText(targetContext.resources.getStringArray(R.array.settings_language)[0])).perform(scrollTo()).perform(click())
-        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
+        onView(withId(R.id.setting_btn_save)).perform(closeSoftKeyboard()).perform(scrollTo()).perform(click())
     }
 
     @Test
@@ -109,7 +108,7 @@ class SettingsActivityTest : TestCase(){
         }
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
         onView(withText(targetContext.resources.getStringArray(R.array.settings_language)[0])).perform(scrollTo()).perform(click())
-        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
+        onView(withId(R.id.setting_btn_save)).perform(closeSoftKeyboard()).perform(scrollTo()).perform(click())
         Thread.sleep(1000)
         ActivityScenario.launch(AddcatActivity::class.java)
         onView(withId(R.id.label_name)).check(matches(withText("Name")))
@@ -127,7 +126,7 @@ class SettingsActivityTest : TestCase(){
         val mock = Mockito.mock(DatabaseHelper::class.java)
         val snap = Mockito.mock(DataSnapshot::class.java)
 
-        Mockito.doAnswer { (it.arguments[1] as (DataSnapshot) -> Unit)(snap) }.`when`(mock).addValueEventListener(
+        Mockito.doAnswer { cast<(DataSnapshot) -> Unit>(it.arguments[1])(snap) }.`when`(mock).addValueEventListener(
             any(), any()
         )
         Mockito.doReturn(cats).`when`(mock).readUserCats()
@@ -147,5 +146,10 @@ class SettingsActivityTest : TestCase(){
                 withId(R.id.text_food_cal)
             )
         ).perform(scrollTo()).check(matches(withSubstring("lbs")))
+
+        ActivityScenario.launch(SettingsActivity::class.java)
+        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(closeSoftKeyboard()).perform(scrollTo()).perform(click())
+        onView(withId(R.id.settings_seek_measurement)).perform(waitFor<SeekBar> { it.progress == SettingsActivity.METRIC })
+        onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
     }
 }
