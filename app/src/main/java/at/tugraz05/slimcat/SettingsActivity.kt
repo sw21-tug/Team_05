@@ -28,8 +28,8 @@ import java.util.jar.Manifest
 
 class SettingsActivity: AppCompatActivity() {
     companion object {
-            const val KG = 0
-            const val LF = 1
+            const val METRIC = 0
+            const val IMPERIAL = 1
 
             const val MALE = 0
             const val FEMALE = 1
@@ -54,8 +54,8 @@ class SettingsActivity: AppCompatActivity() {
         val unitSeeker = findViewById<SeekBar>(R.id.settings_seek_measurement)
 
         // unit seeker helpers
-        findViewById<TextView>(R.id.settings_unit_of_measurement_kg).setOnClickListener { unitSeeker.progress = KG }
-        findViewById<TextView>(R.id.settings_unit_of_measurement_lbs).setOnClickListener { unitSeeker.progress = LF }
+        findViewById<TextView>(R.id.settings_unit_of_measurement_kg).setOnClickListener { unitSeeker.progress = METRIC }
+        findViewById<TextView>(R.id.settings_unit_of_measurement_lbs).setOnClickListener { unitSeeker.progress = IMPERIAL }
 
         // gender spinner
         val spinnerGender = findViewById<Spinner>(R.id.settings_gender_spinner)
@@ -72,11 +72,12 @@ class SettingsActivity: AppCompatActivity() {
         }
 
         // change language selection in spinner
-        val sharedpref = getSharedPreferences("userprefs", MODE_PRIVATE)
+        val sharedpref = getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
         sharedpref.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
             LanguageHandler.setLanguage(this)
             finish()
         }
+
         imageButton = findViewById(R.id.imageButton)
         imageButton.setOnClickListener {
             binding.user?.image = CaptureImage.captureImage(this) ?: ""
@@ -93,6 +94,7 @@ class SettingsActivity: AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar!!.title = getString(R.string.title_activity_settings)
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -100,7 +102,7 @@ class SettingsActivity: AppCompatActivity() {
 
     // Saves data
     private fun saveData(context: Context) {
-        val sharedpref = context.getSharedPreferences("userprefs", MODE_PRIVATE)
+        val sharedpref = context.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
         val editor = sharedpref.edit()
         editor.putString("name", binding.user?.name)
         editor.putString("email", binding.user?.email)
@@ -112,7 +114,7 @@ class SettingsActivity: AppCompatActivity() {
     }
 
     fun loadData(context: Context): UserData {
-        val sharedpref = context.getSharedPreferences("userprefs", MODE_PRIVATE)
+        val sharedpref = context.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
         return UserData(
             sharedpref.getString("name", "")!!,
             sharedpref.getString("email", "")!!,
@@ -127,8 +129,12 @@ class SettingsActivity: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (binding.user == null)
             return
+
+        val file = File(binding.user!!.image)
+        CaptureImage.receiveIntent(requestCode, resultCode, data, this, file)
+
         if (binding.user!!.image.isNotEmpty())
-            imageButton.setImageURI(Uri.fromFile(File(binding.user!!.image)))
+            imageButton.setImageURI(Uri.fromFile(file))
     }
 
     override fun onRequestPermissionsResult(
@@ -139,10 +145,8 @@ class SettingsActivity: AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         binding.user?.image = CaptureImage.captureImage(this) ?: ""
     }
+
+    // data class for binding of userdata from sharedpreferences
+    data class UserData(var name: String, var email: String, var gender: Int, var unit: Int, var language: Int, var image: String)
 }
-
-// data class for binding of userdata from sharedpreferences
-data class UserData(var name: String, var email: String, var gender: Int, var unit: Int, var language: Int, var image: String)
-
-
 

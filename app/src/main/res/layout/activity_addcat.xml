@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
         <variable name="cat" type="at.tugraz05.slimcat.CatDataClass"/>
+        <variable name="view" type="at.tugraz05.slimcat.AddcatActivity"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -137,8 +139,9 @@
                             android:layout_marginLeft="@dimen/addcat_label_input_margin"
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
                             android:layout_weight="1"
-                            android:text="@string/output_dob"
-                            android:textSize="@dimen/addcat_input_textsize" />
+                            android:hint="@string/output_dob"
+                            android:textSize="@dimen/addcat_input_textsize"
+                            android:text="@={cat.date_of_birth}"/>
 
                         <Button
                             android:id="@+id/btn_dob"
@@ -171,11 +174,11 @@
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
                             android:layout_marginLeft="@dimen/addcat_label_input_margin"
                             android:layout_weight="1"
-                            android:hint="@string/input_size_hint"
+                            android:hint="@{view.sizeHintStr}"
                             android:importantForAutofill="no"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:textSize="@dimen/addcat_input_textsize"
-                            android:text="@={cat.sizeStr}" />
+                            android:text="@={view.sizeStr}" />
                     </TableRow>
 
                     <TableRow
@@ -200,11 +203,11 @@
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
                             android:layout_marginLeft="@dimen/addcat_label_input_margin"
                             android:layout_weight="1"
-                            android:hint="@string/input_weight_hint"
+                            android:hint="@{view.weightHintStr}"
                             android:importantForAutofill="no"
                             android:inputType="numberDecimal"
                             android:textSize="@dimen/addcat_input_textsize"
-                            android:text="@={cat.weightStr}" />
+                            android:text="@={view.weightStr}" />
 
                     </TableRow>
 
@@ -222,16 +225,7 @@
                             android:lineSpacingExtra="@dimen/addcat_label_lineheight"
                             android:text="@string/label_gender"
                             android:textSize="@dimen/addcat_label_textsize" />
-    <!--
-                        <Spinner
-                            android:id="@+id/spinner_gender"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/addcat_label_input_margin"
-                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
-                            android:layout_weight="1"
-                            android:dropDownWidth="match_parent" />
-    -->
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -255,7 +249,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:max="1" />
+                                android:max="1"
+                                android:progress="@={cat.gender}" />
 
                             <TextView
                                 android:id="@+id/label_gender_female"
@@ -297,8 +292,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
-                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
-
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:checked="@={cat.obese}"/>
                     </TableRow>
 
                     <TableRow
@@ -322,7 +317,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
-                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:checked="@={cat.overweight_prone}"/>
                     </TableRow>
 
                     <TableRow
@@ -346,7 +342,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
-                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:checked="@={cat.hospitalized}"/>
                     </TableRow>
 
                     <TableRow
@@ -370,7 +367,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
-                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:checked="@={cat.neutered}"/>
                     </TableRow>
 
                     <TableRow
@@ -380,7 +378,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="@dimen/addcat_row_margin"
                         android:animateLayoutChanges="true"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:visibility="@{cat.gender == view.FEMALE ? View.VISIBLE : View.GONE}">
 
                         <TextView
                             android:id="@+id/label_gestation"
@@ -396,7 +395,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
-                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:checked="@={cat.gestation}"/>
                     </TableRow>
 
                     <TableRow
@@ -406,7 +406,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="@dimen/addcat_row_margin"
                         android:animateLayoutChanges="true"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:visibility="@{cat.gender == view.FEMALE ? View.VISIBLE : View.GONE}">
 
                         <TextView
                             android:id="@+id/label_lactation"
@@ -422,7 +423,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/addcat_label_input_margin"
-                            android:layout_marginLeft="@dimen/addcat_label_input_margin" />
+                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
+                            android:checked="@={cat.lactation}"/>
                     </TableRow>
 
                 </TableLayout>
