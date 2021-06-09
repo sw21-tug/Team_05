@@ -102,8 +102,7 @@ class AddcatActivityTest : TestCase() {
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
-        closeSoftKeyboard()
-        onView(withId(R.id.btn_delete)).perform(scrollTo()).perform(click())
+        onView(withId(R.id.btn_delete)).perform(closeSoftKeyboard()).perform(scrollTo()).perform(click())
         Thread.sleep(1000)
         Mockito.verify(dbHelper).deleteCat("test")
     }
