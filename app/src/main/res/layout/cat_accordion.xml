@@ -138,6 +138,7 @@
                             android:layout_marginStart="@dimen/catlist_card_padding"
                             android:layout_marginEnd="@dimen/catlist_card_padding"
                             android:text="@string/catlist_track_food"
+                            android:backgroundTint="@color/purple_200"
                             android:onClick="@{presenter::track}" />
 
                         <Button
