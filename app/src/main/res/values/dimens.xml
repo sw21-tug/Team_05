@@ -61,5 +61,6 @@
     <dimen name="notifications_placeholder">20dp</dimen>
     <dimen name="notification_alarm_textsize">18sp</dimen>
     <dimen name="notification_headline_textsize">16sp</dimen>
+    <dimen name="notification_days_textsize">14sp</dimen>
 
 </resources>

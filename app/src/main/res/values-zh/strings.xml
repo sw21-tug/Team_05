@@ -3,6 +3,7 @@
     <string name="app_name">瘦猫</string>
     <string name="action_settings">態度</string>
     <string name="action_notifications">通知</string>
+    <string name="action_button_notifications">通知</string>
     <string name="action_food">加食物</string>
 
     <!-- Cat List -->
@@ -111,6 +112,7 @@
     <!-- Details -->
     <string name="title_cat_details">猫的详细信息</string>
     <string name="title_activity_settings">用户设置</string>
+    <string name="title_activity_notifications">通知</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">讯息</string>
@@ -130,6 +132,14 @@
     <string name="notification_set">通知设定为: </string>
     <string name="notification_Alarm">还没有选择通知的时间</string>
     <string name="notifications_time">请选择一个你想收到通知的时间</string>
+    <string name="notifications_day">请选择您希望收到通知的日子</string>
     <string name="notifications_text_timePicker_Button">设置通知的时间</string>
+    <string name="notifications_Monday">星期一</string>
+    <string name="notifications_Tuesday">星期二</string>
+    <string name="notifications_Wednesday">星期三</string>
+    <string name="notifications_Thursday">星期四</string>
+    <string name="notifications_Friday">星期五</string>
+    <string name="notifications_Saturday">星期六</string>
+    <string name="notifications_Sunday">星期日</string>
 
 </resources>

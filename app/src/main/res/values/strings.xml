@@ -2,6 +2,7 @@
     <string name="app_name">SlimCat</string>
     <string name="action_settings">Settings</string>
     <string name="action_notifications">Notifications</string>
+    <string name="action_button_notifications">notifications</string>
     <string name="action_food">Add Food</string>
 
 
@@ -112,15 +113,14 @@
         <item>mandarin (chinese) / 官话</item>
     </string-array>
 
-
     <!-- Settings hints-->
     <string name="settings_name_hint">e.g. John Doe </string>
     <string name="settings_email_hint">e.g. john.doe@email.com</string>
 
-
     <!-- Details -->
     <string name="title_cat_details">Cat Details</string>
     <string name="title_activity_settings">User Settings</string>
+    <string name="title_activity_notifications">Notifications</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -140,6 +140,15 @@
     <string name="notification_set">Notification is set for: </string>
     <string name="notification_Alarm">No time has been selected for the notification yet.</string>
     <string name="notifications_time">Please select a time when you want to receive the notification.</string>
+    <string name="notifications_day">Please select the days when you would like to receive a notification.</string>
     <string name="notifications_text_timePicker_Button">Set Time for Notification</string>
+    <string name="notifications_Monday">Monday</string>
+    <string name="notifications_Tuesday">Tuesday</string>
+    <string name="notifications_Wednesday">Wednesday</string>
+    <string name="notifications_Thursday">Thursday</string>
+    <string name="notifications_Friday">Friday</string>
+    <string name="notifications_Saturday">Saturday</string>
+    <string name="notifications_Sunday">Sunday</string>
+
 
 </resources>
