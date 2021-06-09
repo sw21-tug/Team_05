@@ -33,6 +33,9 @@
         <activity
             android:name=".TrackFoodActivity"
             android:label="@string/catlist_track_food" />
+        <activity
+            android:name=".NotificationsActivity"
+            android:label="@string/title_activity_notifications" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
