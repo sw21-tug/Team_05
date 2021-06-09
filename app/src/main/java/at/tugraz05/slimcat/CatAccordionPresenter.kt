@@ -104,7 +104,7 @@ fun catWeightBinding(view: TextView, cat:CatDataClass, presenter: CatAccordionPr
 
 @BindingAdapter("calories", "food")
 fun setGrams(view: TextView, calories: Int, food: FoodDetailsDataClass) {
-    Log.d("setGrams", "${food.name}: ${food.kcalPer100G} ${calories} ${Util.calcGramsOfFood(food, calories)}")
+    Log.d("setGrams", "${food.name}: ${food.calories} ${calories} ${Util.calcGramsOfFood(food, calories)}")
     if (calType == 0){
         view.text = view.resources.getString(R.string.catlist_text_food_amount, Util.calcGramsOfFood(food, calories))
     }
