@@ -1,5 +1,6 @@
 package at.tugraz05.slimcat
 
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -8,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
@@ -21,6 +23,10 @@ import java.io.File
 import java.lang.NumberFormatException
 import java.nio.file.Files
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.*
 
 class AddcatActivity : AppCompatActivity() {
@@ -113,8 +119,32 @@ class AddcatActivity : AppCompatActivity() {
             }
         }
 
+        //click on btn_dob to open the datepicker
+        Locale.setDefault(Locale.CHINA)
+        val formatDate = SimpleDateFormat(Constants.DATE_FORMAT, Locale.CHINESE)
+
         findViewById<Button>(R.id.btn_dob).setOnClickListener {
-            showCalendarDialog()
+            val getDate : Calendar = Calendar.getInstance()
+            try {
+                getDate.time = Date.from(
+                    LocalDate.parse(binding.cat!!.date_of_birth ?: "", DateTimeFormatter.ofPattern(Constants.DATE_FORMAT))
+                    .atStartOfDay(ZoneId.systemDefault()).toInstant())
+            } catch (e: DateTimeParseException) {
+                Log.d("addcat", "invalid date ${binding.cat!!.date_of_birth}")
+            }
+            @Suppress("DEPRECATION")
+            val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                { _, year, month, day ->
+
+                    val selectDate = Calendar.getInstance()
+                    selectDate.set(Calendar.YEAR, year)
+                    selectDate.set(Calendar.MONTH, month)
+                    selectDate.set(Calendar.DAY_OF_MONTH, day)
+                    val date = formatDate.format(selectDate.time)
+                    findViewById<TextView>(R.id.txt_dob).text = date
+                    binding.cat!!.date_of_birth = date
+                }, getDate.get(Calendar.YEAR), getDate.get(Calendar.MONTH), getDate.get(Calendar.DAY_OF_MONTH))
+            datepicker.show()
         }
 
         // gender seeker helpers
@@ -246,38 +276,6 @@ class AddcatActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(LanguageHandler.setLanguage(newBase!!))
-    }
-
-    private fun showCalendarDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.calendar_dialog)
-
-        Locale.setDefault(Locale.CHINA)
-        val formatDate = SimpleDateFormat("y-M-d", Locale.CHINESE)
-        var selectedDate = ""
-        val datePicker = dialog.findViewById<DatePicker>(R.id.calendar)
-        val today = Calendar.getInstance()
-        datePicker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH),
-            today.get(Calendar.DAY_OF_MONTH))
-        {
-            _, year, month, day ->
-            val selectDate = Calendar.getInstance()
-            selectDate.set(Calendar.YEAR, year)
-            selectDate.set(Calendar.MONTH, month)
-            selectDate.set(Calendar.DAY_OF_MONTH, day)
-            selectedDate = formatDate.format((selectDate.time))
-        }
-        val yesBtn = dialog.findViewById(R.id.btnSave) as Button
-        val noBtn = dialog.findViewById(R.id.btnCancel) as Button
-        yesBtn.setOnClickListener {
-            findViewById<TextView>(R.id.txt_dob).text = selectedDate
-            binding.cat!!.date_of_birth = selectedDate
-            dialog.dismiss()
-        }
-        noBtn.setOnClickListener { dialog.dismiss() }
-        dialog.show()
     }
 
     fun hideKeyboard() {
