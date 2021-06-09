@@ -20,12 +20,13 @@ import java.nio.file.Files
 
 var calType:Int = 0
 
-data class CatAccordionPresenter(val context: Activity, val binding: CatAccordionBinding, var open: ObservableBoolean = ObservableBoolean(false)) {
+data class CatAccordionPresenter(val context: Activity, val binding: CatAccordionBinding, var foods: List<FoodDetailsDataClass?>, var open: ObservableBoolean = ObservableBoolean(false)) {
     init {
         update()
     }
 
-    fun update() {
+    fun update(newFoods: List<FoodDetailsDataClass?>? = null) {
+        if (newFoods != null) foods = newFoods
         updateCatImage()
         updateFoods()
     }
@@ -36,23 +37,23 @@ data class CatAccordionPresenter(val context: Activity, val binding: CatAccordio
 
     fun edit(view: View) {
         val intent = Intent(context, AddcatActivity::class.java)
-        val bundle = bundleOf("Cat" to binding.cat)
+        val bundle = bundleOf(Constants.CAT_PARAM to binding.cat)
         intent.putExtras(bundle)
         context.startActivity(intent)
     }
 
     fun track(view: View) {
         val intent = Intent(context, TrackFoodActivity::class.java)
-        val bundle = bundleOf("Cat" to binding.cat)
+        val bundle = bundleOf(Constants.CAT_PARAM to binding.cat)
         intent.putExtras(bundle)
         context.startActivity(intent)
     }
 
     fun getWeightStr(cat: CatDataClass): String {
-        val metricSystem = context.getSharedPreferences("userprefs", AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
+        val metricSystem = context.getSharedPreferences(Constants.USER_PREFS, AppCompatActivity.MODE_PRIVATE).getInt("unit", 0 )
         return if (metricSystem == SettingsActivity.METRIC) {
             calType = 0
-            context.getString(R.string.catlist_text_weight).format(cat.weight)
+            context.getString(R.string.catlist_text_weight).format(cat.weight ?: 0.0)
         } else {
             calType = 1
             context.getString(R.string.catlist_text_weight_lbs).format(cat.weight?.let {
@@ -82,7 +83,7 @@ data class CatAccordionPresenter(val context: Activity, val binding: CatAccordio
         val table = binding.root.findViewById<TableLayout>(R.id.accordion_food_list)
         table.removeAllViews()
 
-        Food.foods.forEach {
+        foods.forEach {
             val b = DataBindingUtil.inflate<CatAccordionFoodBinding>(
                 context.layoutInflater,
                 R.layout.cat_accordion_food,
@@ -102,7 +103,7 @@ fun catWeightBinding(view: TextView, cat:CatDataClass, presenter: CatAccordionPr
 }
 
 @BindingAdapter("calories", "food")
-fun setGrams(view: TextView, calories: Int, food: Food) {
+fun setGrams(view: TextView, calories: Int, food: FoodDetailsDataClass) {
     Log.d("setGrams", "${food.name}: ${food.kcalPer100G} ${calories} ${Util.calcGramsOfFood(food, calories)}")
     if (calType == 0){
         view.text = view.resources.getString(R.string.catlist_text_food_amount, Util.calcGramsOfFood(food, calories))

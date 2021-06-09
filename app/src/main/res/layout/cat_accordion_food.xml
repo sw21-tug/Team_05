@@ -8,10 +8,14 @@
             type="at.tugraz05.slimcat.CatDataClass" />
         <variable
             name="food"
-            type="at.tugraz05.slimcat.Food" />
+            type="at.tugraz05.slimcat.FoodDetailsDataClass" />
     </data>
 
-    <TableRow>
+    <TableRow
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="center">
+
         <TextView
             android:id="@+id/text_food_name"
             android:layout_width="wrap_content"

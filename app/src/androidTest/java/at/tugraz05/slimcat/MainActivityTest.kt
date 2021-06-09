@@ -40,16 +40,16 @@ class MainActivityTest : TestCase() {
     fun catsAreDisplayedFromGivenList() {
         DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
         val scenario = ActivityScenario.launch(MainActivity::class.java)
-        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5), CatDataClass(name = "Johnny", age = 7, weight = 10.0), CatDataClass(name = "Katze", age = 2, weight = 1.0))
+        val cats = listOf(CatDataClass(name = "Jeffrey", weight = 2.5), CatDataClass(name = "Johnny", weight = 10.0), CatDataClass(name = "Katze", weight = 1.0))
         scenario.onActivity {
-            it.displayCats(cats)
+            it.displayCats(cats, listOf())
         }
         onView(withId(R.id.scroll_content)).perform(waitFor<LinearLayout> { it.childCount == cats.size })
     }
 
     @Test
     fun checkThatMockWorks() {
-        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5), CatDataClass(name = "Johnny", age = 7, weight = 10.0))
+        val cats = listOf(CatDataClass(name = "Jeffrey", weight = 2.5), CatDataClass(name = "Johnny", weight = 10.0))
         val mock = Mockito.mock(DatabaseHelper::class.java)
 
         Mockito.doReturn(cats).`when`(mock).readUserCats()
@@ -60,7 +60,7 @@ class MainActivityTest : TestCase() {
 
     @Test
     fun catsAreDisplayedFromDatabase() {
-        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5), CatDataClass(name = "Johnny", age = 7, weight = 10.0))
+        val cats = listOf(CatDataClass(name = "Jeffrey", weight = 2.5), CatDataClass(name = "Johnny", weight = 10.0))
         val mock = Mockito.mock(DatabaseHelper::class.java)
         val snap = Mockito.mock(DataSnapshot::class.java)
 
@@ -78,10 +78,11 @@ class MainActivityTest : TestCase() {
         DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
 
         val scenario = ActivityScenario.launch(MainActivity::class.java)
-        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5, _calorieRecommendation = 125))
+        val cats = listOf(CatDataClass(name = "Jeffrey", weight = 2.5, calorieRecommendation = 125))
+        val foods = listOf(FoodDetailsDataClass(), FoodDetailsDataClass())
         scenario.onActivity {
-            it.displayCats(cats)
+            it.displayCats(cats, foods)
         }
-        onView(withId(R.id.accordion_food_list)).perform(waitFor<TableLayout> { it.childCount == Food.foods.size })
+        onView(withId(R.id.accordion_food_list)).perform(waitFor<TableLayout> { it.childCount == foods.size })
     }
 }

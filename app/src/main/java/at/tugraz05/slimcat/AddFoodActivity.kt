@@ -42,6 +42,7 @@ class AddFoodActivity : AppCompatActivity() {
                 errorField.error = resources.getString(R.string.error_percentage_food)
             }
             else {
+                binding.food!!.calories = Util.calcFoodCals(binding.food!!)
                 createFood()
                 finish()
             }
@@ -64,9 +65,8 @@ class AddFoodActivity : AppCompatActivity() {
     }
 
     private fun addUpCatPercentage(): Boolean {
-        if((binding.food!!.rawFiber + binding.food!!.crudeAsh + binding.food!!.rawFat + binding.food!!.rawProtein + binding.food!!.water) > 100.0){
-            return false
-        }
-        return true
+        return (((binding.food!!.rawFiber ?: 0.0) + (binding.food!!.crudeAsh
+            ?: 0.0) + (binding.food!!.rawFat ?: 0.0) + (binding.food!!.rawProtein
+            ?: 0.0) + (binding.food!!.water ?: 0.0)) <= 100.0)
     }
 }
