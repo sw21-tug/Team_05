@@ -89,6 +89,7 @@ class AddcatActivityTest : TestCase() {
         ActivityScenario.launch(AddcatActivity::class.java)
 
         onView(withId(R.id.btn_delete)).perform(waitFor<Button> { it.visibility == View.GONE })
+        Thread.sleep(1000)
         Mockito.verify(dbHelper, never()).deleteCat("test")
     }
 
@@ -101,8 +102,9 @@ class AddcatActivityTest : TestCase() {
         val intent = Intent(ApplicationProvider.getApplicationContext(), AddcatActivity::class.java)
         intent.putExtras(bundleOf("Cat" to cat))
         ActivityScenario.launch<AddcatActivity>(intent)
-
+        closeSoftKeyboard()
         onView(withId(R.id.btn_delete)).perform(scrollTo()).perform(click())
+        Thread.sleep(1000)
         Mockito.verify(dbHelper).deleteCat("test")
     }
 
@@ -126,6 +128,7 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.txt_weight)).check(matches(withText(cat.getWeightStr())))
         onView(withId(R.id.seek_gender)).check(assertView<SeekBar> { assertEquals(GenderSeeker.MALE, it.progress) })
         onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
+        Thread.sleep(1000)
         Log.d("openEditCat", "$cat")
         Mockito.verify(dbHelper).editUser("test", cat)
     }
@@ -154,6 +157,7 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.txt_weight)).perform(scrollTo()).perform(clearText()).perform(typeText(cat.getWeightStr()))
         onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = cat.gender!! })
         onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
+        Thread.sleep(1000)
         Mockito.verify(dbHelper).writeNewCat(cat)
     }
 
@@ -220,6 +224,7 @@ class AddcatActivityTest : TestCase() {
 
         // this triggers a recalculation of the calories
         onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
+        Thread.sleep(1000)
         Log.d("openEditCat", "$cat")
         Mockito.verify(dbHelper).editUser("test", cat)
     }

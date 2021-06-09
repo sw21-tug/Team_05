@@ -49,6 +49,7 @@ class TrackFoodTest : TestCase() {
         onView(allOf(withParent(withPositionInParent(R.id.scroll_track_food, 1)), withId(R.id.text_food_eaten))).perform(scrollTo()).perform(typeText("10"))
 
         onView(withId(R.id.trackfood_btn_save)).perform(scrollTo()).perform(click())
+        Thread.sleep(1000)
         Log.d("trackFood", "$cat ${cat.calorieRecommendation}")
         Mockito.verify(dbHelper).editUser("test", cat)
     }
