@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
         <variable name="cat" type="at.tugraz05.slimcat.CatDataClass"/>
         <variable name="view" type="at.tugraz05.slimcat.AddcatActivity"/>
     </data>
@@ -224,16 +225,7 @@
                             android:lineSpacingExtra="@dimen/addcat_label_lineheight"
                             android:text="@string/label_gender"
                             android:textSize="@dimen/addcat_label_textsize" />
-    <!--
-                        <Spinner
-                            android:id="@+id/spinner_gender"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/addcat_label_input_margin"
-                            android:layout_marginLeft="@dimen/addcat_label_input_margin"
-                            android:layout_weight="1"
-                            android:dropDownWidth="match_parent" />
-    -->
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -257,7 +249,8 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:max="1" />
+                                android:max="1"
+                                android:progress="@={cat.gender}" />
 
                             <TextView
                                 android:id="@+id/label_gender_female"
@@ -385,7 +378,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="@dimen/addcat_row_margin"
                         android:animateLayoutChanges="true"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:visibility="@{cat.gender == view.FEMALE ? View.VISIBLE : View.GONE}">
 
                         <TextView
                             android:id="@+id/label_gestation"
@@ -412,7 +406,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="@dimen/addcat_row_margin"
                         android:animateLayoutChanges="true"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:visibility="@{cat.gender == view.FEMALE ? View.VISIBLE : View.GONE}">
 
                         <TextView
                             android:id="@+id/label_lactation"

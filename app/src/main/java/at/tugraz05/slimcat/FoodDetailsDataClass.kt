@@ -5,8 +5,8 @@ import android.os.Parcelable
 import com.google.firebase.database.Exclude
 import java.lang.NumberFormatException
 
-data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double = 0.0, var rawFat: Double = 0.0,
-                                var crudeAsh: Double = 0.0, var rawFiber: Double = 0.0, var water: Double = 0.0, var calories: Int = 0) : Parcelable{
+data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double? = null, var rawFat: Double? = null,
+                                var crudeAsh: Double? = null, var rawFiber: Double? = null, var water: Double? = null, var calories: Int = 0) : Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readDouble(),
@@ -21,18 +21,18 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "name" to name,
-            "rawProtein" to rawProtein,
-            "rawFat" to rawFat,
-            "crudeAsh" to crudeAsh,
-            "rawFiber" to rawFiber,
-            "water" to water,
+            "rawProtein" to (rawProtein ?: 0.0),
+            "rawFat" to (rawFat ?: 0.0),
+            "crudeAsh" to (crudeAsh ?: 0.0),
+            "rawFiber" to (rawFiber ?: 0.0),
+            "water" to (water ?: 0.0),
             "calories" to calories
         )
     }
 
     @Exclude
     fun getRawProteinStr(): String {
-        return rawProtein.toString()
+        return rawProtein?.toString() ?: ""
     }
     @Exclude
     fun setRawProteinStr(s: String) {
@@ -45,7 +45,7 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
 
     @Exclude
     fun getRawFatStr(): String {
-        return rawFat.toString()
+        return rawFat?.toString() ?: ""
     }
     @Exclude
     fun setRawFatStr(s: String) {
@@ -58,7 +58,7 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
 
     @Exclude
     fun getCrudeAshStr(): String {
-        return crudeAsh.toString()
+        return crudeAsh?.toString() ?: ""
     }
     @Exclude
     fun setCrudeAshStr(s: String) {
@@ -71,7 +71,7 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
 
     @Exclude
     fun getRawFiberStr(): String {
-        return rawFiber.toString()
+        return rawFiber?.toString() ?: ""
     }
     @Exclude
     fun setRawFiberStr(s: String) {
@@ -84,7 +84,7 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
 
     @Exclude
     fun getWaterStr(): String {
-        return water.toString()
+        return water?.toString() ?: ""
     }
     @Exclude
     fun setWaterStr(s: String) {
@@ -97,11 +97,11 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
-        parcel.writeDouble(rawProtein)
-        parcel.writeDouble(rawFat)
-        parcel.writeDouble(crudeAsh)
-        parcel.writeDouble(rawFiber)
-        parcel.writeDouble(water)
+        parcel.writeDouble(rawProtein ?: 0.0)
+        parcel.writeDouble(rawFat ?: 0.0)
+        parcel.writeDouble(crudeAsh ?: 0.0)
+        parcel.writeDouble(rawFiber ?: 0.0)
+        parcel.writeDouble(water ?: 0.0)
         parcel.writeInt(calories)
     }
 
@@ -109,13 +109,25 @@ data class FoodDetailsDataClass(var name: String? = null, var rawProtein: Double
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<FoodDetailsDataClass> {
-        override fun createFromParcel(parcel: Parcel): FoodDetailsDataClass {
-            return FoodDetailsDataClass(parcel)
+    companion object {
+        @JvmField val CREATOR = object : Parcelable.Creator<FoodDetailsDataClass> {
+            override fun createFromParcel(parcel: Parcel): FoodDetailsDataClass {
+                return FoodDetailsDataClass(parcel)
+            }
+
+            override fun newArray(size: Int): Array<FoodDetailsDataClass?> {
+                return arrayOfNulls(size)
+            }
         }
 
-        override fun newArray(size: Int): Array<FoodDetailsDataClass?> {
-            return arrayOfNulls(size)
+        fun defaultFoods(): List<FoodDetailsDataClass?> {
+            return listOf(
+                FoodDetailsDataClass(name = "Dry Food", rawProtein = 30.0, rawFat = 12.0, crudeAsh = 6.0, rawFiber = 3.0, water = 7.5),
+                FoodDetailsDataClass(name = "Wet Food", rawProtein = 30.0, rawFat = 12.0, crudeAsh = 6.0, rawFiber = 3.0, water = 79.0)
+            ).map {
+                it.calories = Util.calcFoodCals(it)
+                it
+            }
         }
     }
 }
