@@ -148,7 +148,7 @@ class SettingsActivityTest : TestCase(){
         ).perform(scrollTo()).check(matches(withSubstring("lbs")))
 
         ActivityScenario.launch(SettingsActivity::class.java)
-        onView(withId(R.id.settings_unit_of_measurement_lbs)).perform(closeSoftKeyboard()).perform(scrollTo()).perform(click())
+        onView(withId(R.id.settings_unit_of_measurement_kg)).perform(closeSoftKeyboard()).perform(scrollTo()).perform(click())
         onView(withId(R.id.settings_seek_measurement)).perform(waitFor<SeekBar> { it.progress == SettingsActivity.METRIC })
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
     }
