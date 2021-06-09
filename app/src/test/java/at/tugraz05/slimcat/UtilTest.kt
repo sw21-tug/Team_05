@@ -165,5 +165,15 @@ class UtilTest {
         val f = FoodDetailsDataClass("dry",30.0, 12.0, 6.0, 3.0,8.0)
         assert(Util.calcFoodCals(f) == 380)
     }
+
+    @Test
+    fun testGrammToLbs(){
+        val gram1 = 250
+        val gram2 = 0
+
+        assert(Util.convertGrammToLbs(gram1) in 0.54..0.56)
+        assert(Util.convertGrammToLbs(gram2) == 0.0)
+    }
+
 }
 

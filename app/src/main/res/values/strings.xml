@@ -13,6 +13,7 @@
     <string name="catlist_text_weight_lbs">Weight: %.2f lbs</string>
     <string name="catlist_text_calorie_recommendation">Cal. Rec.: %d kcal today</string>
     <string name="catlist_text_food_amount">%d g</string>
+    <string name="catlist_text_food_amount_lbs">%.2f lbs</string>
     <string name="catlist_food_recommendation">Food recommendation:</string>
     <string name="catlist_track_food">Track Food</string>
     <string name="catlist_edit_cat">Edit</string>
@@ -41,7 +42,7 @@
     <!-- Add Food Hints -->
     <string name="addFood_hint_name">Sheba</string>
     <string name="addFood_hint_percentage">in %</string>
-    <string name="addFood_label_water_hint">Hint: In case the percentage of water is not given, use a value between 8-10%.</string>
+    <string name="addFood_label_water_hint">Hint: In case the percentage of water is not given, use a value between 8–10%.</string>
 
 
     <!-- Add cat error messages -->
