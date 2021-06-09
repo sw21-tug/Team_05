@@ -25,4 +25,30 @@ class NotificationActivityTest : TestCase() {
         Espresso.onView(ViewMatchers.withId(R.id.btn_timePicker))
             .perform(ViewActions.scrollTo()).perform(ViewActions.click())
     }
+
+    @Test
+    fun buttonWeekdaysAreDisplayed() {
+        ActivityScenario.launch(NotificationsActivity::class.java)
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Monday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Tuesday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Wednesday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Thursday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Friday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Saturday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Sunday))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    @Test
+    fun btnWeekdaysAreClickable() {
+        ActivityScenario.launch(NotificationsActivity::class.java)
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Monday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Tuesday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Wednesday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Thursday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Friday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Saturday))
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Sunday))
+            .perform(ViewActions.scrollTo()).perform(ViewActions.click())
+    }
 }
