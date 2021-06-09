@@ -75,6 +75,7 @@ class SettingsActivityTest : TestCase(){
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
         onView(withText("mandarin (chinese)")).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
+        Thread.sleep(1000)
         ActivityScenario.launch(AddcatActivity::class.java)
         onView(withId(R.id.label_name)).check(matches(withText("名")))
         ActivityScenario.launch(SettingsActivity::class.java).onActivity { it.hideKeyboard() }
@@ -88,6 +89,7 @@ class SettingsActivityTest : TestCase(){
         onView(withId(R.id.settings_language_spinner)).perform(scrollTo()).perform(click())
         onView(withText("english")).perform(scrollTo()).perform(click())
         onView(withId(R.id.setting_btn_save)).perform(scrollTo()).perform(click())
+        Thread.sleep(1000)
         ActivityScenario.launch(AddcatActivity::class.java)
         onView(withId(R.id.label_name)).check(matches(withText("Name")))
     }

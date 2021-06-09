@@ -155,7 +155,7 @@ class AddcatActivityTest : TestCase() {
         onView(withId(R.id.txt_size)).perform(scrollTo()).perform(clearText()).perform(typeText(cat.getSizeStr()))
         onView(withId(R.id.txt_weight)).perform(scrollTo()).perform(clearText()).perform(typeText(cat.getWeightStr()))
         onView(withId(R.id.seek_gender)).perform(scrollTo()).perform(callMethod<SeekBar> { it.progress = cat.gender!! })
-        onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
+        onView(withId(R.id.btn_save)).perform(closeSoftKeyboard()).perform(scrollTo()).perform(click())
         Thread.sleep(1000)
         Mockito.verify(dbHelper).writeNewCat(cat)
     }
@@ -222,7 +222,7 @@ class AddcatActivityTest : TestCase() {
         ActivityScenario.launch<AddcatActivity>(intent)
 
         // this triggers a recalculation of the calories
-        onView(withId(R.id.btn_save)).perform(scrollTo()).perform(click())
+        onView(withId(R.id.btn_save)).perform(closeSoftKeyboard()).perform(scrollTo()).perform(click())
         Thread.sleep(1000)
         Log.d("openEditCat", "$cat")
         Mockito.verify(dbHelper).editUser("test", cat)
