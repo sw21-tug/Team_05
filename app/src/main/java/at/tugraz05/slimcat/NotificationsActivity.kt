@@ -1,5 +1,6 @@
 package at.tugraz05.slimcat
 
+import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -8,8 +9,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.TimePicker
+import androidx.fragment.app.DialogFragment
+import java.util.*
 
-class NotificationsActivity : AppCompatActivity() {
+class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener {
     private var buttonActionNotification: MenuItem? = null
     private var buttonTimePicker: Button? = null
     var TextTimePicker: TextView? = null
@@ -34,6 +38,11 @@ class NotificationsActivity : AppCompatActivity() {
         TextDays = findViewById(R.id.txt_days)
 
         setCheckboxes()
+
+        buttonTimePicker?.setOnClickListener {
+            val timePicker: DialogFragment = TimePickerFragment()
+            timePicker.show(supportFragmentManager, "time picker")
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val actionBar = supportActionBar
@@ -117,6 +126,13 @@ class NotificationsActivity : AppCompatActivity() {
             checkSaturday?.visibility = View.GONE
             checkSunday?.visibility = View.GONE
         }
+    }
+
+    override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
+        val c = Calendar.getInstance()
+        c[Calendar.HOUR_OF_DAY] = hourOfDay
+        c[Calendar.MINUTE] = minute
+        c[Calendar.SECOND] = 0
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
