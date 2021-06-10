@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+
+    <include layout="@layout/content_food" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/settings_view_margin">
+            <TextView
+                android:textColor="#808080"
+                android:id="@+id/action_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/about_text"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/intro_names"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/PO"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/SCRUM"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/Dev1"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/Dev2"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/Dev3"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/Dev4"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/Dev5"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/Dev6"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/Dev7"
+                android:textSize="@dimen/settings_tv_textsize" />
+            <TextView
+                android:textColor="#808080"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/settings_tv_lineheight"
+                android:text="@string/Dev8"
+                android:textSize="@dimen/settings_tv_textsize" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

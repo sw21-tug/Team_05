@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">瘦猫</string>
     <string name="action_settings">態度</string>
+    <string name="action_about">关于</string>
     <string name="action_food">加食物</string>
 
     <!-- Cat List -->
@@ -110,9 +111,24 @@
     <string name="settings_name_hint">大同王大同王</string>
     <string name="settings_email_hint">datong.wang@email.com</string>
 
+    <!-- About -->
+    <string name="about_text">注意：给定的卡路里只是一个建议，在没有事先咨询兽医的情况下绝不打算使用。 该应用程序给出的建议仅应用作指南。<br/></string>
+    <string name="intro_names">这个应用程序是由：</string>
+    <string name="PO">Georg Niess</string>
+    <string name="SCRUM">Günther Moser</string>
+    <string name="Dev1">Baher El-Banna</string>
+    <string name="Dev2">Benedict Osei-Tutu</string>
+    <string name="Dev3">Christoph René Ladler</string>
+    <string name="Dev4">Constantin Piber</string>
+    <string name="Dev5">Matthias Fischer</string>
+    <string name="Dev6">Nolan Wieninger</string>
+    <string name="Dev7">Patrick Andrawes</string>
+    <string name="Dev8">Thomas Végh</string>
+
     <!-- Details -->
     <string name="title_cat_details">猫的详细信息</string>
     <string name="title_activity_settings">用户设置</string>
+    <string name="title_activity_about">关于页面</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">讯息</string>

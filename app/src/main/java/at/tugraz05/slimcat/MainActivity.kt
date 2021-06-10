@@ -57,6 +57,10 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivityForResult(intent, 0)
             }
+            R.id.action_about -> {
+                val intent = Intent(this, AboutActivity::class.java)
+                startActivityForResult(intent, 0)
+            }
             R.id.action_food -> {
                 val intent = Intent(this, FoodListActivity::class.java)
                 startActivity(intent)
