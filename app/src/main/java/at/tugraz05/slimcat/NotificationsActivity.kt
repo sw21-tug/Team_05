@@ -138,6 +138,16 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         }
     }
 
+    override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
+        cancelAlarm()
+        val c = Calendar.getInstance()
+        c[Calendar.HOUR_OF_DAY] = hourOfDay
+        c[Calendar.MINUTE] = minute
+        c[Calendar.SECOND] = 0
+        updateTimeText(c)
+        startAlarm(c)
+    }
+
     private fun updateTimeText(c: Calendar) {
         var timeText: String? = getString(R.string.notification_set)
         timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.time)
@@ -167,16 +177,6 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         sharedpref.edit().putString("notifications_text", getString(R.string.notification_Alarm)).apply()
     }
 
-    override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-        cancelAlarm()
-        val c = Calendar.getInstance()
-        c[Calendar.HOUR_OF_DAY] = hourOfDay
-        c[Calendar.MINUTE] = minute
-        c[Calendar.SECOND] = 0
-        updateTimeText(c)
-        startAlarm(c)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -191,6 +191,7 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
                     sharedpref.edit().putBoolean("notifications", true).apply()
                     changeVisibility()
                 } else {
+                    cancelAlarm()
                     item.setIcon(R.drawable.ic_baseline_notifications_off_24)
                     sharedpref.edit().putBoolean("notifications", false).apply()
                     changeVisibility()
