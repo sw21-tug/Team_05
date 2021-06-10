@@ -59,6 +59,8 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_notifications -> {
                 val intent = Intent(this, NotificationsActivity::class.java)
+            R.id.action_about -> {
+                val intent = Intent(this, AboutActivity::class.java)
                 startActivityForResult(intent, 0)
             }
             R.id.action_food -> {
