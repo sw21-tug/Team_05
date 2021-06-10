@@ -59,4 +59,4 @@ Picture Credit: [Reddit User Mavagam99](https://www.reddit.com/r/aww/comments/98
 | detailed accordion view | D-011 | implementing the detailed card view of the accordions on the home screen |
 | mandarin language support | D-017 | a language change option in the settings page that changes all text to chinese |
 | phone camera support | D-021 | adding support to take and save pictures for the cat images as well as the user |
-| app icon | D-039 | app icon credit: [flaticon.com](https://www.flaticon.com/) |
+
