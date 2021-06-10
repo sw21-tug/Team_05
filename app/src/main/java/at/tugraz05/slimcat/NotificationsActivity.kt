@@ -11,6 +11,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
+import java.text.DateFormat
 import java.util.*
 
 class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener {
@@ -131,11 +132,21 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         }
     }
 
+    private fun updateTimeText(c: Calendar) {
+        var timeText: String? = getString(R.string.notification_set)
+        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.time)
+        TextTimePicker!!.text = timeText
+
+        val sharedpref = this.getSharedPreferences("userprefs", MODE_PRIVATE)
+        sharedpref.edit().putString("notifications_text", timeText).apply()
+    }
+
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
         val c = Calendar.getInstance()
         c[Calendar.HOUR_OF_DAY] = hourOfDay
         c[Calendar.MINUTE] = minute
         c[Calendar.SECOND] = 0
+        updateTimeText(c)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
