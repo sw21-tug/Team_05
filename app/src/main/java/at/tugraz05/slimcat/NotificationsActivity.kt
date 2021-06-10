@@ -1,6 +1,9 @@
 package at.tugraz05.slimcat
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -38,6 +41,9 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         TextTimePicker = findViewById(R.id.txt_timePicker)
         TextNotification = findViewById(R.id.txt_notifications)
         TextDays = findViewById(R.id.txt_days)
+
+        val sharedpref = this.getSharedPreferences("userprefs", MODE_PRIVATE)
+        TextTimePicker!!.text = sharedpref.getString("notifications_text", getString(R.string.notification_Alarm))
 
         setCheckboxes()
 
@@ -141,12 +147,34 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         sharedpref.edit().putString("notifications_text", timeText).apply()
     }
 
+    private fun startAlarm(c: Calendar) {
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlertReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1)
+        }
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, c.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+    }
+
+    private fun cancelAlarm() {
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlertReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
+        alarmManager.cancel(pendingIntent)
+        TextTimePicker!!.text = getString(R.string.notification_Alarm)
+        val sharedpref = this.getSharedPreferences("userprefs", MODE_PRIVATE)
+        sharedpref.edit().putString("notifications_text", getString(R.string.notification_Alarm)).apply()
+    }
+
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
+        cancelAlarm()
         val c = Calendar.getInstance()
         c[Calendar.HOUR_OF_DAY] = hourOfDay
         c[Calendar.MINUTE] = minute
         c[Calendar.SECOND] = 0
         updateTimeText(c)
+        startAlarm(c)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
