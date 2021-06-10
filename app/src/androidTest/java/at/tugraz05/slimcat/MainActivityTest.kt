@@ -1,6 +1,7 @@
 package at.tugraz05.slimcat
 
 import android.widget.LinearLayout
+import android.widget.TableLayout
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.espresso.Espresso.onView
@@ -39,16 +40,16 @@ class MainActivityTest : TestCase() {
     fun catsAreDisplayedFromGivenList() {
         DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
         val scenario = ActivityScenario.launch(MainActivity::class.java)
-        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5), CatDataClass(name = "Johnny", age = 7, weight = 10.0), CatDataClass(name = "Katze", age = 2, weight = 1.0))
+        val cats = listOf(CatDataClass(name = "Jeffrey", weight = 2.5), CatDataClass(name = "Johnny", weight = 10.0), CatDataClass(name = "Katze", weight = 1.0))
         scenario.onActivity {
-            it.displayCats(cats)
+            it.displayCats(cats, listOf())
         }
         onView(withId(R.id.scroll_content)).perform(waitFor<LinearLayout> { it.childCount == cats.size })
     }
 
     @Test
     fun checkThatMockWorks() {
-        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5), CatDataClass(name = "Johnny", age = 7, weight = 10.0))
+        val cats = listOf(CatDataClass(name = "Jeffrey", weight = 2.5), CatDataClass(name = "Johnny", weight = 10.0))
         val mock = Mockito.mock(DatabaseHelper::class.java)
 
         Mockito.doReturn(cats).`when`(mock).readUserCats()
@@ -59,16 +60,29 @@ class MainActivityTest : TestCase() {
 
     @Test
     fun catsAreDisplayedFromDatabase() {
-        val cats = listOf(CatDataClass(name = "Jeffrey", age = 5, weight = 2.5), CatDataClass(name = "Johnny", age = 7, weight = 10.0))
+        val cats = listOf(CatDataClass(name = "Jeffrey", weight = 2.5), CatDataClass(name = "Johnny", weight = 10.0))
         val mock = Mockito.mock(DatabaseHelper::class.java)
         val snap = Mockito.mock(DataSnapshot::class.java)
 
-        Mockito.doAnswer { (it.arguments[1] as (DataSnapshot) -> Unit)(snap) }.`when`(mock).addValueEventListener(any(), any())
+        Mockito.doAnswer { cast<(DataSnapshot) -> Unit>(it.arguments[1])(snap) }.`when`(mock).addValueEventListener(any(), any())
         Mockito.doReturn(cats).`when`(mock).readUserCats()
         DatabaseHelper.mock(mock)
 
         // MainActivity uses the addValueEventListener to wait for data, then readUserCats for displaying (both mocked above)
         ActivityScenario.launch(MainActivity::class.java)
         onView(withId(R.id.scroll_content)).perform(waitFor<LinearLayout> { it.childCount == cats.size })
+    }
+
+    @Test
+    fun gramRecommendationDisplayed() {
+        DatabaseHelper.mock(Mockito.mock(DatabaseHelper::class.java))
+
+        val scenario = ActivityScenario.launch(MainActivity::class.java)
+        val cats = listOf(CatDataClass(name = "Jeffrey", weight = 2.5, calorieRecommendation = 125))
+        val foods = listOf(FoodDetailsDataClass(), FoodDetailsDataClass())
+        scenario.onActivity {
+            it.displayCats(cats, foods)
+        }
+        onView(withId(R.id.accordion_food_list)).perform(waitFor<TableLayout> { it.childCount == foods.size })
     }
 }

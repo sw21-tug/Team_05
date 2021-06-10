@@ -76,7 +76,7 @@
                             android:id="@+id/text_sub"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Placeholder"
+                            android:text="@{@string/catlist_text_calorie_recommendation(cat.calorieRecommendation)}"
                             android:textColor="?attr/colorOnPrimary"
                             android:textSize="@dimen/catlist_card_textsize" />
                     </LinearLayout>
@@ -85,42 +85,72 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/catlist_card_padding_inner"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:layout_margin="@dimen/catlist_card_padding_inner"
                     android:animateLayoutChanges="true"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:visibility="@{presenter.open ? View.VISIBLE : View.GONE}">
 
+                    <TextView
+                        android:id="@+id/text_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{@plurals/catlist_text_age(cat.age, cat.age)}"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/catlist_card_body_textsize" />
+
+                    <TextView
+                        android:id="@+id/text_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/catlist_card_body_textsize"
+                        app:cat="@{cat}"
+                        app:presenter="@{presenter}" />
+
+                    <TextView
+                        android:id="@+id/text_food_recommendation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/catlist_food_margin"
+                        android:text="@string/catlist_food_recommendation"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="@dimen/catlist_card_body_textsize"
+                        android:textStyle="italic" />
+
+                    <TableLayout
+                        android:id="@+id/accordion_food_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/catlist_card_padding_inner" />
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/text_age"
+                        <Button
+                            android:id="@+id/track_food"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/catlist_text_age(cat.age)}"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="@dimen/catlist_card_body_textsize" />
+                            android:layout_marginStart="@dimen/catlist_card_padding"
+                            android:layout_marginEnd="@dimen/catlist_card_padding"
+                            android:text="@string/catlist_track_food"
+                            android:backgroundTint="@color/purple_200"
+                            android:onClick="@{presenter::track}" />
 
-                        <TextView
-                            android:id="@+id/text_weight"
+                        <Button
+                            android:id="@+id/edit_cat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/catlist_text_weight(cat.weight)}"
-                            android:textColor="?attr/colorOnPrimary"
-                            android:textSize="@dimen/catlist_card_body_textsize" />
+                            android:layout_marginStart="@dimen/catlist_card_padding"
+                            android:layout_marginEnd="@dimen/catlist_card_padding"
+                            android:text="@string/catlist_edit_cat"
+                            android:backgroundTint="@color/purple_200"
+                            android:onClick="@{presenter::edit}" />
                     </LinearLayout>
-
-                    <Button
-                        android:id="@+id/edit_cat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/catlist_edit_cat" />
 
                 </LinearLayout>
 

@@ -2,12 +2,51 @@
 <resources>
     <string name="app_name">瘦猫</string>
     <string name="action_settings">態度</string>
+    <string name="action_notifications">通知</string>
+    <string name="action_button_notifications">通知</string>
+    <string name="action_about">关于</string>
+    <string name="action_food">加食物</string>
 
     <!-- Cat List -->
-    <string name="catlist_text_age">年龄: %d 年 </string>
+    <plurals name="catlist_text_age">
+        <item quantity="other">年龄: %d 年</item>
+    </plurals>
     <string name="catlist_text_weight">重量: %.2f 公斤</string>
+    <string name="catlist_text_weight_lbs">重量: %.2f 磅</string>
+    <string name="catlist_text_calorie_recommendation">卡路里建议: %d 千卡今</string>
+    <string name="catlist_text_food_amount">%d 克</string>
+    <string name="catlist_text_food_amount_lbs">%.2f 磅</string>
+    <string name="catlist_food_recommendation">食物推荐:</string>
+    <string name="catlist_track_food">追踪食物</string>
     <string name="catlist_edit_cat">编辑</string>
+    <string name="catlist_hint_add">这里还没有。点击+按钮来注册新的猫。</string>
 
+    <!-- Food List -->
+    <string name="add_food">加猫</string>
+    <string name="title_food_back">食物清单</string>
+    <string name="food_list_text_calories">卡路里： %d 大卡/100克</string>
+    <string name="food_list_text_protein">原始蛋白质: %.2f %%</string>
+    <string name="food_list_text_fat">生脂肪: %.2f %%</string>
+    <string name="food_list_text_ash">粗灰分: %.2f %%</string>
+    <string name="food_list_text_fiber">原始纤维: %.2f %%</string>
+    <string name="food_list_text_water">水: %.2f %%</string>
+
+    <!-- Add Food -->
+    <string name="addFood_label_name">名称</string>
+    <string name="addFood_label_protein">原始蛋白质</string>
+    <string name="addFood_label_fat">生脂肪</string>
+    <string name="addFood_label_ash">粗灰分</string>
+    <string name="addFood_label_fiber">原始纤维</string>
+    <string name="addFood_label_water">水</string>
+
+    <!-- Add Food Hints -->
+    <string name="addFood_hint_name">凯锐思</string>
+    <string name="addFood_hint_percentage">以百分比</string>
+    <string name="addFood_label_water_hint">如果未给出水的百分比，请使用8％到10％之间的值.</string>
+
+    <!-- Add cat error messages -->
+    <string name="error_add_food">请输入食物名称</string>
+    <string name="error_percentage_food">填充百分比超过100％。请更改输入。</string>
 
     <!-- Add cat -->
     <string name="add_cat">加猫</string>
@@ -29,15 +68,24 @@
     <string name="label_neutered">绝育的</string>
     <string name="label_gestation">妊娠 </string>
     <string name="label_lactation">哺乳期</string>
-    <string name="output_dob">年/月/日</string>
+    <string name="output_dob">年-月-日</string>
     <!-- Add cat hints -->
     <string name="input_name_hint">宝(Bao)</string>
     <string name="input_race_hint">松狮犬(Chow Chow)</string>
     <string name="input_size_hint">厘米</string>
     <string name="input_weight_hint">公斤</string>
+    <string name="input_size_hint_imperial">英寸</string>
+    <string name="input_weight_hint_imperial">磅</string>
     <!-- Add cat error messages -->
     <string name="error_create_cat">请输入您的猫的名字</string>
     <string name="error_delete_cat">请输入您要删除的猫的名字</string>
+
+    <!-- Calendar picker -->
+    <string name="cancel">取消</string>
+
+    <!-- Track Food -->
+    <string name="trackfood_reset">复归</string>
+    <string name="trackfood_hint">请输入今天喂养的食物数量。建议将相应更新。</string>
 
     <!-- Settings -->
     <string name="settings_name">名</string>
@@ -46,8 +94,8 @@
     <string name="settings_gender_male">男性</string>
     <string name="settings_gender_female">女性</string>
     <string name="settings_unit_of_measurement">单元</string>
-    <string name="settings_unit_of_measurement_kg">公斤</string>
-    <string name="settings_unit_of_measurement_lbs">磅</string>
+    <string name="settings_unit_of_measurement_kg">公制</string>
+    <string name="settings_unit_of_measurement_lbs">帝國的</string>
     <string name="settings_language">语</string>
     <!--<string name="settings_language_en">en</string>
     <string name="settings_language_de">de</string>-->
@@ -58,16 +106,32 @@
     </string-array>
     <!-- Not usefull, should be standard, not usefull to translate to mandarin-->
     <string-array name="settings_language">
-        <item>english</item> //
-        <item>mandarin (chinese)</item>
+        <item>英语 / en</item>
+        <item>官话 / zn</item>
     </string-array>
     <!-- Settings hints-->
     <string name="settings_name_hint">大同王大同王</string>
     <string name="settings_email_hint">datong.wang@email.com</string>
 
+    <!-- About -->
+    <string name="about_text">注意：给定的卡路里只是一个建议，在没有事先咨询兽医的情况下绝不打算使用。 该应用程序给出的建议仅应用作指南。<br/></string>
+    <string name="intro_names">这个应用程序是由：</string>
+    <string name="PO">Georg Niess</string>
+    <string name="SCRUM">Günther Moser</string>
+    <string name="Dev1">Baher El-Banna</string>
+    <string name="Dev2">Benedict Osei-Tutu</string>
+    <string name="Dev3">Christoph René Ladler</string>
+    <string name="Dev4">Constantin Piber</string>
+    <string name="Dev5">Matthias Fischer</string>
+    <string name="Dev6">Nolan Wieninger</string>
+    <string name="Dev7">Patrick Andrawes</string>
+    <string name="Dev8">Thomas Végh</string>
+
     <!-- Details -->
     <string name="title_cat_details">猫的详细信息</string>
     <string name="title_activity_settings">用户设置</string>
+    <string name="title_activity_notifications">通知</string>
+    <string name="title_activity_about">关于页面</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">讯息</string>
@@ -82,4 +146,19 @@
     <string name="attachment_title">下载传入的附件</string>
     <string name="attachment_summary_on">下载传入的附件</string>
     <string name="attachment_summary_off">自动下载传入电子邮件的附件</string>
+
+    <!-- Notifications -->
+    <string name="notification_set">通知设定为: </string>
+    <string name="notification_Alarm">还没有选择通知的时间</string>
+    <string name="notifications_time">请选择一个你想收到通知的时间</string>
+    <string name="notifications_day">请选择您希望收到通知的日子</string>
+    <string name="notifications_text_timePicker_Button">设置通知的时间</string>
+    <string name="notifications_Monday">星期一</string>
+    <string name="notifications_Tuesday">星期二</string>
+    <string name="notifications_Wednesday">星期三</string>
+    <string name="notifications_Thursday">星期四</string>
+    <string name="notifications_Friday">星期五</string>
+    <string name="notifications_Saturday">星期六</string>
+    <string name="notifications_Sunday">星期日</string>
+
 </resources>

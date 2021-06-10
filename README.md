@@ -32,7 +32,6 @@ Practical sessions
 Picture Credit: [Reddit User Mavagam99](https://www.reddit.com/r/aww/comments/98igqg/adopted_this_cute_and_very_overweight_kitty_a_few/)
 
 
-
 ## Team
 | Role | Name |
 | ---- | ---- |
@@ -59,4 +58,12 @@ Picture Credit: [Reddit User Mavagam99](https://www.reddit.com/r/aww/comments/98
 | detailed accordion view | D-011 | implementing the detailed card view of the accordions on the home screen |
 | mandarin language support | D-017 | a language change option in the settings page that changes all text to chinese |
 | phone camera support | D-021 | adding support to take and save pictures for the cat images as well as the user |
-
+| edit screen | D-025 | an edit screen where the user can edit the data of their saved cats |
+| delete cats | D-016 | allow the user to delete a cat on the edit screen |
+| calorie recommendation | T-004 | each cat card displays how much calories can be fed on this day |
+| unit types | D-028 | support metric and imperial units in the settings as a toggle |
+| custom food types | D-031 | a new screen where the user can enter the data on the back of the cat food he bought to save for the system |
+| custom food recommendations | D-032 | on the cat accordion cards, it is shown how much of the previously entered cat food is allowed to be fed this day |
+| about page | D-042 | about page with legal warning and credits of every team member |
+| notifications | D-012 | configurable notifactions to get reminders to check the app |
+| app icon | D-039 | app icon credit: [flaticon.com](https://www.flaticon.com/) |
