@@ -66,3 +66,4 @@ Picture Credit: [Reddit User Mavagam99](https://www.reddit.com/r/aww/comments/98
 | custom food recommendations | D-032 | on the cat accordion cards, it is shown how much of the previously entered cat food is allowed to be fed this day |
 | about page | D-042 | about page with legal warning and credits of every team member |
 | notifications | D-012 | configurable notifactions to get reminders to check the app |
+| app icon | D-039 | app icon credit: [flaticon.com](https://www.flaticon.com/) |
