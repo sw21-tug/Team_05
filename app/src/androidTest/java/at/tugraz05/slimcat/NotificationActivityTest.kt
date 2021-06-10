@@ -1,13 +1,13 @@
 package at.tugraz05.slimcat
 
-import androidx.preference.PreferenceManager
+import android.content.Context
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import junit.framework.TestCase
 import org.hamcrest.core.IsNot
 import org.junit.Test
@@ -17,6 +17,9 @@ import org.junit.runner.RunWith
 class NotificationActivityTest : TestCase() {
     @Test
     fun buttonTimepickerIsDisplayed() {
+        val targetContext = getInstrumentation().targetContext
+        val preferencesEditor = targetContext.getSharedPreferences("userprefs", Context.MODE_PRIVATE).edit()
+        preferencesEditor.putBoolean("notifications", true).commit()
         ActivityScenario.launch(NotificationsActivity::class.java)
         Espresso.onView(ViewMatchers.withId(R.id.btn_timePicker))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -24,6 +27,9 @@ class NotificationActivityTest : TestCase() {
 
     @Test
     fun buttonTimepickerIsClickable() {
+        val targetContext = getInstrumentation().targetContext
+        val preferencesEditor = targetContext.getSharedPreferences("userprefs", Context.MODE_PRIVATE).edit()
+        preferencesEditor.putBoolean("notifications", true).commit()
         ActivityScenario.launch(NotificationsActivity::class.java)
         Espresso.onView(ViewMatchers.withId(R.id.btn_timePicker))
             .perform(ViewActions.scrollTo()).perform(ViewActions.click())
@@ -31,6 +37,9 @@ class NotificationActivityTest : TestCase() {
 
     @Test
     fun buttonWeekdaysAreDisplayed() {
+        val targetContext = getInstrumentation().targetContext
+        val preferencesEditor = targetContext.getSharedPreferences("userprefs", Context.MODE_PRIVATE).edit()
+        preferencesEditor.putBoolean("notifications", true).commit()
         ActivityScenario.launch(NotificationsActivity::class.java)
         Espresso.onView(ViewMatchers.withId(R.id.chk_Monday))
         Espresso.onView(ViewMatchers.withId(R.id.chk_Tuesday))
@@ -44,22 +53,24 @@ class NotificationActivityTest : TestCase() {
 
     @Test
     fun btnWeekdaysAreClickable() {
+        val targetContext = getInstrumentation().targetContext
+        val preferencesEditor = targetContext.getSharedPreferences("userprefs", Context.MODE_PRIVATE).edit()
+        preferencesEditor.putBoolean("notifications", true).commit()
         ActivityScenario.launch(NotificationsActivity::class.java)
-        Espresso.onView(ViewMatchers.withId(R.id.chk_Monday))
-        Espresso.onView(ViewMatchers.withId(R.id.chk_Tuesday))
-        Espresso.onView(ViewMatchers.withId(R.id.chk_Wednesday))
-        Espresso.onView(ViewMatchers.withId(R.id.chk_Thursday))
-        Espresso.onView(ViewMatchers.withId(R.id.chk_Friday))
-        Espresso.onView(ViewMatchers.withId(R.id.chk_Saturday))
-        Espresso.onView(ViewMatchers.withId(R.id.chk_Sunday))
-            .perform(ViewActions.scrollTo()).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Monday)).perform(ViewActions.scrollTo()).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Tuesday)).perform(ViewActions.scrollTo()).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Wednesday)).perform(ViewActions.scrollTo()).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Thursday)).perform(ViewActions.scrollTo()).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Friday)).perform(ViewActions.scrollTo()).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Saturday)).perform(ViewActions.scrollTo()).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.chk_Sunday)).perform(ViewActions.scrollTo()).perform(ViewActions.click())
     }
 
     @Test
     fun notificationButtonIsDisplayed() {
-        val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
-        val preferencesEditor = PreferenceManager.getDefaultSharedPreferences(targetContext).edit()
-        preferencesEditor.clear()
+        val targetContext = getInstrumentation().targetContext
+        val preferencesEditor = targetContext.getSharedPreferences("userprefs", Context.MODE_PRIVATE).edit()
+        preferencesEditor.putBoolean("notifications", true).commit()
         ActivityScenario.launch(NotificationsActivity::class.java)
         Espresso.onView(ViewMatchers.withId(R.id.action_button_notification))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -67,9 +78,9 @@ class NotificationActivityTest : TestCase() {
 
     @Test
     fun notificationButtonTest() {
-        val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
-        val preferencesEditor = PreferenceManager.getDefaultSharedPreferences(targetContext).edit()
-        preferencesEditor.clear()
+        val targetContext = getInstrumentation().targetContext
+        val preferencesEditor = targetContext.getSharedPreferences("userprefs", Context.MODE_PRIVATE).edit()
+        preferencesEditor.putBoolean("notifications", true).commit()
         ActivityScenario.launch(NotificationsActivity::class.java)
         Espresso.onView(ViewMatchers.withId(R.id.action_button_notification))
             .perform(ViewActions.click())
