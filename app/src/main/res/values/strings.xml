@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SlimCat</string>
     <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
     <string name="action_food">Add Food</string>
 
     <!-- Cat List -->
@@ -97,6 +98,21 @@
     <!--<string name="settings_language_en">en</string>
     <string name="settings_language_de">de</string>-->
 
+    <!-- About -->
+    <string name="about_text">Note: The given calories are only a recommendation and are in no way intended to use without consulting a vet beforehand.
+                              The recommendations given by the app should only be used as a guideline. <br/></string>
+    <string name="intro_names">This app was developed by:</string>
+    <string name="PO">Georg Niess</string>
+    <string name="SCRUM">Günther Moser</string>
+    <string name="Dev1">Baher El-Banna</string>
+    <string name="Dev2">Benedict Osei-Tutu</string>
+    <string name="Dev3">Christoph René Ladler</string>
+    <string name="Dev4">Constantin Piber</string>
+    <string name="Dev5">Matthias Fischer</string>
+    <string name="Dev6">Nolan Wieninger</string>
+    <string name="Dev7">Patrick Andrawes</string>
+    <string name="Dev8">Thomas Végh</string>
+
     <string-array name="settings_gender">
         <item>male</item>
         <item>female</item>
@@ -117,6 +133,7 @@
     <!-- Details -->
     <string name="title_cat_details">Cat Details</string>
     <string name="title_activity_settings">User Settings</string>
+    <string name="title_activity_about">About Page</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
