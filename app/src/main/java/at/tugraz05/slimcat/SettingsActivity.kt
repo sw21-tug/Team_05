@@ -2,28 +2,17 @@ package at.tugraz05.slimcat
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.DisplayMetrics
-import android.util.Log
-import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import at.tugraz05.slimcat.databinding.SettingsActivityBinding
 import java.io.File
-import java.util.*
-import java.util.jar.Manifest
 
 
 class SettingsActivity: AppCompatActivity() {
@@ -72,8 +61,8 @@ class SettingsActivity: AppCompatActivity() {
         }
 
         // change language selection in spinner
-        val sharedpref = getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
-        sharedpref.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+        val sharedpref = getSharedPreferences("userprefs", MODE_PRIVATE)
+        sharedpref.registerOnSharedPreferenceChangeListener { _, _ ->
             LanguageHandler.setLanguage(this)
             finish()
         }
@@ -146,7 +135,16 @@ class SettingsActivity: AppCompatActivity() {
         binding.user?.image = CaptureImage.captureImage(this) ?: ""
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LanguageHandler.setLanguage(newBase!!))
+    }
+
+    fun hideKeyboard() {
+        val test: View? = window.decorView.rootView
+        val inputMethodManager = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(test!!.windowToken, 0)
+    }
+
     // data class for binding of userdata from sharedpreferences
     data class UserData(var name: String, var email: String, var gender: Int, var unit: Int, var language: Int, var image: String)
 }
-

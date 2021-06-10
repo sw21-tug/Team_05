@@ -2,11 +2,9 @@ package at.tugraz05.slimcat
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.firebase.database.Exclude
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import com.google.firebase.database.Exclude
-import java.lang.NumberFormatException
-import java.sql.Timestamp
 
 
 class CatDataClass(var name: String? = null, var race: String? = null, date_of_birth: String? = null, age: Int = 0,

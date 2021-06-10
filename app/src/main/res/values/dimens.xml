@@ -41,6 +41,7 @@
     <dimen name="addFood_tv_textsize">20sp</dimen>
     <dimen name="addFood_input_textsize">20sp</dimen>
     <dimen name="addFood_hint_textsize">15sp</dimen>
+
     <dimen name="addFood_view_margin">30dp</dimen>
     <dimen name="addFood_row_margin">17dp</dimen>
     <dimen name="addFood_tv_lineheight">10sp</dimen>

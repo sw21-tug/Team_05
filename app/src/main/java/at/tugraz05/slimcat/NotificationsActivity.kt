@@ -14,16 +14,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
-import at.tugraz05.slimcat.Constants.FRIDAY_KEY
-import at.tugraz05.slimcat.Constants.MONDAY_KEY
-import at.tugraz05.slimcat.Constants.NOTIFICATIONS
-import at.tugraz05.slimcat.Constants.SATURDAY_KEY
-import at.tugraz05.slimcat.Constants.SUNDAY_KEY
-import at.tugraz05.slimcat.Constants.THURSDAY_KEY
-import at.tugraz05.slimcat.Constants.TIME_PICKER_KEY
-import at.tugraz05.slimcat.Constants.TUESDAY_KEY
-import at.tugraz05.slimcat.Constants.USER_PREFS
-import at.tugraz05.slimcat.Constants.WEDNESDAY_KEY
+import at.tugraz05.slimcat.Constants
 import java.text.DateFormat
 import java.util.*
 
@@ -52,8 +43,8 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         TextNotification = findViewById(R.id.txt_notifications)
         TextDays = findViewById(R.id.txt_days)
 
-        val sharedpref = this.getSharedPreferences(USER_PREFS, MODE_PRIVATE)
-        TextTimePicker!!.text = sharedpref.getString(TIME_PICKER_KEY, getString(R.string.notification_Alarm))
+        val sharedpref = this.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
+        TextTimePicker!!.text = sharedpref.getString(Constants.TIME_PICKER_KEY, getString(R.string.notification_Alarm))
 
         setCheckboxes()
 
@@ -72,54 +63,54 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
     }
 
     fun setCheckboxes() {
-        val sharedpref = this.getSharedPreferences(USER_PREFS, MODE_PRIVATE)
+        val sharedpref = this.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
 
         checkMonday = findViewById(R.id.chk_Monday)
-        checkMonday?.isChecked = sharedpref.getBoolean(MONDAY_KEY, false)
+        checkMonday?.isChecked = sharedpref.getBoolean(Constants.MONDAY_KEY, false)
         checkMonday?.setOnCheckedChangeListener {_, isChecked ->
-            sharedpref.edit().putBoolean(MONDAY_KEY, isChecked).apply()
+            sharedpref.edit().putBoolean(Constants.MONDAY_KEY, isChecked).apply()
         }
 
         checkTuesday = findViewById(R.id.chk_Tuesday)
-        checkTuesday?.isChecked = sharedpref.getBoolean(TUESDAY_KEY, false)
+        checkTuesday?.isChecked = sharedpref.getBoolean(Constants.TUESDAY_KEY, false)
         checkTuesday?.setOnCheckedChangeListener {_, isChecked ->
-            sharedpref.edit().putBoolean(TUESDAY_KEY, isChecked).apply()
+            sharedpref.edit().putBoolean(Constants.TUESDAY_KEY, isChecked).apply()
         }
 
         checkWednesday = findViewById(R.id.chk_Wednesday)
-        checkWednesday?.isChecked = sharedpref.getBoolean(WEDNESDAY_KEY, false)
+        checkWednesday?.isChecked = sharedpref.getBoolean(Constants.WEDNESDAY_KEY, false)
         checkWednesday?.setOnCheckedChangeListener {_, isChecked ->
-            sharedpref.edit().putBoolean(WEDNESDAY_KEY, isChecked).apply()
+            sharedpref.edit().putBoolean(Constants.WEDNESDAY_KEY, isChecked).apply()
         }
 
         checkThursday = findViewById(R.id.chk_Thursday)
-        checkThursday?.isChecked = sharedpref.getBoolean(THURSDAY_KEY, false)
+        checkThursday?.isChecked = sharedpref.getBoolean(Constants.THURSDAY_KEY, false)
         checkThursday?.setOnCheckedChangeListener {_, isChecked ->
-            sharedpref.edit().putBoolean(THURSDAY_KEY, isChecked).apply()
+            sharedpref.edit().putBoolean(Constants.THURSDAY_KEY, isChecked).apply()
         }
 
         checkFriday = findViewById(R.id.chk_Friday)
-        checkFriday?.isChecked = sharedpref.getBoolean(FRIDAY_KEY, false)
+        checkFriday?.isChecked = sharedpref.getBoolean(Constants.FRIDAY_KEY, false)
         checkFriday?.setOnCheckedChangeListener {_, isChecked ->
-            sharedpref.edit().putBoolean(FRIDAY_KEY, isChecked).apply()
+            sharedpref.edit().putBoolean(Constants.FRIDAY_KEY, isChecked).apply()
         }
 
         checkSaturday = findViewById(R.id.chk_Saturday)
-        checkSaturday?.isChecked = sharedpref.getBoolean(SATURDAY_KEY, false)
+        checkSaturday?.isChecked = sharedpref.getBoolean(Constants.SATURDAY_KEY, false)
         checkSaturday?.setOnCheckedChangeListener {_, isChecked ->
-            sharedpref.edit().putBoolean(SATURDAY_KEY, isChecked).apply()
+            sharedpref.edit().putBoolean(Constants.SATURDAY_KEY, isChecked).apply()
         }
 
         checkSunday = findViewById(R.id.chk_Sunday)
-        checkSunday?.isChecked = sharedpref.getBoolean(SUNDAY_KEY, false)
+        checkSunday?.isChecked = sharedpref.getBoolean(Constants.SUNDAY_KEY, false)
         checkSunday?.setOnCheckedChangeListener {_, isChecked ->
-            sharedpref.edit().putBoolean(SUNDAY_KEY, isChecked).apply()
+            sharedpref.edit().putBoolean(Constants.SUNDAY_KEY, isChecked).apply()
         }
     }
 
     fun changeVisibility() {
-        val sharedpref = this.getSharedPreferences(USER_PREFS, MODE_PRIVATE)
-        val getNotifications = sharedpref.getBoolean(NOTIFICATIONS, false)
+        val sharedpref = this.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
+        val getNotifications = sharedpref.getBoolean(Constants.NOTIFICATIONS, false)
 
         if(getNotifications) {
             buttonTimePicker?.visibility = View.VISIBLE
@@ -163,8 +154,8 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.time)
         TextTimePicker!!.text = timeText
 
-        val sharedpref = this.getSharedPreferences(USER_PREFS, MODE_PRIVATE)
-        sharedpref.edit().putString(TIME_PICKER_KEY, timeText).apply()
+        val sharedpref = this.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
+        sharedpref.edit().putString(Constants.TIME_PICKER_KEY, timeText).apply()
     }
 
     private fun startAlarm(c: Calendar) {
@@ -183,27 +174,27 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         val pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
         alarmManager.cancel(pendingIntent)
         TextTimePicker!!.text = getString(R.string.notification_Alarm)
-        val sharedpref = this.getSharedPreferences(USER_PREFS, MODE_PRIVATE)
-        sharedpref.edit().putString(TIME_PICKER_KEY, getString(R.string.notification_Alarm)).apply()
+        val sharedpref = this.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
+        sharedpref.edit().putString(Constants.TIME_PICKER_KEY, getString(R.string.notification_Alarm)).apply()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        val sharedpref = this.getSharedPreferences(USER_PREFS, MODE_PRIVATE)
-        val getNotifications = sharedpref.getBoolean(NOTIFICATIONS, false)
+        val sharedpref = this.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
+        val getNotifications = sharedpref.getBoolean(Constants.NOTIFICATIONS, false)
 
         when(item.itemId) {
             R.id.action_button_notification -> {
                 if(!getNotifications) {
                     item.setIcon(R.drawable.ic_baseline_notifications_24)
-                    sharedpref.edit().putBoolean(NOTIFICATIONS, true).apply()
+                    sharedpref.edit().putBoolean(Constants.NOTIFICATIONS, true).apply()
                     changeVisibility()
                 } else {
                     cancelAlarm()
                     item.setIcon(R.drawable.ic_baseline_notifications_off_24)
-                    sharedpref.edit().putBoolean(NOTIFICATIONS, false).apply()
+                    sharedpref.edit().putBoolean(Constants.NOTIFICATIONS, false).apply()
                     changeVisibility()
                 }
             }
@@ -216,8 +207,8 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_notifications, menu)
         var item = menu.findItem(R.id.action_button_notification)
-        val sharedpref = this.getSharedPreferences(USER_PREFS, MODE_PRIVATE)
-        val getNotifications = sharedpref.getBoolean(NOTIFICATIONS, false)
+        val sharedpref = this.getSharedPreferences(Constants.USER_PREFS, MODE_PRIVATE)
+        val getNotifications = sharedpref.getBoolean(Constants.NOTIFICATIONS, false)
         if(getNotifications) {
             item.setIcon(R.drawable.ic_baseline_notifications_24)
         } else {

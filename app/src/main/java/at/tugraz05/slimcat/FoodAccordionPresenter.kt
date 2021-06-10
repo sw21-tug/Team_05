@@ -6,6 +6,7 @@ import androidx.databinding.ObservableBoolean
 import at.tugraz05.slimcat.databinding.FoodAccordionBinding
 
 class FoodAccordionPresenter(val context: Context, val binding: FoodAccordionBinding, var open: ObservableBoolean = ObservableBoolean(false)) {
+    @Suppress("UNUSED_PARAMETER")
     fun toggleOpen(view: View) {
         open.set(!open.get())
     }

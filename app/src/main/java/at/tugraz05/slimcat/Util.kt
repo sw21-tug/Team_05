@@ -1,7 +1,5 @@
 package at.tugraz05.slimcat
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -22,7 +20,6 @@ object Util {
     const val FACTOR_CM_TO_INCHES = 2.54
     const val FACTOR_GRAMM_TO_LBS = (2.205/1000)
 
-
     const val ATWATER_PROTEIN_FACTOR_PER_G = 3.5
     const val ATWATER_FAT_FACTOR_PER_G = 8.5
     const val ATWATER_NFE_FACTOR_PER_G = 3.5
@@ -35,8 +32,7 @@ object Util {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun calculateAge(date_of_birth: LocalDate, current_date : LocalDate): Int {
+    fun calculateAge(date_of_birth: LocalDate, current_date : LocalDate) : Int{
         var age = current_date.year - date_of_birth.year
 
         if (current_date.month < date_of_birth.month){
