@@ -26,6 +26,7 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
     private var checkFriday: CheckBox? = null
     private var checkSaturday: CheckBox? = null
     private var checkSunday: CheckBox? = null
+    private var notificationHelper: NotificationHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,8 @@ class NotificationsActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetLis
         TextDays = findViewById(R.id.txt_days)
 
         setCheckboxes()
+
+        notificationHelper = NotificationHelper(this)
 
         buttonTimePicker?.setOnClickListener {
             val timePicker: DialogFragment = TimePickerFragment()
