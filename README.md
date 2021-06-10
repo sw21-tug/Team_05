@@ -31,6 +31,7 @@ Practical sessions
 
 Picture Credit: [Reddit User Mavagam99](https://www.reddit.com/r/aww/comments/98igqg/adopted_this_cute_and_very_overweight_kitty_a_few/)
 
+App Icon Credit: [flaticon.com](https://www.flaticon.com/)
 
 ## Team
 | Role | Name |
