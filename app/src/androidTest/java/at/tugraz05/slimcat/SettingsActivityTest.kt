@@ -22,7 +22,6 @@ import org.mockito.Mockito
 import org.hamcrest.Matchers
 import org.mockito.kotlin.any
 
-
 @RunWith(AndroidJUnit4::class)
 class SettingsActivityTest : TestCase(){
     private val editTxtIds = arrayOf(R.id.settings_name, R.id.settings_email)

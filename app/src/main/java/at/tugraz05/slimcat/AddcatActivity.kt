@@ -132,6 +132,7 @@ class AddcatActivity : AppCompatActivity() {
             } catch (e: DateTimeParseException) {
                 Log.d("addcat", "invalid date ${binding.cat!!.date_of_birth}")
             }
+
             @Suppress("DEPRECATION")
             val datepicker = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 { _, year, month, day ->

@@ -14,6 +14,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_notifications"
+        android:orderInCategory="100"
+        android:title="@string/action_notifications"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_food"
         android:icon="@drawable/ic_baseline_restaurant_24"
         android:title="@string/action_food"
